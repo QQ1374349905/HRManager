@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--扫描控制器-->
+    <context:component-scan base-package="com.qnck.controller"/>
+
+    <!--放行静态资源-->
+    <mvc:default-servlet-handler/>
+    <!--是RequestMapping注解重新生效-->
+    <mvc:annotation-driven/>
+
+    <bean class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver" id="templateResolver">
+        <property name="suffix" value=".html"/>
+        <property name="cacheable" value="false"/>
+        <property name="templateMode" value="HTML5"/>
+        <property name="prefix" value="/WEB-INF/templates/"/>
+        <property name="characterEncoding" value="utf-8"/>
+    </bean>
+
+    <bean class="org.thymeleaf.spring5.SpringTemplateEngine" id="templateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+    </bean>
+
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver" id="viewResolver">
+        <property name="templateEngine" ref="templateEngine"/>
+        <property name="characterEncoding" value="utf-8"/>
+    </bean>
+
+    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+</beans>
