@@ -6,5 +6,6 @@
         <result column="user_name" property="userName"/>
         <result column="user_true_name" property="userTrueName"/>
         <result column="user_password" property="userPassword"/>
+        <association property="identity" select="com.qnck.dao.IIdentityDao.queryById" column="identity_id"/>
     </resultMap>
 </mapper>

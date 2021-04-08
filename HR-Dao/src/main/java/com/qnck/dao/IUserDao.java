@@ -1,12 +1,13 @@
 package com.qnck.dao;
 
 import com.qnck.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 
 public interface IUserDao {
 
-    @Select("select * from User where username=#{0} and password=#{1}")
+    @Select("select * from User where user_name=#{username} and user_password=#{password}")
     @ResultMap("userMap")
-    User verifyLogin(String username, String password);
+    User verifyLogin(@Param("username") String username,@Param("password") String password);
 }

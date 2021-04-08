@@ -11,6 +11,7 @@
     </settings>
 
     <mappers>
-        <mapper class="com.qnck.dao.IUserDao"/>
+        <mapper resource="mappers/UserMapper.xml"/>
+        <mapper resource="mappers/IdentityMapper.xml"/>
     </mappers>
 </configuration>
