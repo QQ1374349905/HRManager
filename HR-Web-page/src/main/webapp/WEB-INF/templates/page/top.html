@@ -1,7 +1,7 @@
 ﻿
-<!DOCTYPE html public "-//w3c//dtd html 4.01 transitional//en"
-"http://www.w3.org/tr/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet"
@@ -26,7 +26,7 @@
 				</td>
 				<td style="text-align: right;font-size:17px;width:35%;color:black;">
 					<br />
-					欢迎你：谢鹏(人事经理)&nbsp;
+					欢迎你：<span th:text="${session.user?.userTrueName}"></span>(<span th:text="${session.user?.identity?.identityName}"></span>)&nbsp;
 					<input type="button" value="退出系统" class="BUTTON_STYLE1" onclick="parent.location.href='../login.html'"/>&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>
