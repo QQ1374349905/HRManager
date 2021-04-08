@@ -28,8 +28,12 @@ function doLogin() {
 		type: "POST",
 		data:{username:userName,password:userPassword},
 		success : function(data){
-			alert("data: " + data);
-			location.href = "toPage?page=page/index";
+			if (data){
+				alert("登录成功!");
+				location.href = "toPage?page=page/index";
+			} else {
+				alert("登录失败,请检查用户名或者密码!");
+			}
 		},
 		error : function(){
 			alert("系统繁忙,请稍后重试!")
