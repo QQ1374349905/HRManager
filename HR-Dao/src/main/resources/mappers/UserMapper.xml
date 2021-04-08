@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qnck.dao.IUserDao">
+    <resultMap id="userMap" type="com.qnck.entity.User">
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_true_name" property="userTrueName"/>
+        <result column="user_password" property="userPassword"/>
+    </resultMap>
+</mapper>

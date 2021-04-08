@@ -11,6 +11,6 @@
     </settings>
 
     <mappers>
-<!--        <mapper class="com.ck.dao.DeptDao"/>-->
+        <mapper class="com.qnck.dao.IUserDao"/>
     </mappers>
 </configuration>
