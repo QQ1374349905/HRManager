@@ -1,19 +1,19 @@
 # HRManager
 
 # Linux
-IP地址:10.10.3.231
+IP地址:10.10.2.224
 网络:chuangke
 linux用户名:root 密码:root
 
 
 # nexus私服:
-地址:http://10.10.3.231:8081/
+地址:http://10.10.2.224:8081/
 账号:admin 密码:admin
-nexus私服访问地址:http://10.10.3.231:8081/repository/maven-public/
+nexus私服访问地址:http://10.10.2.224:8081/repository/maven-public/
 
 
 # mysql
-IP地址:10.10.3.231:3306
+IP地址:10.10.2.224:3306
 账号:root 密码:Zhang3@.
 
 
