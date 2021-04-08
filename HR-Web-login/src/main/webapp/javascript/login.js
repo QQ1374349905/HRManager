@@ -10,8 +10,8 @@
 });
 
 function doLogin() {
-	var userName = $("#userName");
-	var userPassword = $("#userPassword");
+	let userName = $("#userName").val();
+	let userPassword = $("#userPassword").val();
 	// var reg = /^\S{6,}$/;
 	// if (!reg.test(userName.val())) {
 	// 	userName[0].select();
@@ -24,11 +24,9 @@ function doLogin() {
 	// 	return false;
 	// }
 
-	$.ajax({
+	$.ajax("verifyLogin",{
 		type: "POST",
-		url: "verifyLogin",
 		data:{username:userName,password:userPassword},
-
 		success : function(data){
 			alert("data: " + data);
 			location.href = "toPage?page=page/index";
@@ -36,6 +34,6 @@ function doLogin() {
 		error : function(){
 			alert("系统繁忙,请稍后重试!")
 		}
-	})
+	});
 	return false;
 }
