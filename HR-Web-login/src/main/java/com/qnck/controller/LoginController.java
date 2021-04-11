@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
@@ -25,7 +26,7 @@ public class LoginController {
 
     /**
      * 用户登录系统
-     * @Author zhangfuwei
+     * @author zhangfuwei
      * @param username
      * @param password
      * @param session
@@ -45,7 +46,7 @@ public class LoginController {
             User user = loginService.verifyLogin(username,password);
             System.out.println("User:"+user);
             //将登录用户数据存入session中
-            session.setAttribute("user", user);
+            session.getServletContext().setAttribute("user", user);
             return user != null;
         } catch (Exception e) {
             logger.error("登录出现错误!",e);

@@ -27,7 +27,8 @@ public class PageInterceptor implements HandlerInterceptor {
         }
 
         //获取用户登录后的session
-        Object user = request.getSession().getAttribute("user");
+        Object user = request.getSession().getServletContext().getAttribute("user");
+        System.out.println("获取到session:"+user);
 
         //如果没有登录,则不放行
         if (user == null) {
