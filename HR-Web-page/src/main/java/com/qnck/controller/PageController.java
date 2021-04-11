@@ -9,4 +9,9 @@ public class PageController {
     private String toPage(String page) {
         return page;
     }
+
+    @RequestMapping("/")
+    private String toIndex() {
+        return "login";
+    }
 }
