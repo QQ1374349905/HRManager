@@ -1,6 +1,7 @@
 package com.qnck.dao;
 
 import com.qnck.entity.Identity;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 

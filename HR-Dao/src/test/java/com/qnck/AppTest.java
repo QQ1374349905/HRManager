@@ -32,7 +32,7 @@ public class AppTest
 //
 //        Class.forName("com.mysql.cj.jdbc.Driver");
 //
-//        Connection connection = DriverManager.getConnection("jdbc:mysql://10.10.3.231:3306/hr_Manager", "root", "Zhang3@.");
+//        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.61:3306/hr_Manager", "root", "Zhang3@.");
 //        System.out.println("获取连接:"+connection);
 //
 //        PreparedStatement prepareStatement = connection.prepareStatement("insert into User values (null,?,?,?,?)");
