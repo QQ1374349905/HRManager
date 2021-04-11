@@ -1,14 +1,39 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+﻿<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>用户管理</title>
 		<link rel="stylesheet"
 			href="../../css/table.css" type="text/css"/>
+		<script type="text/javascript"
+				src="javascript/jquery-1.7.2.js">
+		</script>
+		<script type="text/javascript"
+				src="javascript/jquery.messager.js">
+		</script>
 		<script type="text/javascript">
 			function doDelete(id) {
 				if (confirm("确定删除此用户吗？")) {
-					location.href = "success.html?users.userId=" + id;
+					$.ajax({
+						url:"deleteUser",
+						method:"POST",
+						data:{id:id},
+						dataType:"json",
+						success: function(data){
+							if (data){
+								alert("用户删除成功!");
+								$("#"+id).remove();
+							} else {
+								alert("用户删除失败!")
+							}
+						},
+						error: function (data) {
+							alert("系统繁忙,请稍后重试!")
+							console.log(data);
+						}
+					})
+					// location.href = "toPage?page=page/power/success";
 				}
 			}
 		</script>
@@ -22,12 +47,12 @@
 			</tr>
 			<tr>
 				<td>
-					当前角色总数：6例
+					当前角色总数：<span th:text="${userList.size}"></span>例
 				</td>
 			</tr>
 			<tr>
 				<td align="right">
-					<input type="button" value="添加用户" class="BUTTON_STYLE1" onclick="location.href='user_add.html'">
+					<input type="button" value="添加用户" class="BUTTON_STYLE1" onclick="location.href='toPage?page=page/power/user_add'">
 				</td>
 			</tr>
 		</table>
@@ -55,29 +80,29 @@
 				</td>
 			</tr>
 			
-				<tr class="TR_STYLE2">
-					<td class="TD_STYLE2">
+				<tr class="TR_STYLE2" th:each="user : ${userList}" th:id="${user.userId}">
+					<td class="TD_STYLE2" th:text="${user?.userId}">
 						9
 					</td>
-					<td class="TD_STYLE2">
+					<td class="TD_STYLE2" th:text="${user?.userName}">
 						better_admin
 					</td>
-					<td class="TD_STYLE2">
+					<td class="TD_STYLE2" th:text="${user?.userTrueName}">
 						zhangsan
 					</td>
-					<td class="TD_STYLE2">
+					<td class="TD_STYLE2" th:text="${user?.userPassword}">
 						123123
 					</td>
-					<td class="TD_STYLE2">
+					<td class="TD_STYLE2" th:text="${user?.identity?.identityName}">
 						系统管理员
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='user_edit.html'"/>
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(9)"/>
+						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='toPage?page=page/power/user_edit'"/>
+						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" th:onclick="'doDelete('+${user?.userId}+')'"/>
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						1026
 					</td>
@@ -99,7 +124,7 @@
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						1015
 					</td>
@@ -121,7 +146,7 @@
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						1178
 					</td>
@@ -143,7 +168,7 @@
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						10
 					</td>
@@ -165,7 +190,7 @@
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						1177
 					</td>
