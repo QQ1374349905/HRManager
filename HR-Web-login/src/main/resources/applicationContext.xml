@@ -19,5 +19,6 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <!--引入spring-mybatis核心配置文件,使mybatis生效-->
     <import resource="classpath:spring-mybatis.xml"/>
 </beans>
