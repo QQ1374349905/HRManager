@@ -13,5 +13,8 @@
     <mappers>
         <mapper resource="mappers/UserMapper.xml"/>
         <mapper resource="mappers/IdentityMapper.xml"/>
+        <mapper resource="mappers/Config_file_First_kindMapper.xml"/>
+        <mapper resource="mappers/Config_file_second_KindMapper.xml"/>
+        <mapper resource="mappers/Config_file_third_KindMapper.xml"/>
     </mappers>
 </configuration>

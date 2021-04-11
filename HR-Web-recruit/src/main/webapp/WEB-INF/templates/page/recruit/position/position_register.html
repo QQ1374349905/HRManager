@@ -98,9 +98,64 @@
   
 		  	document.humanfileForm.submit();
 	}
-	
-	 
-</script> 
+</script>
+	  <script src="../../../../../../../../../HR-Web-login/src/main/webapp/javascript/jquery-1.7.2.js"></script>
+<script>
+	$(function(){
+		//获取一级机构的下拉框
+		let kindId = $("#firstKindId");
+		let secondKind = $("#secondKindId");
+		//使用异步查询一级机构
+		$.ajax({
+			url:"QueryConfigFileFirstKind",
+			type:"post",
+			success:function (data) {
+				for (let i = 0; i <data.length ; i++) {
+					let element = data[i];
+					kindId.append("<option value="+element.first_kind_id+">"+element.first_kind_name+"</option>")
+				}
+			}
+		});
+		//通过一级机构的编号获取二级机构
+		kindId.change(function(){
+			//获取一级机构的编号
+			let FirstID = $(this).val();
+			secondKind = $("#secondKindId");
+			// alert(FirstID);
+			if(FirstID!=0){
+				$("#secondKindId option:gt(0)").remove();
+				$.ajax({
+					url:"QueryConfigFileSecondKind?id="+FirstID,
+					type:"post",
+					success:function (data) {
+						for (let i = 0; i <data.length ; i++) {
+							let element = data[i];
+							secondKind.append("<option value="+element.second_kind_id+">"+element.second_kind_name+"</option>")
+						}
+					}
+				})
+			}
+		});
+		//查询三级机构
+		secondKind.change(function(){
+			let secondID = $(this).val();
+			let thirdKindId = $("#thirdKindId");
+			if(secondID!=0){
+				$("#thirdKindId option:gt(0)").remove();
+				$.ajax({
+					url:"QueryConfigFileThirdKind?id="+secondID,
+					type:"post",
+					success:function(data){
+						for (let i = 0; i <data.length ; i++) {
+							let element = data[i];
+							thirdKindId.append("<option value="+element.third_kind_id+">"+element.third_kind_name+"</option>")
+						}
+					}
+				})
+			}
+		})
+	})
+</script>
  	</head>
 	<body>
 		<form name="humanfileForm" method="post" action="position_change_update.html" >
@@ -128,13 +183,11 @@
 					<td width="14%" class="TD_STYLE2">
 						
 						<select name="emajorRelease.firstKindId" id="firstKindId"  class="SELECT_STYLE1"> 
-						<option value="">--请选择--</option>
-					
-					<option value="01">集团</option>
-					
-					<option value="02">总部</option>
-					
-					 
+						<option value="0">--请选择--</option>
+<!--					-->
+<!--					<option value="01">集团</option>-->
+<!--					-->
+<!--					<option value="02">总部</option>-->
 					 </select>
 					</td>
 					<td width="11%" class="TD_STYLE1">
@@ -253,7 +306,6 @@
 			</table>
 		</form>
 	</body>
- 
 </html>
 
 
