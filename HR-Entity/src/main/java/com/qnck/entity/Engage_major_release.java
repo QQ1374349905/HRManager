@@ -3,6 +3,7 @@ package com.qnck.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.List;
@@ -13,17 +14,17 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Engage_major_release {
     private int mre_id;
-    private List<Config_file_first_kind> config_file_first_kinds;
+    private Config_file_first_kind config_file_first_kinds;
     private String first_kind_name;
-    private List<Config_file_second_kind> config_file_second_kinds;
+    private Config_file_second_kind config_file_second_kinds;
     private String second_kind_name;
-    private List<Config_file_third_kind> config_file_third_kinds;
+    private Config_file_third_kind config_file_third_kinds;
     private String third_kind_name;
-    private int major_kind_id;
+    private Config_major Config_major;
     private String major_kind_name;
-    private int major_id;
     private String major_name;
     private int human_amount;
     private String engage_type;

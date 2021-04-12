@@ -3,8 +3,10 @@ package com.qnck.controller;
 import com.qnck.entity.Config_file_first_kind;
 import com.qnck.entity.Config_file_second_kind;
 import com.qnck.entity.Config_file_third_kind;
+import com.qnck.entity.Config_major;
 import com.qnck.service.Config_file_second_kindService;
 import com.qnck.service.Config_file_third_kindService;
+import com.qnck.service.Config_majorService;
 import com.qnck.service.iConfig_file_first_kindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ import java.util.List;
 
 /**
  * 机构控制器
- * @author 任重
+ * @author wrz
  */
 @Controller
 public class ConfigFileKindController {
@@ -29,7 +31,6 @@ public class ConfigFileKindController {
     //导入三级机构
     @Autowired
     private Config_file_third_kindService configFileThirdKindService;
-
     /**
      * 查询一级机构
      * @return 任重
@@ -61,4 +62,5 @@ public class ConfigFileKindController {
     public List<Config_file_third_kind> ConfigFilethKind(int id){
         return configFileThirdKindService.CONFIG_FILE_THIRD_KINDS(id);
     }
+
 }
