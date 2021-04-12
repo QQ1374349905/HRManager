@@ -1,5 +1,7 @@
 package com.qnck.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.qnck.dao.IUserDao;
 import com.qnck.entity.User;
 import com.qnck.service.UserService;
@@ -15,8 +17,9 @@ public class UserServiceImpl implements UserService {
     private IUserDao userDao;
 
     @Override
-    public List<User> queryUserList() {
-        return userDao.queryUserList();
+    public Page<Object> queryUserList(int currentPage,int pageSize) {
+        Page<Object> page = PageHelper.startPage(currentPage, pageSize);
+        return page;
     }
 
     @Override

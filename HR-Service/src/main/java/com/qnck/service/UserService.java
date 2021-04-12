@@ -1,11 +1,9 @@
 package com.qnck.service;
 
-import com.qnck.entity.User;
-
-import java.util.List;
+import com.github.pagehelper.Page;
 
 public interface UserService {
-    List<User> queryUserList();
+    Page<Object> queryUserList(int currentPage, int pageSize);
 
     void deleteUser(int id);
 }
