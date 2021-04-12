@@ -23,4 +23,8 @@ public interface IUserDao {
     //根据id删除用户
     @Delete("delete from User where user_id = #{id}")
     void deleteUser(int id);
+
+    @Select("select * from User where user_id = #{id}")
+    @ResultMap("userMap")
+    User queryUserById(int id);
 }
