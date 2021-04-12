@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>My JSP 'index.jsp' starting page</title>
@@ -8,157 +8,9 @@
 			href="../../../css/table.css" type="text/css">
 		<link rel="stylesheet"
 			href="../../../css/cwcalendar.css" type="text/css">
-		<script type="text/javascript"
-			src="../../../javascript/comm/comm.js">
-		</script>
-		<script type="text/javascript"
-			src="../../../javascript/comm/list.js">
-		</script>
-		<script type="text/javascript"
-			src="../../../javascript/calendar-ch.js">
-		</script>
-		<script type="text/javascript"
-			src="../../../javascript/jquery-1.7.2.js">
-		</script>
-		<script type="text/javascript"
-			src="../../../javascript/locate.js">
-		</script>
-	 <script type="text/javascript"
-			src="../../../javascript/select.js">
-		</script>
-	
- 		<script type="text/javascript">
- 			window.onload=check;
-		function tick() {
-			var now = new Date();
-			var hours, minutes, seconds, noon;
-			var intHours, intMinutes, intSeconds;
-			intHours = now.getHours();
-			intMinutes = now.getMinutes();
-			intSeconds = now.getSeconds();
-			if (intHours < 24) {
-				hours = intHours+":";
-				noon = "A.M.";
-			} else {
-				intHours = intHours - 24;
-				hours = intHours + ":";
-				noon = "P.M.";
-			}
-			if (intMinutes < 10) {
-				minutes = "0"+intMinutes+":";
-			} else {
-				minutes = intMinutes+":";
-			}
-			if (intSeconds < 10) {
-				seconds = "0"+intSeconds+" ";
-			} else {
-				seconds = intSeconds+" ";
-			}
-			timeString = hours+minutes+seconds;
-			var now = new Date();
-		  	document.getElementById("nowTime").value=now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+" "+timeString;
-			window.setTimeout("tick();", 1000);
-		}
-		
-		//load事件
-		function check(){
-			//获得系统当前时间的方法
-		  	tick();					
-		}
- 		</script>
- 	<script type="text/javascript">
- 	   function mysubmit(){  
- 	   	document.getElementById('deadline').value = document
-				.getElementById('date_start').value;
-				
- 	    if(document.getElementById("firstKindId").value==""){
- 	       alert("请选择一级机构");
- 	       return ;
- 	       }
- 	  if(document.getElementById("engageType").value==""){
- 	       alert("请选择招聘类型");
- 	       return ;
- 	       } 
- 	  if(document.getElementById("majorKindId").value==""){
- 	       alert("请选择职位分类");
- 	       return ;
- 	       }    
- 	   if(document.getElementById("majorId").value==""){
- 	       alert("请选择职位名称");
- 	       return ;
- 	       }    
- 	  if(document.getElementById("humanAmount").value==""){
- 	   alert("请填写招聘人数");
- 	       return ; 
- 	  }    
- 	  if(document.getElementById("date_start").value==""){
- 	   alert("请选择截止日期");
- 	       return ; 
- 	  }   
-  
-		  	document.humanfileForm.submit();
-	}
-</script>
-	  <script src="../../../../../../../../../HR-Web-login/src/main/webapp/javascript/jquery-1.7.2.js"></script>
-<script>
-	$(function(){
-		//获取一级机构的下拉框
-		let kindId = $("#firstKindId");
-		let secondKind = $("#secondKindId");
-		//使用异步查询一级机构
-		$.ajax({
-			url:"QueryConfigFileFirstKind",
-			type:"post",
-			success:function (data) {
-				for (let i = 0; i <data.length ; i++) {
-					let element = data[i];
-					kindId.append("<option value="+element.first_kind_id+">"+element.first_kind_name+"</option>")
-				}
-			}
-		});
-		//通过一级机构的编号获取二级机构
-		kindId.change(function(){
-			//获取一级机构的编号
-			let FirstID = $(this).val();
-			secondKind = $("#secondKindId");
-			// alert(FirstID);
-			if(FirstID!=0){
-				$("#secondKindId option:gt(0)").remove();
-				$.ajax({
-					url:"QueryConfigFileSecondKind?id="+FirstID,
-					type:"post",
-					success:function (data) {
-						for (let i = 0; i <data.length ; i++) {
-							let element = data[i];
-							secondKind.append("<option value="+element.second_kind_id+">"+element.second_kind_name+"</option>")
-						}
-					}
-				})
-			}
-		});
-		//查询三级机构
-		secondKind.change(function(){
-			let secondID = $(this).val();
-			let thirdKindId = $("#thirdKindId");
-			if(secondID!=0){
-				$("#thirdKindId option:gt(0)").remove();
-				$.ajax({
-					url:"QueryConfigFileThirdKind?id="+secondID,
-					type:"post",
-					success:function(data){
-						for (let i = 0; i <data.length ; i++) {
-							let element = data[i];
-							thirdKindId.append("<option value="+element.third_kind_id+">"+element.third_kind_name+"</option>")
-						}
-					}
-				})
-			}
-		})
-	})
-</script>
  	</head>
 	<body>
-		<form name="humanfileForm" method="post" action="position_change_update.html" >
+		<form name="humanfileForm" method="post" action="/addMajor" >
 			<table width="100%">
 				<tr>
 					<td>
@@ -167,7 +19,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						<input type="button" value="提交" class="BUTTON_STYLE1" 
+						<input type="submit" value="提交" class="BUTTON_STYLE1"
 						  onclick="mysubmit();">
 						<input type="reset" value="清除" class="BUTTON_STYLE1">
 					</td>
@@ -182,7 +34,7 @@
 					</td>
 					<td width="14%" class="TD_STYLE2">
 						
-						<select name="emajorRelease.firstKindId" id="firstKindId"  class="SELECT_STYLE1"> 
+						<select name="first_kind_id" id="firstKindId"  class="SELECT_STYLE1">
 						<option value="0">--请选择--</option>
 <!--					-->
 <!--					<option value="01">集团</option>-->
@@ -194,30 +46,30 @@
 						II级机构
 					</td>
 					<td width="14%" class="TD_STYLE2">
-						<select name="emajorRelease.secondKindId" id="secondKindId" class="SELECT_STYLE1"> 
-						<option value="">--请选择--</option>
+						<select name="second_kind_id" id="secondKindId" class="SELECT_STYLE1">
+						<option value="0">--请选择--</option>
 						</select>
 					</td>
 					<td width="11%" class="TD_STYLE1">
 						III级机构
 					</td>
 					<td class="TD_STYLE2"  >
-						<select name="emajorRelease.thirdKindId" id="thirdKindId" class="SELECT_STYLE1">
-							<option value="">--请选择--</option>
+						<select name="third_kind_id" id="thirdKindId" class="SELECT_STYLE1">
+							<option value="0">--请选择--</option>
 						</select>
 					</td>
 					<td width="11%" class="TD_STYLE1">
 						招聘类型
 					</td>
 					<td class="TD_STYLE2" colspan="2">
-					<select name="emajorRelease.engageType" id="engageType" class="SELECT_STYLE1"> 
-							<option value="">--请选择--</option> 
+					<select name="engage_type" id="engageType" class="SELECT_STYLE1">
+							<option value="0">--请选择--</option>
 							
 							<option value="校园招聘">校园招聘</option> 
 							
 							<option value="社会招聘">社会招聘</option> 
 							
-								 </select>
+					</select>
 						 
 					</td>
 				</tr>
@@ -226,16 +78,16 @@
 						职位分类
 					</td>
 					<td class="TD_STYLE2">
-						<select name="emajorRelease.majorKindId" id="majorKindId" class="SELECT_STYLE1">
-							<option value="">--请选择--</option> 
+						<select name="major_kind_id" id="majorKindId" class="SELECT_STYLE1">
+							<option value="0">--请选择--</option>
 							
-							<option value="01">销售</option> 
-							
-							<option value="02">软件开发</option> 
-							
-							<option value="03">人力资源</option> 
-							
-							<option value="04">生产部</option> 
+<!--							<option value="01">销售</option> -->
+<!--							-->
+<!--							<option value="02">软件开发</option> -->
+<!--							-->
+<!--							<option value="03">人力资源</option> -->
+<!--							-->
+<!--							<option value="04">生产部</option> -->
 							
 								 </select>
 					</td>
@@ -243,23 +95,22 @@
 						职位名称
 					</td>
 					<td class="TD_STYLE2">
-						<select name="emajorRelease.majorId" id="majorId" class="SELECT_STYLE1"> 
-							<option value="">--请选择--</option>
-							<option value="11">区域经理</option>
+						<select name="major_id" id="majorId" class="SELECT_STYLE1">
+							<option value="0">--请选择--</option>
+<!--							<option value="11">区域经理</option>-->
 						</select>
 					</td>
 					<td class="TD_STYLE1">
 						招聘人数
 					</td>
 					<td   class="TD_STYLE2">
-						 <input type="text" name="emajorRelease.humanAmount" id="humanAmount"  class="INPUT_STYLE2">
+						 <input type="text" name="human_amount" id="humanAmount"  class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						截止日期
 					</td>
 					<td   class="TD_STYLE2">
-							  <input type="text" name="item.str_startTime" readonly
-							  class="INPUT_STYLE2" id="date_start">
+							  <input type="text" name="deadline" class="INPUT_STYLE2" id="date_start">
 					</td>
 				</tr>
 				<tr>
@@ -267,14 +118,14 @@
 						登记人
 					</td>
 					<td  class="TD_STYLE2">
-						 <input type="text" name="emajorRelease.register" value="admin" class="INPUT_STYLE2">
+						 <input type="text" name="register" th:value="admin" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						登记时间
 					</td>
 					<td   class="TD_STYLE2">
 					
-							<input type="text" name="emajorRelease.registTime"
+							<input type="text" name="regist_time"
 							  id="nowTime" readonly="readonly"
 							class="INPUT_STYLE2">
 					</td>
@@ -290,7 +141,7 @@
 						职位描述
 					</td>
 					<td class="TD_STYLE2" colspan="8">
-						<textarea name="emajorRelease.majorDescribe" rows="4" cols="80" class="TEXTAREA_STYLE1"></textarea>
+						<textarea name="major_describe" rows="4" cols="80" class="TEXTAREA_STYLE1"></textarea>
 					</td>
 					 
 				</tr>
@@ -299,13 +150,178 @@
 						招聘要求
 					</td>
 					<td class="TD_STYLE2" colspan="8">
-						<textarea name="emajorRelease.engageRequired" rows="4"  cols="80" class="TEXTAREA_STYLE1"></textarea>
+						<textarea name="engage_required" rows="4"  cols="80" class="TEXTAREA_STYLE1"></textarea>
 					</td>
 					 
 				</tr>
 			</table>
 		</form>
 	</body>
+  <script type="text/javascript"
+		  src="../../../javascript/comm/comm.js">
+  </script>
+  <script type="text/javascript"
+		  src="../../../javascript/comm/list.js">
+  </script>
+  <script type="text/javascript"
+		  src="../../../javascript/calendar-ch.js">
+  </script>
+  <script type="text/javascript"
+		  src="../../../javascript/jquery-1.7.2.js">
+  </script>
+  <script type="text/javascript"
+		  src="../../../javascript/locate.js">
+  </script>
+  <script type="text/javascript"
+		  src="../../../javascript/select.js">
+  </script>
+
+  <script type="text/javascript">
+	  window.onload=check;
+	  function tick() {
+		  var now = new Date();
+		  var hours, minutes, seconds, noon;
+		  var intHours, intMinutes, intSeconds;
+		  intHours = now.getHours();
+		  intMinutes = now.getMinutes();
+		  intSeconds = now.getSeconds();
+		  if (intHours < 24) {
+			  hours = intHours+":";
+			  noon = "A.M.";
+		  } else {
+			  intHours = intHours - 24;
+			  hours = intHours + ":";
+			  noon = "P.M.";
+		  }
+		  if (intMinutes < 10) {
+			  minutes = "0"+intMinutes+":";
+		  } else {
+			  minutes = intMinutes+":";
+		  }
+		  if (intSeconds < 10) {
+			  seconds = "0"+intSeconds+" ";
+		  } else {
+			  seconds = intSeconds+" ";
+		  }
+		  timeString = hours+minutes+seconds;
+		  var now = new Date();
+		  document.getElementById("nowTime").value=now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+" "+timeString;
+		  window.setTimeout("tick();", 1000);
+	  }
+
+	  //load事件
+	  function check(){
+		  //获得系统当前时间的方法
+		  tick();
+	  }
+  </script>
+  <script type="text/javascript">
+	  function mysubmit(){
+		  document.getElementById('deadline').value = document
+				  .getElementById('date_start').value;
+
+		  if(document.getElementById("firstKindId").value==""){
+			  alert("请选择一级机构");
+			  return ;
+		  }
+		  if(document.getElementById("engageType").value==""){
+			  alert("请选择招聘类型");
+			  return ;
+		  }
+		  if(document.getElementById("majorKindId").value==""){
+			  alert("请选择职位分类");
+			  return ;
+		  }
+		  if(document.getElementById("majorId").value==""){
+			  alert("请选择职位名称");
+			  return ;
+		  }
+		  if(document.getElementById("humanAmount").value==""){
+			  alert("请填写招聘人数");
+			  return ;
+		  }
+		  if(document.getElementById("date_start").value==""){
+			  alert("请选择截止日期");
+			  return ;
+		  }
+
+		  document.humanfileForm.submit();
+	  }
+  </script>
+  <script src="../../../../../../../../../HR-Web-login/src/main/webapp/javascript/jquery-1.7.2.js"></script>
+  <script>
+	  $(function(){
+		  //异步查询招聘管理信息
+		  //获取职业分类管理下拉框
+		  let majorKind = $("#majorKindId");
+		  //获取职业下拉框
+		  let majorId = $("#majorId");
+		  $.ajax({
+			  url:"QueryConfigMajors",
+			  type:"post",
+			  success:function (data) {
+				  for (let i = 0; i < data.length; i++) {
+					  let element = data[i];
+					  majorId.append("<option value="+element.major_id+">"+element.major_name+"</option>")
+					  majorKind.append("<option value="+element.major_kind_id+">"+element.major_kind_name+"</option>")
+				  }
+			  }
+		  })
+		  //获取一级机构的下拉框
+		  let kindId = $("#firstKindId");
+		  let secondKind = $("#secondKindId");
+		  //使用异步查询一级机构
+		  $.ajax({
+			  url:"QueryConfigFileFirstKind",
+			  type:"post",
+			  success:function (data) {
+				  for (let i = 0; i <data.length ; i++) {
+					  let element = data[i];
+					  kindId.append("<option value="+element.first_kind_id+">"+element.first_kind_name+"</option>")
+				  }
+			  }
+		  });
+		  //通过一级机构的编号获取二级机构
+		  kindId.change(function(){
+			  //获取一级机构的编号
+			  let FirstID = $(this).val();
+			  secondKind = $("#secondKindId");
+			  // alert(FirstID);
+			  if(FirstID!=0){
+				  $("#secondKindId option:gt(0)").remove();
+				  $.ajax({
+					  url:"QueryConfigFileSecondKind?id="+FirstID,
+					  type:"post",
+					  success:function (data) {
+						  for (let i = 0; i <data.length ; i++) {
+							  let element = data[i];
+							  secondKind.append("<option value="+element.second_kind_id+">"+element.second_kind_name+"</option>")
+						  }
+					  }
+				  })
+			  }
+		  });
+		  //查询三级机构
+		  secondKind.change(function(){
+			  let secondID = $(this).val();
+			  let thirdKindId = $("#thirdKindId");
+			  if(secondID!=0){
+				  $("#thirdKindId option:gt(0)").remove();
+				  $.ajax({
+					  url:"QueryConfigFileThirdKind?id="+secondID,
+					  type:"post",
+					  success:function(data){
+						  for (let i = 0; i <data.length ; i++) {
+							  let element = data[i];
+							  thirdKindId.append("<option value="+element.third_kind_id+">"+element.third_kind_name+"</option>")
+						  }
+					  }
+				  })
+			  }
+		  });
+
+	  })
+  </script>
 </html>
 
 
