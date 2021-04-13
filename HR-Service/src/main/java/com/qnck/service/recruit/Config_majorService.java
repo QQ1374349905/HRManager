@@ -1,4 +1,4 @@
-package com.qnck.service;
+package com.qnck.service.recruit;
 
 import com.qnck.entity.Config_major;
 

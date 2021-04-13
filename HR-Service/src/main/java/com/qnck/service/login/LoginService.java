@@ -1,4 +1,4 @@
-package com.qnck.service;
+package com.qnck.service.login;
 
 import com.qnck.entity.User;
 

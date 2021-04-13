@@ -1,4 +1,4 @@
-package com.qnck.service;
+package com.qnck.service.power;
 
 import com.github.pagehelper.Page;
 import com.qnck.entity.User;

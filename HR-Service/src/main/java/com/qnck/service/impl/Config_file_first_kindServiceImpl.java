@@ -1,8 +1,8 @@
 package com.qnck.service.impl;
 
-import com.qnck.dao.Config_file_first_kindDao;
+import com.qnck.dao.recruit.Config_file_first_kindDao;
 import com.qnck.entity.Config_file_first_kind;
-import com.qnck.service.iConfig_file_first_kindService;
+import com.qnck.service.recruit.iConfig_file_first_kindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

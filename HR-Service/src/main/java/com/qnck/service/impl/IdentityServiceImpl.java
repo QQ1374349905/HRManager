@@ -1,8 +1,8 @@
 package com.qnck.service.impl;
 
-import com.qnck.dao.IIdentityDao;
+import com.qnck.dao.power.IIdentityDao;
 import com.qnck.entity.Identity;
-import com.qnck.service.IdentityService;
+import com.qnck.service.power.IdentityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

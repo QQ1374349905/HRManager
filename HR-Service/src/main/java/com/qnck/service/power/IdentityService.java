@@ -1,4 +1,4 @@
-package com.qnck.service;
+package com.qnck.service.power;
 
 import com.qnck.entity.Identity;
 

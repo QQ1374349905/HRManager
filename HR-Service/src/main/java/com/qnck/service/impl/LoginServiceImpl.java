@@ -1,8 +1,8 @@
 package com.qnck.service.impl;
 
-import com.qnck.dao.IUserDao;
+import com.qnck.dao.login.IUserDao;
 import com.qnck.entity.User;
-import com.qnck.service.LoginService;
+import com.qnck.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
