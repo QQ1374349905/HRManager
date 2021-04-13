@@ -1,4 +1,4 @@
-package com.qnck.dao;
+package com.qnck.dao.login;
 
 import com.qnck.entity.User;
 import org.apache.ibatis.annotations.Delete;

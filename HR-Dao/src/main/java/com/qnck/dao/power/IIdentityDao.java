@@ -1,4 +1,4 @@
-package com.qnck.dao;
+package com.qnck.dao.power;
 
 import com.qnck.entity.Identity;
 import org.apache.ibatis.annotations.Delete;

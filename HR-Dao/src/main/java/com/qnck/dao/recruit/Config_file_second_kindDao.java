@@ -1,4 +1,4 @@
-package com.qnck.dao;
+package com.qnck.dao.recruit;
 
 import com.qnck.entity.Config_file_second_kind;
 import org.apache.ibatis.annotations.Param;

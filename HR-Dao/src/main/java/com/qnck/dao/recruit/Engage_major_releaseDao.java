@@ -1,4 +1,4 @@
-package com.qnck.dao;
+package com.qnck.dao.recruit;
 
 import com.qnck.entity.Engage_major_release;
 import org.apache.ibatis.annotations.Insert;
