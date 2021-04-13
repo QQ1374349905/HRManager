@@ -36,6 +36,11 @@
 					// location.href = "toPage?page=page/power/success";
 				}
 			}
+
+			//跳转页面
+			function queryById(id) {
+				location.href = "queryUserById?id="+id;
+			}
 		</script>
 	</head>
 	<body>
@@ -47,7 +52,7 @@
 			</tr>
 			<tr>
 				<td>
-					当前角色总数：<span th:text="${userList.size}"></span>例
+					当前角色总数：<span th:text="${pages.size}"></span>例
 				</td>
 			</tr>
 			<tr>
@@ -80,7 +85,7 @@
 				</td>
 			</tr>
 			
-				<tr class="TR_STYLE2" th:each="user : ${userList}" th:id="${user.userId}">
+				<tr class="TR_STYLE2" th:each="user : ${pages}" th:id="${user.userId}">
 					<td class="TD_STYLE2" th:text="${user?.userId}">
 						9
 					</td>
@@ -97,7 +102,7 @@
 						系统管理员
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='toPage?page=page/power/user_edit'"/>
+						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" th:onclick="'javascript:queryById('+${user?.userId}+')'"/>
 						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" th:onclick="'doDelete('+${user?.userId}+')'"/>
 					</td>
 				</tr>
@@ -215,19 +220,12 @@
 		</table>
 		<p style="text-align:center;">
 			
-				<a href="user_list.html" style="color:black;">首页</a>
-				
-				
-					 
-						 
-						    <font color="red">1</font> 
-						 
-						 
-					 
-				
-				 
-	     		<a href="user_list.html" style="color:black;">尾页</a> 
-	     	
+				<a th:href="@{queryUserList(currentPage=1,pageSize=5)}" style="color:black;">首页</a>
+
+					<a th:each="i : ${#numbers.sequence(1,pages?.pages)}" th:text="${i}" th:href="@{queryUserList(currentPage=${i},pageSize=5)}" style="text-underline: none;color:red">1</a>
+
+	     		<a th:href="@{queryUserList(currentPage=${pages?.pages},pageSize=5)}" style="color:black;">尾页</a>
+
 		</p>
 	</body>
 </html>

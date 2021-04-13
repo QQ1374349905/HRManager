@@ -1,7 +1,9 @@
 package com.qnck.controller;
 
 import com.github.pagehelper.Page;
+import com.qnck.entity.Identity;
 import com.qnck.entity.User;
+import com.qnck.service.IdentityService;
 import com.qnck.service.UserService;
 import com.qnck.utils.PagingQuery;
 import org.apache.log4j.Logger;
@@ -19,6 +21,9 @@ public class PowerController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private IdentityService identityService;
 
     Logger logger = Logger.getLogger(PowerController.class);
 
@@ -40,8 +45,8 @@ public class PowerController {
         }
 
         assert page != null;
-        map.addAttribute("userList", page.getResult());
-        System.out.println("获取到数据:"+page.getResult());
+        map.addAttribute("pages", page);
+        System.out.println("获取到数据:"+page);
         return "page/power/user_list";
     }
 
@@ -63,5 +68,23 @@ public class PowerController {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+    * @Author 张符伟
+    * @Description 根据ID查询用户,并将数据返回到界面
+    * @Date 15:06 2021/4/12
+    * @Param id,map
+    * @return String
+    **/
+    @RequestMapping("queryUserById")
+    private String queryUserById(int id,ModelMap map){
+        User user = userService.queryUserById(id);
+        map.addAttribute("user", user);
+//        System.out.println("获取到用户:"+user);
+        List<Identity> identityList = identityService.queryAllIdentity();
+        map.addAttribute("identityList", identityList);
+//        System.out.println("获取到职位:"+identityList);
+        return "page/power/user_edit";
     }
 }

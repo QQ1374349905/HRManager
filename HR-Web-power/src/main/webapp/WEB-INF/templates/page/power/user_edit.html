@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+﻿<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>编辑用户</title>
@@ -33,33 +34,31 @@
 				<tr>
 					<td class="TD_STYLE1">用户名称</td>
 					<td class="TD_STYLE2">
-						<input type="text" value="xiepeng" id="userName" name="users.userName"/>
+						<input type="text" th:value="${user.userName}" id="userName" name="userName"/>
 						<input type="hidden" name="users.userId" value="1015"/>
 					</td>
 					<td class="TD_STYLE1">用户密码</td>
 					<td class="TD_STYLE2">
-						<input type="password" value="123456" id="userPassword" name="users.userPassword"/>
+						<input type="password" th:value="${user.userPassword}" id="userPassword" name="userPassword"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="TD_STYLE1">真实姓名</td>
 					<td class="TD_STYLE2">
-						<input type="text" value="谢鹏" id="userTrueName" name="users.userTrueName"/>
+						<input type="text" th:value="${user.userTrueName}" id="userTrueName" name="userTrueName"/>
 					</td>
 					<td class="TD_STYLE1">用户身份</td>
 					<td class="TD_STYLE2">
-						<select name="users.sysRole.roleId" id="powerAction!doModifyUser_users_sysRole_roleId">
-    <option value="1">人事专员</option>
-    <option value="2" selected="selected">人事经理</option>
-    <option value="3">薪酬专员</option>
-    <option value="4">薪酬经理</option>
-    <option value="5">招聘专员</option>
-    <option value="6">招聘经理</option>
-    <option value="7">应聘者</option>
-    <option value="8">系统管理员</option>
-
-
-</select>
+						<select name="Identity.identityId" id="powerAction!doModifyUser_users_sysRole_roleId">
+							<option th:each="identity : ${identityList}" th:value="${identity.identityId}" th:selected="${identity.identityId == user.identity.IdentityId}" th:text="${identity.identityName}" >人事专员</option>
+							<option value="2" selected="selected" th:remove="all">人事经理</option>
+							<option value="3" th:remove="all">薪酬专员</option>
+							<option value="4" th:remove="all">薪酬经理</option>
+							<option value="5" th:remove="all">招聘专员</option>
+							<option value="6" th:remove="all">招聘经理</option>
+							<option value="7" th:remove="all">应聘者</option>
+							<option value="8" th:remove="all">系统管理员</option>
+						</select>
 
 					</td>
 				</tr>
