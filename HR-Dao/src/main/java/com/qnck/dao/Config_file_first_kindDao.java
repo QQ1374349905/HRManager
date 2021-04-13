@@ -11,6 +11,6 @@ import java.util.List;
 public interface Config_file_first_kindDao {
 
     @Select("select * from Config_file_first_kind")
-    @ResultMap("ConfigFileFirstKindMap")
+    @ResultMap("ConfigfilefirstkindMap")
     List<Config_file_first_kind> CONFIG_FILE_FIRST_KINDS();
 }
