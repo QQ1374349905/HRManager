@@ -1,8 +1,8 @@
 package com.qnck.controller;
 
 import com.qnck.entity.*;
-import com.qnck.service.Config_majorService;
-import com.qnck.service.Engage_major_releasesService;
+import com.qnck.service.recruit.Config_majorService;
+import com.qnck.service.recruit.Engage_major_releasesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

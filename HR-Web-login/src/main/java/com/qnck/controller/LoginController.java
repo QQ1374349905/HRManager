@@ -1,20 +1,15 @@
 package com.qnck.controller;
 
 import com.qnck.entity.User;
-import com.qnck.service.LoginService;
+import com.qnck.service.login.LoginService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
 
 @Controller
 public class LoginController {
