@@ -39,7 +39,7 @@ public class ConfigMajorController {
     @RequestMapping("addMajor")
     public String AddConfigMajor(Config_file_first_kind configFileFirstKind,Config_file_second_kind configFileSecondKind,Config_file_third_kind configFileThirdKind,Config_major configMajor,Engage_major_release engageMajorRelease){
         engageMajorRelease.setConfig_file_first_kinds(configFileFirstKind);
-        engageMajorRelease.setConfig_file_third_kinds(configFileThirdKind);
+        engageMajorRelease.setConfig_file_second_kinds(configFileSecondKind);
         engageMajorRelease.setConfig_file_third_kinds(configFileThirdKind);
         engageMajorRelease.setConfig_major(configMajor);
         engageMajorReleasesService.addEngage_major_release(engageMajorRelease);
