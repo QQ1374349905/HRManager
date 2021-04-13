@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<Object> queryUserList(int currentPage,int pageSize) {
         Page<Object> page = PageHelper.startPage(currentPage, pageSize);
+        userDao.queryUserList();
         return page;
     }
 
@@ -26,5 +27,10 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int id) {
         userDao.deleteUser(id);
 
+    }
+
+    @Override
+    public User queryUserById(int id) {
+        return userDao.queryUserById(id);
     }
 }
