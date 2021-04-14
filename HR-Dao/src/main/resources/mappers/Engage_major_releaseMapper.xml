@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qnck.dao.recruit.Engage_major_releaseDao">
+    <resultMap id="Engage_major_releaseMap" type="com.qnck.entity.Engage_major_release">
+        <association property="config_file_first_kinds" column="first_kinds_id" select=""/>
+    </resultMap>
+    <resultMap id="Engage_major_releaseMap02" type="com.qnck.entity.Engage_major_release">
+<!--    引入一级机构   -->
+<!--        <association property="config_file_first_kinds"-->
+<!--                     column="first_kinds_id"-->
+<!--                     select="com.qnck.dao.recruit.Config_file_first_kindDao.ConfigfilefirstkindMap02"/>-->
+<!--    引入二级机构   -->
+        <association property="config_file_second_kinds"
+                     column="second_kinds_id"
+                     select="com.qnck.entity.Config_file_second_kind.QueryConfigFileSecondKind"/>
+<!--    引入招聘类型   -->
+        <association property="Config_major"
+                     column="major_kind_id"
+                     select="com.qnck.dao.recruit.Config_majorDao.queryBymajorID"
+                     />
+    </resultMap>
+    <resultMap id="Engage_major_releaseMap03" type="com.qnck.entity.Engage_major_release">
+        <!--    引入一级机构   -->
+        <!--        <association property="config_file_first_kinds"-->
+        <!--                     column="first_kinds_id"-->
+        <!--                     select="com.qnck.dao.recruit.Config_file_first_kindDao.ConfigfilefirstkindMap02"/>-->
+        <!--    引入二级机构   -->
+        <association property="config_file_second_kinds"
+                     column="second_kinds_id"
+                     select="com.qnck.dao.Config_file_second_kind.QueryConfigFileSecondKind"/>
+        <!--    引入三级机构   -->
+        <association property="Config_file_third_kind"
+                     column="third_kind_id"
+                     select="com.qnck.dao.recruit.Config_file_third_kindDao.CONFIG_FILE_THIRD_KINDS"
+                     />
+        <!--    引入招聘类型   -->
+        <association property="Config_major"
+                     column="major_kind_id"
+                     select="com.qnck.dao.recruit.Config_majorDao.queryBymajorID"
+        />
+    </resultMap>
+</mapper>

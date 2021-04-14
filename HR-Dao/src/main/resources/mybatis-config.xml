@@ -24,5 +24,6 @@
         <mapper resource="mappers/Config_file_second_KindMapper.xml"/>
         <mapper resource="mappers/Config_file_third_KindMapper.xml"/>
         <mapper resource="mappers/Config_majorMapper.xml"/>
+        <mapper resource="mappers/Engage_major_releaseMapper.xml"/>
     </mappers>
 </configuration>

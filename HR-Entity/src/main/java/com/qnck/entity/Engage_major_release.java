@@ -23,7 +23,7 @@ public class Engage_major_release {
     private String second_kind_name;
     private Config_file_third_kind config_file_third_kinds;
     private String third_kind_name;
-    private Config_major Config_major;
+    private Config_major config_major;
     private String major_kind_name;
     private String major_name;
     private int human_amount;
