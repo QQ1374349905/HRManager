@@ -86,4 +86,29 @@ public class PowerController {
 //        System.out.println("获取到职位:"+identityList);
         return "page/power/user_edit";
     }
+
+    @RequestMapping("updateUser")
+    private String updateUser(User user){
+        System.out.println("获取界面数据:"+user);
+        try {
+            userService.updateUser(user);
+            return "redirect:queryUserList?currentPage=1&pageSize=5";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:queryUserById";
+        }
+    }
+
+    @RequestMapping("queryIdentity")
+    @ResponseBody
+    private List<Identity> queryIdentity(){
+        return identityService.queryAllIdentity();
+    }
+
+    @RequestMapping("verifyUserName")
+    @ResponseBody
+    private boolean verifyUserName(String userName){
+        int result = userService.verifyUserName(userName);
+        return result > 0;
+    }
 }

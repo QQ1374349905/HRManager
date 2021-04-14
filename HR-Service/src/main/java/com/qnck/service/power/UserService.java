@@ -9,4 +9,8 @@ public interface UserService {
     void deleteUser(int id);
 
     User queryUserById(int id);
+
+    void updateUser(User user);
+
+    int verifyUserName(String userName);
 }

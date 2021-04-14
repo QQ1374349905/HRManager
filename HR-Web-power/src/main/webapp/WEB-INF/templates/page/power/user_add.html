@@ -1,14 +1,42 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+﻿<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>添加用户</title>
 		<link rel="stylesheet"
 			href="../../css/table.css" type="text/css"/>
 		<script type="text/javascript" src="../../javascript/jquery-1.7.2.js"></script>
-		<script type="text/javascript"
-			src="../../javascript/jquery.messager.js"></script>
+		<script type="text/javascript" src="../../javascript/jquery.messager.js"></script>
 		<script type="text/javascript" src="../../javascript/user_add.js"></script>
+		<script type="text/javascript">
+			$(function () {
+				$.ajax("queryIdentity",{
+					dataType:"json",
+					success: function(data) {
+						var $identity = $("#identity");
+
+						for (let i = 0; i < data.length; i++) {
+							let $option = $("<option value="+data[i].identityId+">"+data[i].identityName+"</option>")
+							$identity.append($option);
+						}
+					}
+				});
+				$("#userName").blur(function(){
+					var $userName = $(this).val();
+					$.ajax({
+						url:"verifyUserName",
+						data:{userName:$userName},
+						success: function(data) {
+							alert(data);
+						},
+						error: function(data) {
+							console.log(data);
+						}
+					})
+				});
+			})
+		</script>
 	</head>
 	<body>
 		<form method="post" action="success.html">
@@ -32,37 +60,37 @@
 				<tr>
 					<td class="TD_STYLE1">用户名称</td>
 					<td class="TD_STYLE2">
-						<input type="text" id="userName" name="users.userName"/>
+						<input type="text" id="userName" name="userName"/>
 					</td>
 					<td class="TD_STYLE1">用户密码</td>
 					<td class="TD_STYLE2">
-						<input type="password" id="userPassword" name="users.userPassword"/>
+						<input type="password" id="userPassword" name="userPassword"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="TD_STYLE1">真实姓名</td>
 					<td class="TD_STYLE2">
-						<input type="text" id="userTrueName" name="users.userTrueName"/>
+						<input type="text" id="userTrueName" name="userTrueName"/>
 					</td>
 					<td class="TD_STYLE1">用户身份</td>
 					<td class="TD_STYLE2">
-						<select name="users.sysRole.roleId">
+						<select name="identity.IdentityId" id="identity">
 							
-								<option value="1">人事专员</option>
+								<option th:remove="all">人事专员</option>
 							
-								<option value="2">人事经理</option>
+								<option value="2" th:remove="all">人事经理</option>
 							
-								<option value="3">薪酬专员</option>
+								<option value="3" th:remove="all">薪酬专员</option>
 							
-								<option value="4">薪酬经理</option>
+								<option value="4" th:remove="all">薪酬经理</option>
 							
-								<option value="5">招聘专员</option>
+								<option value="5" th:remove="all">招聘专员</option>
 							
-								<option value="6">招聘经理</option>
+								<option value="6" th:remove="all">招聘经理</option>
 							
-								<option value="7">应聘者</option>
+								<option value="7" th:remove="all">应聘者</option>
 							
-								<option value="8">系统管理员</option>
+								<option value="8" th:remove="all">系统管理员</option>
 							
 						</select>
 					</td>

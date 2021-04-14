@@ -1,10 +1,7 @@
 package com.qnck.dao.login;
 
 import com.qnck.entity.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -27,4 +24,10 @@ public interface IUserDao {
     @Select("select * from User where user_id = #{id}")
     @ResultMap("userMap")
     User queryUserById(int id);
+
+    @Update("update User set user_name=#{userName},user_true_name=#{userTrueName},user_password=#{userPassword},identity_id=#{identity.identityId} where user_id=#{userId}")
+    void updateUser(User user);
+
+    @Select("select count(*) from User where user_name=#{userName}")
+    int verifyUserName(String userName);
 }

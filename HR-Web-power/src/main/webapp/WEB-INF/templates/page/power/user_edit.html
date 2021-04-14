@@ -9,10 +9,10 @@
 		<script type="text/javascript" src="../../javascript/jquery-1.7.2.js"></script>
 		<script type="text/javascript"
 			src="../../javascript/jquery.messager.js"></script>
-		<script type="text/javascript" src="../../javascript/user_add.js"></script>
+<!--		<script type="text/javascript" src="../../javascript/user_add.js"></script>-->
 	</head>
 	<body>
-		<form id="powerAction!doModifyUser" name="powerAction!doModifyUser" action="success.html" method="post">
+		<form id="powerAction!doModifyUser" name="powerAction!doModifyUser" action="updateUser" method="post">
 			<table width="100%">
 				<tr>
 					<td>
@@ -35,7 +35,7 @@
 					<td class="TD_STYLE1">用户名称</td>
 					<td class="TD_STYLE2">
 						<input type="text" th:value="${user.userName}" id="userName" name="userName"/>
-						<input type="hidden" name="users.userId" value="1015"/>
+						<input type="hidden" name="userId" th:value="${user.userId}"/>
 					</td>
 					<td class="TD_STYLE1">用户密码</td>
 					<td class="TD_STYLE2">
