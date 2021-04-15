@@ -98,7 +98,7 @@
 							<a th:href="@{'PositionRegisterInfoByID?id='+${engage?.mre_id}}">修改</a>
 						</td>
 						<td class="TD_STYLE2">
-							<a href="position_change_update.html">删除</a>
+							<a th:href="'javascript:del('+${engage?.mre_id}+')'" id="del">删除</a>
 						</td>
 					</tr>
 					
@@ -125,7 +125,7 @@
 							<a href="position_release_change.html">修改</a>
 						</td>
 						<td class="TD_STYLE2">
-							<a href="position_change_update.html">删除</a>
+							<a th:href="'javascript:del('+${engage?.mre_id}+')'">删除</a>
 						</td>
 					</tr>
 					
@@ -135,7 +135,21 @@
 			<a href="javascript:up('0')" >上一页</a> &nbsp;&nbsp;&nbsp;
 			<a href="javascript:down('2','1')" >下一页</a> &nbsp;&nbsp;&nbsp;跳到第 <input name=page type=text class=input1 id="currPage" size=1> 页&nbsp;&nbsp;<input type="image" src="../../../images/go.bmp" onclick="tj('1')" width=18 height=18 border=0>
 		</form>
+		<script type="text/javascript" src="../../../../../../../../../HR-Web-login/src/main/webapp/javascript/jquery-1.7.2.js"></script>
 		<script type="text/javascript">
+			//使用ajax异步删除
+				function del(id) {
+					let yesORno = confirm("是否删除该信息？");
+					if(yesORno){
+						$.ajax({
+							url:"DeleteEngageMajorRelease?id="+id,
+							type:"post",
+							success:function(data){
+								location.reload();
+							}
+						})
+					}
+				}
 		function up(currPage){  
 		if(currPage<=0){
 		document.getElementById("page").value = row;

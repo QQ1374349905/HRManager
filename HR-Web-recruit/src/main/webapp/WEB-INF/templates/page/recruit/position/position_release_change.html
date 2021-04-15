@@ -73,13 +73,11 @@
  	   function mySubmit(){  
   	document.humanfileForm.submit();
  	}
-  
- 	
- 	</script>
+</script>
 </head>
 	<body>
-		<form id="recruitAction!applyPosition" name="humanfileForm" action="/HR_Fist/recruit/recruitAction!applyPosition" method="post">
-		
+		<form id="recruitAction!applyPosition" action="UpdatePositionRegister" method="post">
+		<input type="hidden" name="mre_id" th:value="${MreId}"/>
 			<table width="100%">
 				<tr>
 					<td>
@@ -88,7 +86,7 @@
 				</tr>
 				<tr>
 					<td align="right">
-						<input type="button" value="提交" class="BUTTON_STYLE1"
+						<input type="submit" value="提交" class="BUTTON_STYLE1"
 							onclick="mySubmit()">
 						<input type="reset" value="清除" class="BUTTON_STYLE1">
 					</td>
@@ -102,8 +100,8 @@
 						I级机构
 					</td>
 					<td width="14%" class="TD_STYLE2">
-					<input type="hidden" name ="emajorRelease.firstKindName" th:value="${engage_major_release.first_kind_name}"/>
-					<input type="hidden" name="emajorRelease.firstKindId" value="01"/>
+					<input type="hidden" th:value="${engage_major_release.first_kind_name}"/>
+					<input type="hidden"  value="01"/>
 					&#38598;&#22242;
 					
 					</td>
@@ -111,26 +109,26 @@
 						II级机构
 					</td>
 					<td width="14%" class="TD_STYLE2">
-					<input type="hidden" name="emajorRelease.secondKindName" th:value="${engage_major_release.second_kind_name}"/>
-					<input type="hidden" name="emajorRelease.secondKindId" value="02"/>
+					<input type="hidden"  th:value="${engage_major_release.second_kind_name}"/>
+					<input type="hidden"  value="02"/>
 					&#29983;&#29289;&#31185;&#25216;&#26377;&#38480;&#20844;&#21496;
 					</td>
 					<td width="11%" class="TD_STYLE1">
 						III级机构
 					</td>
 					<td class="TD_STYLE2"  >
-					<input type="hidden" name="emajorRelease.thirdKindName" th:value="${engage_major_release.third_kind_name}"/>
-					<input type="hidden" name="emajorRelease.thirdKindId" value="01"/>
+					<input type="hidden" th:value="${engage_major_release.third_kind_name}"/>
+					<input type="hidden" value="01"/>
 						&#33647;&#24215;
 					</td>
 					<td width="11%" class="TD_STYLE1">
 						招聘类型
 					</td>
 					<td class="TD_STYLE2" colspan="2">
-					 
-				 	<select name="emajorRelease.engageType" id="engageType" class="SELECT_STYLE1">
+
+				 	<select name="engage_type" id="engage_type" class="SELECT_STYLE1">
 							<option value="校园招聘" selected>校园招聘</option>
-							 
+
 							<option value="社会招聘" selected>社会招聘</option>  
 							
 					 </select>
@@ -141,29 +139,29 @@
 						职位分类
 					</td>
 					<td class="TD_STYLE2">
-					<input type="hidden" name="emajorRelease.majorKindName" th:value="${engage_major_release.major_kind_name}"/>
-					<input type="hidden" name="emajorRelease.majorKindId" value="01"/>
+					<input type="hidden" th:value="${engage_major_release.major_kind_name}"/>
+					<input type="hidden" value="01"/>
 						&#38144;&#21806;
 					</td>
 					<td class="TD_STYLE1">
 						职位名称
 					</td>
 					<td class="TD_STYLE2">
-					<input type="hidden" name="emajorRelease.majorName" th:value="${engage_major_release.major_name}"/>
-					<input type="hidden" name="emajorRelease.majorId" value="02"/>
+					<input type="hidden" th:value="${engage_major_release.major_name}"/>
+					<input type="hidden" value="02"/>
 						&#24635;&#32463;&#29702;
 					</td>
 					<td class="TD_STYLE1">
 						招聘人数
 					</td>
 					<td   class="TD_STYLE2">
-						 <input type="text" name="emajorRelease.humanAmount" class="INPUT_STYLE2" th:value="${engage_major_release.human_amount}">
+						 <input type="text" name="human_amount" class="INPUT_STYLE2" th:value="${engage_major_release.human_amount}">
 						</td>
 					<td class="TD_STYLE1">
 						截止日期
 					</td>
 					<td   class="TD_STYLE2"> 
-						<input type="text" name="emajorRelease.deadline" th:value="${#dates.format(engage_major_release.deadline,'yyyy-MM-dd')}"
+						<input type="text" name="deadline" th:value="${#dates.format(engage_major_release.deadline,'yyyy/MM/dd')}"
 							  class="INPUT_STYLE2"  onclick="aa('emajorRelease.deadline')">
 						   </td>
 				</tr>
@@ -172,13 +170,13 @@
 						变更人
 					</td>
 					<td  class="TD_STYLE2">
-						 <input type="text" name="emajorRelease.changer" value="zhangsan" class="INPUT_STYLE2">
+						 <input type="text" name="register" value="zhangsan" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						变更时间
 					</td>
 					<td   class="TD_STYLE2">
-						 <input type="text" name="emajorRelease.changeTime"
+						 <input type="text"
 							value="12-11-18 19:26:58.000" id="nowTime"  
 							class="INPUT_STYLE2">
 					</td>
@@ -194,7 +192,7 @@
 						职位描述
 					</td>
 					<td class="TD_STYLE2" colspan="8">
-						<textarea name="emajorRelease.majorDescribe" th:text="${engage_major_release.major_describe}" rows="4" cols="100%" class="TEXTAREA_STYLE1"  >&#19982;&#26102;&#20465;&#36827;</textarea>
+						<textarea name="major_describe" th:text="${engage_major_release.major_describe}" rows="4" cols="100%" class="TEXTAREA_STYLE1"  >&#19982;&#26102;&#20465;&#36827;</textarea>
 					</td>
 				</tr>
 					<tr>
@@ -202,7 +200,7 @@
 						招聘要求
 					</td>
 					<td class="TD_STYLE2" colspan="8">
-						<textarea name="emajorRelease.engageRequired" th:text="${engage_major_release.engage_required}" rows="4"  cols="100%" class="TEXTAREA_STYLE1"   >&#20570;&#20107;&#32454;&#24515;</textarea>
+						<textarea name="engage_required" th:text="${engage_major_release.engage_required}" rows="4"  cols="100%" class="TEXTAREA_STYLE1"   >&#20570;&#20107;&#32454;&#24515;</textarea>
 					</td>
 				</tr>
 			</table>

@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 招聘管理控制器
@@ -55,7 +57,6 @@ public class ConfigMajorController {
             List<Engage_major_release> engage_major_releases = engageMajorReleasesService.selectEngage_major_release();
             System.out.println(engage_major_releases);
             modelMap.put("engage_major_releases",engage_major_releases);
-            modelMap.put("name","王任重");
             System.out.println("______________________________");
         }catch (Exception e){
             e.printStackTrace();
@@ -72,6 +73,51 @@ public class ConfigMajorController {
     public String QueryPositionRegisterByID(int id,ModelMap modelMap){
         Engage_major_release engage_major_release = engageMajorReleasesService.queryEngage_major_release(id);
         modelMap.put("engage_major_release",engage_major_release);
+        modelMap.put("MreId",id);
         return "forward:toPage?page=page/recruit/position/position_release_change.html";
+    }
+
+    /**
+     * 职业发布变更,这个版本修改的非常不好
+     * @param map
+     * @param deadline
+     * @return
+     */
+    @RequestMapping("UpdatePositionRegister")
+    public String UpdatePositionRegister(@RequestParam Map map,Date deadline){
+        System.out.println("_________________________________________"+map);
+        //从map中获取值
+        int mre_id = Integer.parseInt(map.get("mre_id").toString());
+        String engage_type = map.get("engage_type").toString();
+        int human_amount = Integer.parseInt(map.get("human_amount").toString());
+        String register = map.get("register").toString();
+        String major_describe = map.get("major_describe").toString();
+        String engage_required = map.get("engage_required").toString();
+        Engage_major_release engageMajorRelease =new Engage_major_release();
+        engageMajorRelease.setDeadline(deadline);//注入修改日期
+        engageMajorRelease.setHuman_amount(human_amount);//注入注册人数
+        engageMajorRelease.setEngage_type(engage_type);//职业类型
+        engageMajorRelease.setEngage_required(engage_required);//招聘要求
+        engageMajorRelease.setMre_id(mre_id);//招聘信息ID
+        engageMajorRelease.setMajor_describe(major_describe);//职业要求
+        engageMajorReleasesService.UpdateEngage_major_release(engageMajorRelease);
+        return "redirect:PositionRegisterInfo";
+    }
+
+    /**
+     * 删除职业发布信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("DeleteEngageMajorRelease")
+    @ResponseBody
+    public String DeleteEngage_major_release(int id){
+        try {
+            engageMajorReleasesService.DeleteEngage_major_release(id);
+            return "yes";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "no";
+        }
     }
 }

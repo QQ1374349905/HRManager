@@ -1,10 +1,7 @@
 package com.qnck.dao.recruit;
 
 import com.qnck.entity.Engage_major_release;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -30,7 +27,13 @@ public interface Engage_major_releaseDao {
             " ON cm.`major_id`=er.`major_id` JOIN Config_file_third_kind ch ON ch.`third_kind_id`=er.`third_kind_id` WHERE er.`mre_id`=#{id}")
     @ResultMap("Engage_major_releaseMap03")
     Engage_major_release queryEngage_major_release(@Param("id") int id);
-
-
+    //职业修改信息
+    @Update("UPDATE Engage_major_release SET human_amount=#{human_amount},deadline=#{deadline}," +
+            "register=#{register},regist_time=sysdate(),major_describe=#{major_describe},engage_required=#{engage_required},engage_type=#{engage_type} " +
+            " WHERE mre_id=#{mre_id}")
+    void UpdateEngage_major_release(Engage_major_release engageMajorRelease);
+    //删除职业发布信息
+    @Delete("DELETE FROM Engage_major_release WHERE mre_id=#{Did}")
+    void DeleteEngage_major_release(@Param("Did") int Did);
 }
 

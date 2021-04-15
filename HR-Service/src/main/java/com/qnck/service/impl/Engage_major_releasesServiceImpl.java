@@ -30,4 +30,14 @@ public class Engage_major_releasesServiceImpl implements Engage_major_releasesSe
     public Engage_major_release queryEngage_major_release(int id) {
         return engage_major_releaseDao.queryEngage_major_release(id);
     }
+
+    @Override
+    public void UpdateEngage_major_release(Engage_major_release engageMajorRelease) {
+        engage_major_releaseDao.UpdateEngage_major_release(engageMajorRelease);
+    }
+
+    @Override
+    public void DeleteEngage_major_release(int Did) {
+        engage_major_releaseDao.DeleteEngage_major_release(Did);
+    }
 }
