@@ -30,4 +30,7 @@ public interface IUserDao {
 
     @Select("select count(*) from User where user_name=#{userName}")
     int verifyUserName(String userName);
+
+    @Insert("insert into User values (null,#{userName},#{userTrueName},#{userPassword},#{identity.identityId})")
+    void addUser(User user);
 }

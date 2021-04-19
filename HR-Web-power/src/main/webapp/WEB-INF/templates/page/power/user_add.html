@@ -11,6 +11,8 @@
 		<script type="text/javascript" src="../../javascript/user_add.js"></script>
 		<script type="text/javascript">
 			$(function () {
+				var flag = false; //未重名的情况下为false
+
 				$.ajax("queryIdentity",{
 					dataType:"json",
 					success: function(data) {
@@ -28,18 +30,24 @@
 						url:"verifyUserName",
 						data:{userName:$userName},
 						success: function(data) {
-							alert(data);
+							// alert(data);
+							if(data){
+								alert("用户名重复,请修改用户名");
+								$("input[type=submit]").attr("disabled",true);
+							} else {
+								$("input[type=submit]").attr("disabled",false);
+							}
 						},
 						error: function(data) {
 							console.log(data);
 						}
 					})
 				});
-			})
+			});
 		</script>
 	</head>
 	<body>
-		<form method="post" action="success.html">
+		<form method="post" action="addUser">
 			<table width="100%">
 				<tr>
 					<td>

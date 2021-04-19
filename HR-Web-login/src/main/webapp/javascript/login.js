@@ -32,7 +32,7 @@ function doLogin() {
 				alert("登录成功!");
 				location.href = "toPage?page=page/index";
 			} else {
-				alert("登录失败,请检查用户名或者密码!");
+				alert("登录失败,请检查用户名或者密码,或者账号已被停用!");
 			}
 		},
 		error : function(){

@@ -5,5 +5,13 @@
         <result column="identity_id" property="identityId"/>
         <result column="identity_name" property="identityName"/>
         <result column="identity_remark" property="identityRemark"/>
+        <result column="identity_status" property="identityStatus"/>
+    </resultMap>
+    <resultMap id="identityPermissionsMap" type="com.qnck.entity.Identity">
+        <result column="identity_id" property="identityId"/>
+        <result column="identity_name" property="identityName"/>
+        <result column="identity_remark" property="identityRemark"/>
+        <result column="identity_status" property="identityStatus"/>
+        <collection property="permissionsList" column="identity_id" select="com.qnck.dao.power.IPermissionsDao.queryPermissionsById"/>
     </resultMap>
 </mapper>

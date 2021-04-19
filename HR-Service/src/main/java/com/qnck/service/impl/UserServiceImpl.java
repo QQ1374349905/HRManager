@@ -47,4 +47,14 @@ public class UserServiceImpl implements UserService {
     public int verifyUserName(String userName) {
         return userDao.verifyUserName(userName);
     }
+
+    @Override
+    public void addUser(User user) {
+        String userPassword = user.getUserPassword();
+        System.out.println("加密前数据:"+userPassword);
+        userPassword = DigestUtils.md5DigestAsHex(userPassword.getBytes());
+        System.out.println("加密后数据:"+userPassword);
+        user.setUserPassword(userPassword);
+        userDao.addUser(user);
+    }
 }

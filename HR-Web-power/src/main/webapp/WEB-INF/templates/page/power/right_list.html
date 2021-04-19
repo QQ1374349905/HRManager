@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+﻿<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>角色管理</title>
@@ -8,8 +9,11 @@
 		<script type="text/javascript">
 			function doDelete(id) {
 				if (confirm("确定删除此角色吗？")) {
-					location.href = "success.html?sysRole.roleId=" + id;
+					location.href = "deleteIdentityById?id=" + id;
 				}
+			}
+			function queryIdentityById(id) {
+				location.href="queryIdentityById?id="+id;
 			}
 		</script>
 	</head>
@@ -22,7 +26,7 @@
 			</tr>
 			<tr>
 				<td>
-					当前角色总数：8例
+					当前角色总数：<span th:text="${pages.size}"></span>例
 				</td>
 			</tr>
 			<tr>
@@ -52,27 +56,27 @@
 				</td>
 			</tr>
 			
-				<tr class="TR_STYLE2">
-					<td class="TD_STYLE2">
+				<tr class="TR_STYLE2" th:each="identity : ${pages}" th:id="${identity.identityId}">
+					<td class="TD_STYLE2" th:text="${identity?.identityId}">
 						1
 					</td>
-					<td class="TD_STYLE2">
+					<td class="TD_STYLE2" th:text="${identity?.identityName}">
 						人事专员
 					</td>
-					<td class="TD_STYLE2">
+					<td class="TD_STYLE2" th:text="${identity?.identityRemark}">
 						
 					</td>
-					<td class="TD_STYLE2">
-						是
-						
+					<td class="TD_STYLE2" th:switch="${identity?.identityStatus}">
+						<span th:case="1">是</span>
+						<span th:case="0">否</span>
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(1)"/>
+						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" th:onclick="'javascript:queryIdentityById('+${identity.identityId}+')'"/>
+						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" th:onclick="'javascript:doDelete('+${identity.identityId}+')'"/>
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						2
 					</td>
@@ -92,7 +96,7 @@
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						3
 					</td>
@@ -112,7 +116,7 @@
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						4
 					</td>
@@ -132,7 +136,7 @@
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						5
 					</td>
@@ -147,12 +151,12 @@
 						
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
+						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'" />
 						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(5)"/>
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						6
 					</td>
@@ -172,7 +176,7 @@
 					</td>
 				</tr>
 			
-				<tr class="TR_STYLE2">
+				<tr class="TR_STYLE2" th:remove="all">
 					<td class="TD_STYLE2">
 						7
 					</td>
@@ -182,38 +186,25 @@
 					<td class="TD_STYLE2">
 						
 					</td>
+					
 					<td class="TD_STYLE2">
 						
 						否
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
+						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='queryIdentityById'"/>
 						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(7)"/>
 					</td>
 				</tr>
 			
 		</table>
 		<p style="text-align:center;">
-			
-				<a href="right_list.html" style="color:black;">首页</a>
-				
-				
-					 
-						 
-						    <font color="red">1</font> 
-						 
-						 
-					 
-				
-					 
-						 
-						 
-							<a href="right_list.html" style="color:black;">2</a> 
-						 
-					 
-				
-				<a href="right_list.html" style="color:black;">下一页</a> 
-	     		<a href="right_list.html" style="color:black;">尾页</a> 
+
+			<a th:href="@{queryIdentityList(currentPage=1,pageSize=5)}" style="color:black;">首页</a>
+
+			<a th:each="i : ${#numbers.sequence(1,pages?.pages)}" th:text="${i}" th:href="@{queryIdentityList(currentPage=${i},pageSize=5)}" style="text-underline: none;color:red">1</a>
+
+			<a th:href="@{queryIdentityList(currentPage=${pages?.pages},pageSize=5)}" style="color:black;">尾页</a>
 	     	
 		</p>
 	</body>
