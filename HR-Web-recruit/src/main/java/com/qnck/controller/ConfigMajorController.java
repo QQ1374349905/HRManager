@@ -63,6 +63,21 @@ public class ConfigMajorController {
         }
         return "forward:toPage?page=page/recruit/position/position_change_update.html";
     }
+    /**
+     * 查询职位发布登记信息
+     */
+    @RequestMapping("PositionRegisterInfo2")
+    public String QueryPositionRegister2(ModelMap modelMap){
+        try {
+            List<Engage_major_release> engage_major_releases = engageMajorReleasesService.selectEngage_major_release();
+            System.out.println(engage_major_releases);
+            modelMap.put("engage_major_releases",engage_major_releases);
+            System.out.println("______________________________");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "forward:toPage?page=page/recruit/position/position_release_search.html";
+    }
 
     /**
      *  查看职业发布信息
@@ -119,5 +134,16 @@ public class ConfigMajorController {
             e.printStackTrace();
             return "no";
         }
+    }
+
+    /**
+     * 登记职业发布
+     * @param id
+     * @return
+     */
+    @RequestMapping("Engage_major_releaseStatus")
+    public String Engage_major_releaseStatus(int id){
+        engageMajorReleasesService.UpdateEngageStatus(id);
+        return "redirect:toPage?page=page/recruit/resume/register";
     }
 }

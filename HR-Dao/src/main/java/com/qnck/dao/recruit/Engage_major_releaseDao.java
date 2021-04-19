@@ -35,5 +35,7 @@ public interface Engage_major_releaseDao {
     //删除职业发布信息
     @Delete("DELETE FROM Engage_major_release WHERE mre_id=#{Did}")
     void DeleteEngage_major_release(@Param("Did") int Did);
+    //将发布职位改为申请状态
+    @Update("update Engage_major_release set status=1 where mre_id=#{id}")
+    void UpdateEngageStatus(@Param("id") int mreID);
 }
-

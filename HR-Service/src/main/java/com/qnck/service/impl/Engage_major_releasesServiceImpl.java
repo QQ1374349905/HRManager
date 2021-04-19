@@ -6,6 +6,7 @@ import com.qnck.service.recruit.Engage_major_releasesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.util.List;
 
 /**
@@ -39,5 +40,10 @@ public class Engage_major_releasesServiceImpl implements Engage_major_releasesSe
     @Override
     public void DeleteEngage_major_release(int Did) {
         engage_major_releaseDao.DeleteEngage_major_release(Did);
+    }
+
+    @Override
+    public void UpdateEngageStatus(int id) {
+        engage_major_releaseDao.UpdateEngageStatus(id);
     }
 }

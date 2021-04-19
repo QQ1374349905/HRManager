@@ -1,10 +1,6 @@
 ﻿
-
-
-
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>My JSP 'position_release_search.jsp' starting page</title>
@@ -68,32 +64,27 @@
 					</td>
 					 
 				</tr>
-				
-				
-				<tr>
+				<tr th:each="engage:${engage_major_releases}">
+					<td class="TD_STYLE2" th:text="${engage?.major_name}">
+						&#21306;&#22495;&#32463;&#29702;
+					</td>
+					<td class="TD_STYLE2" th:text="${engage?.second_kind_name}">
+						&#36719;&#20214;&#20844;&#21496;
+					</td>
+					<td class="TD_STYLE2" th:text="${engage?.human_amount}">
+						3
+					</td>
+					<td class="TD_STYLE2" th:text="${#dates.format(engage?.regist_time,'yyyy-MM-dd')}">
+						2012-08-01 12:00:00
+					</td >
+					<td class="TD_STYLE2" th:text="${#dates.format(engage?.deadline,'yyyy-MM-dd')}">
+						2012-12-30 12:00:00
+					</td>
 						<td class="TD_STYLE2">
-							&#21306;&#22495;&#32463;&#29702;
+							<a th:href="'javascript:upd('+${engage?.mre_id}+')'">申请该职位</a>
 						</td>
-						<td class="TD_STYLE2">
-							&#36719;&#20214;&#20844;&#21496;
-						</td>
-						<td class="TD_STYLE2">
-							3
-						</td>
-						<td class="TD_STYLE2">
-						2012-08-01 12:00:00 
-						</td>
-						<td class="TD_STYLE2">
-						2012-12-30 12:00:00  
-						</td>
-						<td class="TD_STYLE2">
-							<a href="/HR_Fist/recruit/recruitAction!searchPositionById?emajorRelease.mreId=530">申请该职位</a>
-						</td>
-						 
 					</tr>
-				
-				
-				<tr>
+				<tr th:remove="all">
 						<td class="TD_STYLE2">
 							&#24635;&#32463;&#29702;
 						</td>
@@ -123,6 +114,12 @@
 			<a href="javascript:down('2','1')" >下一页</a> &nbsp;&nbsp;&nbsp;跳到第 <input name=page type=text class=input1 id="currPage" size=1> 页&nbsp;&nbsp;<input type=image src="../../../images/go.bmp" onclick="tj('1')" width=18 height=18 border=0>
 		</form>
 		<script type="text/javascript">
+				function upd(id) {
+					let b = confirm("申请该职位?");
+					if(b) {
+						location.href = 'Engage_major_releaseStatus?id=' + id;
+					};
+			}
 		function up(currPage,row){  
 		if(currPage<=0){
 		document.getElementById("page").value = row;
