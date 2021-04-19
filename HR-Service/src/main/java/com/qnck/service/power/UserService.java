@@ -13,4 +13,6 @@ public interface UserService {
     void updateUser(User user);
 
     int verifyUserName(String userName);
+
+    void addUser(User user);
 }

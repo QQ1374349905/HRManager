@@ -32,7 +32,7 @@ public class LoginController {
     @PostMapping("verifyLogin")
     @ResponseBody
     private boolean verifyLogin(String username, String password, HttpSession session){
-        logger.debug("获取到数据:{账号:"+username+",密码:"+password+"}");
+//        logger.debug("获取到数据:{账号:"+username+",密码:"+password+"}");
 
         //对密码进行加密处理
         password = DigestUtils.md5DigestAsHex(password.getBytes());
@@ -41,7 +41,7 @@ public class LoginController {
         try {
             //查询数据库,判断是否登陆成功
             User user = loginService.verifyLogin(username,password);
-            System.out.println("User:"+user);
+//            System.out.println("User:"+user);
             //将登录用户数据存入session中
             session.getServletContext().setAttribute("user", user);
             return user != null;

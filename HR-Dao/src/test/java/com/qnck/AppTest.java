@@ -1,16 +1,8 @@
 package com.qnck;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.DigestUtils;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 
 /**
  * Unit test for simple App.
@@ -32,10 +24,10 @@ public class AppTest
 //
 //        Class.forName("com.mysql.cj.jdbc.Driver");
 //
-//        Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.61:3306/hr_Manager", "root", "Zhang3@.");
+//        Connection connection = DriverManager.getConnection("jdbc:mysql://rm-wz91590w6557to49mzo.mysql.rds.aliyuncs.com:3306/hr_Manager", "root_hp", "HP_9755_AKM");
 //        System.out.println("获取连接:"+connection);
 //
-//        PreparedStatement prepareStatement = connection.prepareStatement("insert into User values (null,?,?,?,?)");
+//        PreparedStatement prepareStatement = connection.prepareStatement("insert into User values (1,?,?,?,?)");
 //        prepareStatement.setString(1,username);
 //        prepareStatement.setString(2,realName);
 //        prepareStatement.setString(3,password);

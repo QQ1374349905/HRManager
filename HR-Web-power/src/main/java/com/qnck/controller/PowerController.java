@@ -45,8 +45,22 @@ public class PowerController {
 
         assert page != null;
         map.addAttribute("pages", page);
-        System.out.println("获取到数据:"+page);
+//        System.out.println("获取到数据:"+page);
         return "page/power/user_list";
+    }
+
+    @RequestMapping("queryIdentityList")
+    private String queryIdentityList(int currentPage,int pageSize,ModelMap map){
+        Page<Object> pages = null;
+        try {
+            pages = identityService.queryIdentityList(currentPage, pageSize);
+        } catch (Exception e) {
+            logger.error("查询用户失败!",e);
+            e.printStackTrace();
+        }
+        map.addAttribute("pages", pages);
+//        System.out.println("获取到数据:"+pages);
+        return "page/power/right_list";
     }
 
     /**
@@ -70,7 +84,7 @@ public class PowerController {
     }
 
     /**
-    * @Author 张符伟
+    * @Author zhangfuwei
     * @Description 根据ID查询用户,并将数据返回到界面
     * @Date 15:06 2021/4/12
     * @Param id,map
@@ -87,9 +101,16 @@ public class PowerController {
         return "page/power/user_edit";
     }
 
+    /**
+    * @Author zhangfuwei
+    * @Description edit_user page request
+    * @Date 14:39 2021/4/16
+    * @Param user
+    * @return String
+    **/
     @RequestMapping("updateUser")
     private String updateUser(User user){
-        System.out.println("获取界面数据:"+user);
+//        System.out.println("获取界面数据:"+user);
         try {
             userService.updateUser(user);
             return "redirect:queryUserList?currentPage=1&pageSize=5";
@@ -99,16 +120,56 @@ public class PowerController {
         }
     }
 
+    /**
+    * @Author zhangfuwei
+    * @Description ajax query Identity
+    * @Date 14:40 2021/4/16
+    * @Param
+    * @return List<Identity>
+    **/
     @RequestMapping("queryIdentity")
     @ResponseBody
     private List<Identity> queryIdentity(){
         return identityService.queryAllIdentity();
     }
 
+    /**
+    * @Author zhangfuwei
+    * @Description verify repeat UserName
+    * @Date 14:40 2021/4/16
+    * @Param userName
+    * @return Boolean
+    **/
     @RequestMapping("verifyUserName")
     @ResponseBody
     private boolean verifyUserName(String userName){
         int result = userService.verifyUserName(userName);
         return result > 0;
+    }
+
+    /**
+    * @Author zhangfuwei
+    * @Description add User
+    * @Date 14:41 2021/4/16
+    * @Param user
+    * @return String
+    **/
+    @RequestMapping("addUser")
+    private String addUser(User user) {
+//        System.out.println("获取到页面数据:"+user);
+        try {
+            userService.addUser(user);
+            return "redirect:queryUserList?currentPage=1&pageSize=5";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "page/power/user_add";
+        }
+    }
+
+    @RequestMapping("queryIdentityById")
+    private String queryIdentityById(int id){
+        Identity identity = identityService.queryIdentityById(id);
+        System.out.println("获取到数据:"+identity);
+        return "page/power/right_list_information";
     }
 }
