@@ -37,7 +37,7 @@ function search(){
 	</head>
 
 	<body>
-		<form id="recruitAction!findEngageResume?a=valid" name="humanfileForm" action="/HR_Fist/recruit/recruitAction!findEngageResume?a=valid" method="post">
+		<form id="recruitAction!findEngageResume?a=valid" name="humanfileForm" action="EngageResumeByMajor2" method="post">
 			<input type="hidden" name="engageResume.humanMajorKindName"
 				id="majorKindName" />
 			<input type="hidden" name="engageResume.humanMajorName"
@@ -67,23 +67,23 @@ function search(){
 						请选择职位分类
 					</td>
 					<td class="TD_STYLE2" width="30%">
-						<select name="engageResume.humanMajorKindId" multiple="multiple" style="width: 290;height: 100"
+						<select name="major_kind_id" multiple="multiple" style="width: 290;height: 100"
 							 id="majorKindId"  class="SELECT_STYLE2"> 
 						<option value="0">--请选择--</option>
 					
-					<option value="01">销售</option>
-					
-					<option value="02">软件开发</option>
-					
-					<option value="03">人力资源</option>
-					
-					<option value="04">生产部</option>
-					
+<!--					<option value="01">销售</option>-->
+<!--					-->
+<!--					<option value="02">软件开发</option>-->
+<!--					-->
+<!--					<option value="03">人力资源</option>-->
+<!--					-->
+<!--					<option value="04">生产部</option>-->
+<!--					-->
 					 </select>
-						<select name="engageResume.humanMajorId"  multiple="multiple"  style="width: 290;height: 100"
+						<select name="major_id"  multiple="multiple"  style="width: 290;height: 100"
 							 id="majorId" size="5"
 							class="SELECT_STYLE2">
-							<option>
+							<option value="0">
 								--请选择--
 							</option>
 						</select>
@@ -96,7 +96,7 @@ function search(){
 						请输入关键字
 					</td>
 					<td width="84%">
-						<input type="text" name="utilBean.primarKey" value="" class="INPUT_STYLE2"/>
+						<input type="text" name="primarKey" value="" class="INPUT_STYLE2"/>
 					</td>
 				</tr>
 
@@ -107,10 +107,10 @@ function search(){
 					<td width="84%" class="TD_STYLE2">
 					<input type="hidden" name="utilBean.datePropertyName" value="registTime"/>
 						 
-					<input type="text" name="utilBean.startDate"   onclick="aa('utilBean.startDate')" 
+					<input type="text" name="startDate"   onclick="aa('utilBean.startDate')"
 							style="width: 14%" class="INPUT_STYLE2">
 						至
-						<input type="text" name="utilBean.endDate" 
+						<input type="text" name="endDate"
 							style="width: 14%" class="INPUT_STYLE2" onclick="aa('utilBean.endDate')">
 						（YYYY-MM-DD）
 					</td>
@@ -119,7 +119,41 @@ function search(){
 		</form>
 
 
-
+<script type="text/javascript" src="../../../../../../../../../HR-Web-login/src/main/webapp/javascript/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+			//异步查询职业分类
+			$(function(){
+				//获取职业分类下拉框
+				let majorKindId = $("#majorKindId");
+				$.ajax({
+					url:"queryEngage_resume",
+					type:"post",
+					success:function(data){
+						$("#majorKindId option:gt(0)").remove();
+						for (let i = 0; i <data.length ; i++) {
+							let element = data[i];
+							majorKindId.append("<option value="+element.major_kind_id+">"+element.major_kind_name+"</option>")
+						}
+					}
+				})
+				//当职业分类下拉框内容发生改变是,该职业下拉框会通过职业分类编号进行查询
+					majorKindId.change(function(){
+						let ID = majorKindId.val();
+						let majorId = $("#majorId");
+						$.ajax({
+							url:"Engage_resumeByMajor?majorID="+ID,
+							type:"post",
+							success:function(data){
+								$("#majorId option:gt(0)").remove();
+								for (let i = 0; i <data.length ; i++) {
+									let element = data[i];
+									majorId.append("<option value="+element.major_id+">"+element.major_name+"</option>")
+								}
+							}
+						});
+					});
+				});
+			</script>
 
 	</body>
 	 

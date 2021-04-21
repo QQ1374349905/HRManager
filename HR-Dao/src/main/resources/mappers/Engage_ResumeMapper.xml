@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qnck.dao.recruit.Engage_resumeDao">
+    <resultMap id="Engage_resumeMap" type="com.qnck.entity.Engage_resume">
+    </resultMap>
+    <resultMap id="Engage_resumeMap02" type="com.qnck.entity.Engage_resume">
+        <association property="Config_major" column="major_kind_id" select="com.qnck.dao.recruit.Config_majorDao.queryBymajorID"></association>
+    </resultMap>
+    <select id="queryEngage_resume" resultMap="Engage_resumeMap02" parameterType="map">
+        SELECT *FROM Engage_resume er JOIN Config_major cm
+        ON er.human_major_kind_id=cm.major_kind_id
+        <where>
+            <if test="major_kind_id!=null and major_kind_id!=''">
+                cm.major_kind_id=#{major_kind_id}
+            </if>
+            <if test="major_id!=null and ajor_kind_id!=''">
+                and cm.major_id=#{major_id}
+            </if>
+            <if test="primarKey!=null and primarKey!=''">
+                and human_name like '%${primarKey}%' OR human_telephone like '%${primarKey}%' OR human_idcard like '%${primarKey}%' OR human_educated_degree like '%${primarKey}%'
+            </if>
+            <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+                and regist_time BETWEEN #{startDate} AND #{endDate}
+            </if>
+            and pass_check_status!=1
+        </where>
+    </select>
+<!--有效的简历查询-->
+    <select id="queryEngage_resume2" resultMap="Engage_resumeMap02" parameterType="map">
+        SELECT *FROM Engage_resume er JOIN Config_major cm
+        ON er.human_major_kind_id=cm.major_kind_id
+        <where>
+            <if test="major_kind_id!=null and major_kind_id!=''">
+                cm.major_kind_id=#{major_kind_id}
+            </if>
+            <if test="major_id!=null and ajor_kind_id!=''">
+                and cm.major_id=#{major_id}
+            </if>
+            <if test="primarKey!=null and primarKey!=''">
+                and human_name like '%${primarKey}%' OR human_telephone like '%${primarKey}%' OR human_idcard like '%${primarKey}%' OR human_educated_degree like '%${primarKey}%'
+            </if>
+            <if test="startDate!=null and endDate!=null and startDate!='' and endDate!=''">
+                and regist_time BETWEEN #{startDate} AND #{endDate}
+            </if>
+            and pass_check_status=1
+        </where>
+    </select>
+</mapper>

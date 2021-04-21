@@ -14,4 +14,8 @@ public interface Config_majorDao {
 
     @Select("SELECT * FROM Config_major where major_id=#{id}")
     Config_major queryBymajorID(@Param("id") int id);
+    //查询职业信息
+    @Select(" SELECT * FROM Config_major WHERE major_kind_id=#{majorID}")
+    @ResultMap("Config_majorMap")
+    List<Config_major> queryConfigMajar02(@Param("majorID") int majorID);
 }

@@ -146,4 +146,22 @@ public class ConfigMajorController {
         engageMajorReleasesService.UpdateEngageStatus(id);
         return "redirect:toPage?page=page/recruit/resume/register";
     }
+    /**
+     * 查询职业分类
+     */
+    @RequestMapping("queryEngage_resume")
+    @ResponseBody
+    public List<Config_major> queryEngage_resume(){
+        List<Config_major> config_majors = configMajorService.queryConfigMajar();
+        return config_majors;
+    }
+    /**
+     * 根据职业分类查询职业
+     */
+    @RequestMapping("Engage_resumeByMajor")
+    @ResponseBody
+    public List<Config_major> queryEngage_resumeByMajor(int majorID){
+        List<Config_major> config_majors = configMajorService.queryConfigMajar02(majorID);
+        return config_majors;
+    }
 }

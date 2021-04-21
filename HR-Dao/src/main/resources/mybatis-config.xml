@@ -30,5 +30,6 @@
         <mapper resource="mappers/First_PermissionsMapper.xml"/>
         <mapper resource="mappers/Second_PermissionsMapper.xml"/>
         <mapper resource="mappers/Third_PermissionsMapper.xml"/>
+        <mapper resource="mappers/Engage_ResumeMapper.xml"/>
     </mappers>
 </configuration>

@@ -152,7 +152,7 @@
 					</td>
 					<td class="TD_STYLE2">  
 						 <input type="hidden" value="01" id="humanMajorKindId" name="human_major_kind_name" />
-					<select name="engageResume.humanMajorKindName" id="SELECT_STYLE1" class="SELECT_STYLE1">
+					<select name="major_kind_id" id="SELECT_STYLE1" class="SELECT_STYLE1">
 						<option value="0">--请选择--</option>
 					</select>		
 					</td>
@@ -162,7 +162,7 @@
 					<td class="TD_STYLE2" width="20%"> 
 				  
 					 <input type="hidden" value="02" name="engageResume.humanMajorId" />
-					<select name="major_name" id="SELECT_STYLE2" class="SELECT_STYLE1">
+					<select name="major_id" id="SELECT_STYLE2" class="SELECT_STYLE1">
 						<option value="0">--请选择--</option>
 					</select>
 					</td>
@@ -184,7 +184,7 @@
 						姓名
 					</td>
 					<td class="TD_STYLE2">
-						 <input type="text"  name="engageResume.humanName" id="human_name" class="INPUT_STYLE2"/>
+						 <input type="text"  name="human_name" id="human_name" class="INPUT_STYLE2"/>
 					</td>
 					<td class="TD_STYLE1">
 						性别
@@ -477,27 +477,30 @@
 		// alert("我出来了")
 		//查找职业分类
 			$.ajax({
-				url:"PublicColumn?Nationality=职位分类",
+				url:"queryEngage_resume",
 				type:"post",
 				success:function(data){
 					$("#SELECT_STYLE1 option:gt(0)").remove();
 					for (let i = 0; i <data.length ; i++) {
 						let element = data[i];
-						SELECT_STYLE1.append("<option >"+element.attribute_name+"</option>")
+						SELECT_STYLE1.append("<option value="+element.major_kind_id+">"+element.major_kind_name+"</option>")
 					}
 				}
 			});
 		//查找职位名称
+		SELECT_STYLE1.change(function(){
+			let majorID = SELECT_STYLE1.val();
 			$.ajax({
-				url:"PublicColumn?Nationality=职位名称",
+				url:"Engage_resumeByMajor?majorID="+majorID,
 				type:"post",
 				success:function(data){
 					$("#SELECT_STYLE2 option:gt(0)").remove();
 					for (let i = 0; i <data.length ; i++) {
 						let element = data[i];
-						SELECT_STYLE2.append("<option >"+element.attribute_name+"</option>")
+						SELECT_STYLE2.append("<option value="+element.major_id+">"+element.major_name+"</option>")
 					}
 				}
+		})
 		});
 		//国籍
 			$.ajax({

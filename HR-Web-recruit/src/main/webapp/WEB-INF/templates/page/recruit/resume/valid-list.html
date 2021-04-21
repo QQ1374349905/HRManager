@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>My JSP 'valid-list.jsp' starting page</title>
@@ -74,36 +74,38 @@
 				</tr>
 				
 				
-					<tr>
+					<tr th:each="eng:${engage_resumes}">
 						<td class="TD_STYLE2">
-							<a href="/HR_Fist/recruit/recruitAction!findValidResumeById?a=select&id=542">
+							<a th:text="${eng.res_id}" th:href="@{'findValidResumeById?resID='+${eng.res_id}}">
 								542</a>
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_name}">
 							&#24352;&#39122;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_sex}">
 							&#30007;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.Config_major.major_kind_name}">
 						&#36719;&#20214;&#24320;&#21457;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.Config_major.major_name}">
 						&#31243;&#24207;&#21592;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_telephone}">
 						84802802
 						</td>
-						<td class="TD_STYLE2">
-							
-							通过
+						<td class="TD_STYLE2" th:if="${eng.pass_check_status!=1}">
+							未通过
+						</td>
+						<td class="TD_STYLE2" th:if="${eng.pass_check_status==1}">
+							已通过
 						</td>
 						<td class="TD_STYLE2">
 							 待面试 
 						</td>
 					</tr>
 					
-					<tr>
+					<tr th:remove="all">
 						<td class="TD_STYLE2">
 							<a href="/HR_Fist/recruit/recruitAction!findValidResumeById?a=select&id=532">
 								532</a>
@@ -132,7 +134,7 @@
 						</td>
 					</tr>
 					
-					<tr>
+					<tr th:remove="all">
 						<td class="TD_STYLE2">
 							<a href="/HR_Fist/recruit/recruitAction!findValidResumeById?a=select&id=533">
 								533</a>

@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>My JSP 'resume-list.jsp' starting page</title>
@@ -71,34 +71,30 @@
 						复核 
 					</td>
 				</tr>
-				
-				
-				
-				
-					<tr>
-						<td class="TD_STYLE2">
+					<tr th:each="eng:${engage_resumes}">
+						<td class="TD_STYLE2" th:text="${eng.res_id}">
 							541
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_name}">
 							w
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_sex}">
 							&#30007;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2"th:text="${eng.Config_major.major_kind_name}">
 						&#38144;&#21806;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.Config_major.major_name}">
 						&#24635;&#32463;&#29702;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_telephone}">
 						123123213
 						</td>
 						<td class="TD_STYLE2">
 							 待复核
 						</td>
 						<td class="TD_STYLE2">
-							<a href="/HR_Fist/recruit/recruitAction!findValidResumeById?a=details&id=541">复核</a>
+							<a th:href="@{'Recheck?resID='+${eng.res_id}}">复核</a>
 						</td>
 					</tr>
 				
