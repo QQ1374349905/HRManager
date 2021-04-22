@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -30,11 +31,21 @@ public class PowerController {
      * @Author zhangfuwei
      * @Description 查询所有用户
      * @Param map
-     * @return String
+     * @Return String
      */
     @GetMapping("queryUserList")
-    private String queryUserList(ModelMap map,int currentPage,int pageSize){
+    private String queryUserList(ModelMap map,int currentPage,@RequestParam(required = false) Integer countPage,int pageSize){
         Page<Object> page = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
 
         try {
             page = userService.queryUserList(currentPage,pageSize);
@@ -50,8 +61,19 @@ public class PowerController {
     }
 
     @RequestMapping("queryIdentityList")
-    private String queryIdentityList(int currentPage,int pageSize,ModelMap map){
+    private String queryIdentityList(int currentPage, int pageSize,@RequestParam(required = false) Integer countPage, ModelMap map){
         Page<Object> pages = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
+
         try {
             pages = identityService.queryIdentityList(currentPage, pageSize);
         } catch (Exception e) {
@@ -68,7 +90,7 @@ public class PowerController {
     * @Description 删除用户
     * @Date 19:04 2021/4/11P
     * @Param id
-    * @return boolean
+    * @Return boolean
     **/
     @RequestMapping("deleteUser")
     @ResponseBody
@@ -88,7 +110,7 @@ public class PowerController {
     * @Description 根据ID查询用户,并将数据返回到界面
     * @Date 15:06 2021/4/12
     * @Param id,map
-    * @return String
+    * @Return String
     **/
     @RequestMapping("queryUserById")
     private String queryUserById(int id,ModelMap map){
@@ -106,7 +128,7 @@ public class PowerController {
     * @Description edit_user page request
     * @Date 14:39 2021/4/16
     * @Param user
-    * @return String
+    * @Return String
     **/
     @RequestMapping("updateUser")
     private String updateUser(User user){
@@ -125,7 +147,7 @@ public class PowerController {
     * @Description ajax query Identity
     * @Date 14:40 2021/4/16
     * @Param
-    * @return List<Identity>
+    * @Return List<Identity>
     **/
     @RequestMapping("queryIdentity")
     @ResponseBody
@@ -138,7 +160,7 @@ public class PowerController {
     * @Description verify repeat UserName
     * @Date 14:40 2021/4/16
     * @Param userName
-    * @return Boolean
+    * @Return Boolean
     **/
     @RequestMapping("verifyUserName")
     @ResponseBody
@@ -152,7 +174,7 @@ public class PowerController {
     * @Description add User
     * @Date 14:41 2021/4/16
     * @Param user
-    * @return String
+    * @Return String
     **/
     @RequestMapping("addUser")
     private String addUser(User user) {
@@ -166,10 +188,17 @@ public class PowerController {
         }
     }
 
+    /**
+    * @Author zhangfuwei
+    * @Description query Identity
+    * @Date 15:29 2021/4/19
+    * @Param id,map
+    * @Return String
+    **/
     @RequestMapping("queryIdentityById")
-    private String queryIdentityById(int id){
+    private String queryIdentityById(int id,ModelMap modelMap){
         Identity identity = identityService.queryIdentityById(id);
-        System.out.println("获取到数据:"+identity);
+        modelMap.addAttribute("Identity", identity);
         return "page/power/right_list_information";
     }
 }

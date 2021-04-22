@@ -12,6 +12,7 @@
 					location.href = "deleteIdentityById?id=" + id;
 				}
 			}
+
 			function queryIdentityById(id) {
 				location.href="queryIdentityById?id="+id;
 			}
@@ -202,7 +203,11 @@
 
 			<a th:href="@{queryIdentityList(currentPage=1,pageSize=5)}" style="color:black;">首页</a>
 
+			<a th:href="@{queryIdentityList(currentPage=${pages?.pageNum - 1},pageSize=5,countPage=${pages?.pages})}" style="color:black;">上一页</a>
+
 			<a th:each="i : ${#numbers.sequence(1,pages?.pages)}" th:text="${i}" th:href="@{queryIdentityList(currentPage=${i},pageSize=5)}" style="text-underline: none;color:red">1</a>
+
+			<a th:href="@{queryIdentityList(currentPage=${pages?.pageNum + 1},pageSize=5,countPage=${pages?.pages})}" style="color:black;">下一页</a>
 
 			<a th:href="@{queryIdentityList(currentPage=${pages?.pages},pageSize=5)}" style="color:black;">尾页</a>
 	     	

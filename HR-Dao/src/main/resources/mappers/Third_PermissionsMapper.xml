@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qnck.dao.power.IThird_PermissionsDao">
+    <resultMap id="thirdPermissionsMap" type="com.qnck.entity.Third_Permissions">
+        <result column="third_permissions_id" property="thirdPermissionsId"/>
+        <result column="third_permissions_id" property="thirdPermissionsName"/>
+    </resultMap>
 
 </mapper>

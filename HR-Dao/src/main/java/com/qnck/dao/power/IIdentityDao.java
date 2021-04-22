@@ -20,7 +20,7 @@ public interface IIdentityDao {
     @ResultMap("identityMap")
     List<Identity> queryIdentityList();
 
-    @Select("select distinct i.* from Identity i join Identity_Permissions ip on i.identity_id=ip.identity_id where i.identity_id=#{id}")
+    @Select("select * from Identity")
     @ResultMap("identityPermissionsMap")
-    Identity queryIdentityById(int id);
+    List<Identity> queryAllIdentityByPermissions();
 }

@@ -12,6 +12,6 @@
         <result column="identity_name" property="identityName"/>
         <result column="identity_remark" property="identityRemark"/>
         <result column="identity_status" property="identityStatus"/>
-        <collection property="permissionsList" column="identity_id" select="com.qnck.dao.power.IPermissionsDao.queryPermissionsById"/>
+        <association property="firstPermissionsList" column="identity_id" select="com.qnck.dao.power.IFirst_PermissionsDao.queryById"/>
     </resultMap>
 </mapper>

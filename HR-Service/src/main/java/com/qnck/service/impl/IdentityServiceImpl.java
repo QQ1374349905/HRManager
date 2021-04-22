@@ -35,6 +35,6 @@ public class IdentityServiceImpl implements IdentityService {
 
     @Override
     public Identity queryIdentityById(int id) {
-        return identityDao.queryIdentityById(id);
+        return identityDao.queryById(id);
     }
 }

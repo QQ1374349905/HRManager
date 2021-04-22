@@ -10,5 +10,5 @@ public class Identity {
     private String identityName;
     private String identityRemark;
     private int identityStatus;
-    private List<Permissions> permissionsList;
+    private List<First_Permissions> firstPermissionsList;
 }

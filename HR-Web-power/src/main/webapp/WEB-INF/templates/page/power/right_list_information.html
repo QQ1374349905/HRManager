@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+﻿<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>编辑角色</title>
@@ -38,28 +39,26 @@
 				class="TABLE_STYLE1">
 				<tr>
 					<td class="TD_STYLE1">角色编号</td>
-					<td class="TD_STYLE2">2</td>
+					<td class="TD_STYLE2" th:text="${Identity?.identityId}">2</td>
 					<td class="TD_STYLE1">角色名称</td>
 					<td class="TD_STYLE2">
-						<input type="text" class="INPUT_STYLE2" value="人事经理"
+						<input type="text" class="INPUT_STYLE2" th:value="${Identity?.identityName}"
 							name="sysRole.roleName"/>
-						<input type="hidden" name="sysRole.roleId" value="2"/>
+						<input type="hidden" name="identityId" th:value="${Identity?.identityId}"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="TD_STYLE1">角色说明</td>
 					<td class="TD_STYLE2">
-						<input type="text" class="INPUT_STYLE2" value=""
+						<input type="text" class="INPUT_STYLE2" th:value="${Identity?.identityRemark}"
 							name="sysRole.roleDesc"/>
 					</td>
 					<td class="TD_STYLE1">角色是否可用</td>
 					<td class="TD_STYLE2">
 						<select name="sysRole.roleFlag" id="powerAction!doModifyRight_sysRole_roleFlag">
-    <option value="false">否</option>
-    <option value="true" selected="selected">是</option>
-
-
-</select>
+							<option value="0" th:selected="${Identity.identityStatus == 0}">否</option>
+							<option value="1" th:selected="${Identity.identityStatus == 1}">是</option>
+						</select>
 
 					</td>
 				</tr>
@@ -69,9 +68,10 @@
 				<table class="grandfather">
 					<tr>
 						<td>
-							<input type="checkbox" name="rightCodes" value="L01" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
+							<input type="checkbox" name=" rightCodes" value="L01" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L01" /> 
-							&#25307;&#32856;&#31649;&#29702;
+							<!--&#25307;&#32856;&#31649;&#29702;-->
+							招聘管理
 							<table class="parent">
 								
 									
@@ -79,7 +79,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0101" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0101" /> 
-												&#32844;&#20301;&#21457;&#24067;&#31649;&#29702;
+												<!--&#32844;&#20301;&#21457;&#24067;&#31649;&#29702;-->
+												职位发布管理
 												<table class="children">
 													<tr>
 														
@@ -87,7 +88,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010101" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010101" /> 
-																	&#32844;&#20301;&#21457;&#24067;&#30331;&#35760;
+																	<!--&#32844;&#20301;&#21457;&#24067;&#30331;&#35760;-->
+																	职位发布登记
 																</td>
 															
 														
@@ -95,7 +97,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010102" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010102" /> 
-																	&#32844;&#20301;&#21457;&#24067;&#21464;&#26356;
+																	<!--&#32844;&#20301;&#21457;&#24067;&#21464;&#26356;-->
+																	职位发布变更
 																</td>
 															
 														
@@ -103,7 +106,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010103" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010103" /> 
-																	&#32844;&#20301;&#21457;&#24067;&#26597;&#35810;
+																	<!--&#32844;&#20301;&#21457;&#24067;&#26597;&#35810;-->
+																	职位发布查询
 																</td>
 															
 														
@@ -182,7 +186,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0102" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0102" /> 
-												&#31616;&#21382;&#31649;&#29702;
+												<!--&#31616;&#21382;&#31649;&#29702;-->
+												简历管理
 												<table class="children">
 													<tr>
 														
@@ -196,7 +201,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010201" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010201" /> 
-																	&#31616;&#21382;&#30331;&#35760;
+																	<!--&#31616;&#21382;&#30331;&#35760;-->
+																	简历登记
 																</td>
 															
 														
@@ -204,7 +210,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010202" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010202" /> 
-																	&#31616;&#21382;&#31579;&#36873;
+																	<!--&#31616;&#21382;&#31579;&#36873;-->
+																	简历筛选
 																</td>
 															
 														
@@ -212,7 +219,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010203" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010203" /> 
-																	&#26377;&#25928;&#31616;&#21382;&#26597;&#35810;
+																	<!--&#26377;&#25928;&#31616;&#21382;&#26597;&#35810;-->
+																	有效简历查询
 																</td>
 															
 														
@@ -285,7 +293,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0103" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0103" /> 
-												&#38754;&#35797;&#31649;&#29702;
+												<!--&#38754;&#35797;&#31649;&#29702;-->
+												面试管理
 												<table class="children">
 													<tr>
 														
@@ -305,7 +314,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010301" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010301" /> 
-																	&#38754;&#35797;&#32467;&#26524;&#30331;&#35760;
+																	<!--&#38754;&#35797;&#32467;&#26524;&#30331;&#35760;-->
+																	面试结果登记
 																</td>
 															
 														
@@ -313,7 +323,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010302" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010302" /> 
-																	&#38754;&#35797;&#31579;&#36873;
+																	<!--&#38754;&#35797;&#31579;&#36873;-->
+																	面试筛选
 																</td>
 															
 														
@@ -382,11 +393,12 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0104" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0104" /> 
-												&#25307;&#32856;&#32771;&#35797;&#39064;&#24211;&#31649;&#29702;
+												<!--&#25307;&#32856;&#32771;&#35797;&#39064;&#24211;&#31649;&#29702;-->
+												招聘考试题库管理
 												<table class="children">
 													<tr>
-														
-															
+
+
 														
 															
 														
@@ -406,15 +418,17 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010401" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010401" /> 
-																	&#35797;&#39064;&#30331;&#35760;
+																	<!--&#35797;&#39064;&#30331;&#35760;-->
+																	试题登记
 																</td>
 															
 														
 															
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010402" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
-<input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010402" /> 
-																	&#35797;&#39064;&#26597;&#35810;
+<input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010402" />
+																	<!--&#35797;&#39064;&#26597;&#35810;-->
+																	试题查询
 																</td>
 															
 														
@@ -422,7 +436,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010403" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010403" /> 
-																	&#35797;&#39064;&#21464;&#26356;
+																	<!--&#35797;&#39064;&#21464;&#26356;-->
+																	试题变更
 																</td>
 															
 														
@@ -485,7 +500,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0105" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0105" /> 
-												&#25307;&#32856;&#32771;&#35797;&#31649;&#29702;
+												<!--&#25307;&#32856;&#32771;&#35797;&#31649;&#29702;-->
+												招聘考试管理
 												<table class="children">
 													<tr>
 														
@@ -515,7 +531,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010501" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010501" /> 
-																	&#32771;&#35797;&#20986;&#39064;
+																	<!--&#32771;&#35797;&#20986;&#39064;-->
+																	考试出题
 																</td>
 															
 														
@@ -523,7 +540,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010502" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010502" /> 
-																	&#32771;&#35797;&#31572;&#39064;
+																	<!--&#32771;&#35797;&#31572;&#39064;-->
+																	考试答题
 																</td>
 															
 														
@@ -531,7 +549,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010503" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010503" /> 
-																	&#32771;&#35797;&#38405;&#21367;
+																	<!--&#32771;&#35797;&#38405;&#21367;-->
+																	考试阅卷
 																</td>
 															
 														
@@ -539,7 +558,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010504" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010504" /> 
-																	&#25104;&#32489;&#26597;&#35810;&#31579;&#36873;
+																	<!--&#25104;&#32489;&#26597;&#35810;&#31579;&#36873;-->
+																	成绩查询筛选
 																</td>
 															
 														
@@ -594,7 +614,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0106" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0106" /> 
-												&#24405;&#29992;&#31649;&#29702;
+												<!--&#24405;&#29992;&#31649;&#29702;-->
+												录用管理
 												<table class="children">
 													<tr>
 														
@@ -632,7 +653,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010601" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010601" /> 
-																	&#24405;&#29992;&#30003;&#35831;
+																	<!--&#24405;&#29992;&#30003;&#35831;-->
+																	录用申请
 																</td>
 															
 														
@@ -640,7 +662,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010602" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010602" /> 
-																	&#24405;&#29992;&#23457;&#25209;
+																	<!--&#24405;&#29992;&#23457;&#25209;-->
+																	录用审批
 																</td>
 															
 														
@@ -648,7 +671,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L010603" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L010603" /> 
-																	&#24405;&#29992;&#26597;&#35810;
+																	<!--&#24405;&#29992;&#26597;&#35810;-->
+																	录用查询
 																</td>
 															
 														
@@ -751,7 +775,8 @@
 						<td>
 							<input type="checkbox" name="rightCodes" value="L02" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L02" /> 
-							&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#31649;&#29702;
+							<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#31649;&#29702;-->
+							人力资源档案管理
 							<table class="parent">
 								
 									
@@ -771,7 +796,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0201" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0201" /> 
-												&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#30331;&#35760;
+												<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#30331;&#35760;-->
+												人力资源档案登记
 												<table class="children">
 													<tr>
 														
@@ -856,7 +882,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0202" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0202" /> 
-												&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#30331;&#35760;&#22797;&#26680;
+												<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#30331;&#35760;&#22797;&#26680;-->
+												人力资源档案登记复核
 												<table class="children">
 													<tr>
 														
@@ -941,7 +968,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0203" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0203" /> 
-												&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#26597;&#35810;
+												<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#26597;&#35810;-->
+												人力资源档案查询
 												<table class="children">
 													<tr>
 														
@@ -1026,7 +1054,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0204" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0204" /> 
-												&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#21464;&#26356;
+												<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#21464;&#26356;-->
+												人力资源档案变更
 												<table class="children">
 													<tr>
 														
@@ -1111,7 +1140,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0205" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0205" /> 
-												&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#21024;&#38500;&#31649;&#29702;
+												<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#21024;&#38500;&#31649;&#29702;-->
+												人力资源档案删除管理
 												<table class="children">
 													<tr>
 														
@@ -1155,7 +1185,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L020501" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L020501" /> 
-																	&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#21024;&#38500;
+																	<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#21024;&#38500;-->
+																	人力资源档案删除
 																</td>
 															
 														
@@ -1163,7 +1194,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L020502" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L020502" /> 
-																	&#26723;&#26696;&#21024;&#38500;&#24674;&#22797;
+																	<!--&#26723;&#26696;&#21024;&#38500;&#24674;&#22797;-->
+																	档案删除恢复
 																</td>
 															
 														
@@ -1171,7 +1203,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L020503" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L020503" /> 
-																	&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#27704;&#20037;&#21024;&#38500;
+																	<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#27704;&#20037;&#21024;&#38500;-->
+																	人力资源档案永久删除
 																</td>
 															
 														
@@ -1258,7 +1291,8 @@
 						<td>
 							<input type="checkbox" name="rightCodes" value="L03" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L03" /> 
-							&#34218;&#37228;&#26631;&#20934;&#31649;&#29702;
+							<!--&#34218;&#37228;&#26631;&#20934;&#31649;&#29702;-->
+							薪酬标准管理
 							<table class="parent">
 								
 									
@@ -1288,7 +1322,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0301" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0301" /> 
-												&#34218;&#37228;&#26631;&#20934;&#30331;&#35760;
+												<!--&#34218;&#37228;&#26631;&#20934;&#30331;&#35760;-->
+												薪酬标准登记
 												<table class="children">
 													<tr>
 														
@@ -1373,7 +1408,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0302" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0302" /> 
-												&#34218;&#37228;&#26631;&#20934;&#30331;&#35760;&#22797;&#26680;
+												<!--&#34218;&#37228;&#26631;&#20934;&#30331;&#35760;&#22797;&#26680;-->
+												薪酬标准登记复核
 												<table class="children">
 													<tr>
 														
@@ -1458,7 +1494,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0303" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0303" /> 
-												&#34218;&#37228;&#26631;&#20934;&#26597;&#35810;
+												<!--&#34218;&#37228;&#26631;&#20934;&#26597;&#35810;-->
+												薪酬标准查询
 												<table class="children">
 													<tr>
 														
@@ -1543,7 +1580,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0304" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0304" /> 
-												&#34218;&#37228;&#26631;&#20934;&#21464;&#26356;
+												<!--&#34218;&#37228;&#26631;&#20934;&#21464;&#26356;-->
+												薪酬标准变更
 												<table class="children">
 													<tr>
 														
@@ -1664,7 +1702,8 @@
 						<td>
 							<input type="checkbox" name="rightCodes" value="L04" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L04" /> 
-							&#34218;&#37228;&#21457;&#25918;&#31649;&#29702;
+							<!--&#34218;&#37228;&#21457;&#25918;&#31649;&#29702;-->
+							薪酬发放管理
 							<table class="parent">
 								
 									
@@ -1702,7 +1741,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0401" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0401" /> 
-												&#34218;&#37228;&#21457;&#25918;&#30331;&#35760;
+												<!--&#34218;&#37228;&#21457;&#25918;&#30331;&#35760;-->
+												薪酬发放登记
 												<table class="children">
 													<tr>
 														
@@ -1787,7 +1827,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0402" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0402" /> 
-												&#34218;&#37228;&#21457;&#25918;&#30331;&#35760;&#22797;&#26680;
+												<!--&#34218;&#37228;&#21457;&#25918;&#30331;&#35760;&#22797;&#26680;-->
+												薪酬发放登记复核
 												<table class="children">
 													<tr>
 														
@@ -1872,7 +1913,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0403" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0403" /> 
-												&#34218;&#37228;&#21457;&#25918;&#26597;&#35810;
+												<!--&#34218;&#37228;&#21457;&#25918;&#26597;&#35810;-->
+												薪酬发放查询
 												<table class="children">
 													<tr>
 														
@@ -1987,7 +2029,8 @@
 						<td>
 							<input type="checkbox" name="rightCodes" value="L05" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L05" /> 
-							&#35843;&#21160;&#31649;&#29702;
+							<!--&#35843;&#21160;&#31649;&#29702;-->
+							调动管理
 							<table class="parent">
 								
 									
@@ -2031,7 +2074,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0501" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0501" /> 
-												&#35843;&#21160;&#30331;&#35760;
+												<!--&#35843;&#21160;&#30331;&#35760;-->
+												调动登记
 												<table class="children">
 													<tr>
 														
@@ -2116,7 +2160,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0502" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0502" /> 
-												&#35843;&#21160;&#23457;&#26680;
+												<!--&#35843;&#21160;&#23457;&#26680;-->
+												调动审核
 												<table class="children">
 													<tr>
 														
@@ -2201,7 +2246,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0503" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0503" /> 
-												&#35843;&#21160;&#26597;&#35810;
+												<!--&#35843;&#21160;&#26597;&#35810;-->
+												调动查询
 												<table class="children">
 													<tr>
 														
@@ -2310,7 +2356,8 @@
 						<td>
 							<input type="checkbox" name="rightCodes" value="L06" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L06" /> 
-							&#23458;&#25143;&#21270;&#35774;&#32622;
+							<!--&#23458;&#25143;&#21270;&#35774;&#32622;-->
+							客户化设置
 							<table class="parent">
 								
 									
@@ -2360,7 +2407,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0601" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0601" /> 
-												&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#31649;&#29702;&#35774;&#32622;
+												<!--&#20154;&#21147;&#36164;&#28304;&#26723;&#26696;&#31649;&#29702;&#35774;&#32622;-->
+												人力资源档案管理设置
 												<table class="children">
 													<tr>
 														
@@ -2410,7 +2458,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060101" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060101" /> 
-																	&#8544;&#32423;&#26426;&#26500;&#35774;&#32622;
+																	<!--&#8544;&#32423;&#26426;&#26500;&#35774;&#32622;-->
+																	Ⅰ级机构设置
 																</td>
 															
 														
@@ -2418,7 +2467,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060102" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060102" /> 
-																	&#8545;&#32423;&#26426;&#26500;&#35774;&#32622;
+																	<!--&#8545;&#32423;&#26426;&#26500;&#35774;&#32622;-->
+																	Ⅱ级机构设置
 																</td>
 															
 														
@@ -2426,7 +2476,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060103" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060103" /> 
-																	&#8546;&#32423;&#26426;&#26500;&#35774;&#32622;
+																	<!--&#8546;&#32423;&#26426;&#26500;&#35774;&#32622;-->
+																	Ⅲ级机构设置
 																</td>
 															
 														
@@ -2434,7 +2485,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060104" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060104" /> 
-																	&#32844;&#31216;&#35774;&#32622;
+																	<!--&#32844;&#31216;&#35774;&#32622;-->
+																	职称设置
 																</td>
 															
 														
@@ -2442,7 +2494,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060105" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060105" /> 
-																	&#32844;&#20301;&#20998;&#31867;&#35774;&#32622;
+																	<!--&#32844;&#20301;&#20998;&#31867;&#35774;&#32622;-->
+																	职位分类设置
 																</td>
 															
 														
@@ -2450,7 +2503,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060106" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060106" /> 
-																	&#32844;&#20301;&#35774;&#32622;
+																	<!--&#32844;&#20301;&#35774;&#32622;-->
+																	职位设置
 																</td>
 															
 														
@@ -2458,7 +2512,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060107" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060107" /> 
-																	&#20844;&#20849;&#23646;&#24615;&#35774;&#32622;
+																	<!--&#20844;&#20849;&#23646;&#24615;&#35774;&#32622;-->
+																	公共属性设置
 																</td>
 															
 														
@@ -2487,7 +2542,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0602" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0602" /> 
-												&#34218;&#37228;&#31649;&#29702;&#35774;&#32622;
+												<!--&#34218;&#37228;&#31649;&#29702;&#35774;&#32622;-->
+												薪酬管理设置
 												<table class="children">
 													<tr>
 														
@@ -2551,7 +2607,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060201" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060201" /> 
-																	&#34218;&#37228;&#39033;&#30446;&#35774;&#32622;
+																	<!--&#34218;&#37228;&#39033;&#30446;&#35774;&#32622;-->
+																	薪酬项目设置
 																</td>
 															
 														
@@ -2559,7 +2616,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060202" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060202" /> 
-																	&#34218;&#37228;&#21457;&#25918;&#26041;&#24335;&#35774;&#32622;
+																	<!--&#34218;&#37228;&#21457;&#25918;&#26041;&#24335;&#35774;&#32622;-->
+																	薪酬发放方式设置
 																</td>
 															
 														
@@ -2567,7 +2625,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060203" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060203" /> 
-																	&#35746;&#21333;&#38144;&#21806;&#32489;&#25928;&#35745;&#31639;&#26041;&#24335;
+																	<!--&#35746;&#21333;&#38144;&#21806;&#32489;&#25928;&#35745;&#31639;&#26041;&#24335;-->
+																	订单销售绩效计算方式
 																</td>
 															
 														
@@ -2575,7 +2634,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060204" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060204" /> 
-																	&#38646;&#21806;&#32489;&#25928;&#35745;&#31639;&#26041;&#24335;
+																	<!--&#38646;&#21806;&#32489;&#25928;&#35745;&#31639;&#26041;&#24335;-->
+																	零售绩效计算方式
 																</td>
 															
 														
@@ -2596,7 +2656,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0603" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0603" /> 
-												&#39064;&#24211;&#31649;&#29702;&#35774;&#32622;
+												<!--&#39064;&#24211;&#31649;&#29702;&#35774;&#32622;-->
+												题库管理设置
 												<table class="children">
 													<tr>
 														
@@ -2668,7 +2729,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060301" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060301" /> 
-																	&#35797;&#39064;&#8544;&#32423;&#20998;&#31867;&#35774;&#32622;
+																	<!--&#35797;&#39064;&#8544;&#32423;&#20998;&#31867;&#35774;&#32622;-->
+																	试题Ⅰ级分类设置
 																</td>
 															
 														
@@ -2676,7 +2738,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060302" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060302" /> 
-																	&#35797;&#39064;&#8545;&#32423;&#20998;&#31867;&#35774;&#32622;
+																	<!--&#35797;&#39064;&#8545;&#32423;&#20998;&#31867;&#35774;&#32622;-->
+																	试题Ⅱ级分类设置
 																</td>
 															
 														
@@ -2693,7 +2756,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0604" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0604" /> 
-												&#20854;&#20182;&#35774;&#32622;
+												<!--&#20854;&#20182;&#35774;&#32622;-->
+												其他设置
 												<table class="children">
 													<tr>
 														
@@ -2769,7 +2833,8 @@
 																<td>
 																	<input type="checkbox" name="rightCodes" value="L060401" id="powerAction!doModifyRight_rightCodes" class="children_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L060401" /> 
-																	&#20851;&#38190;&#23383;&#26597;&#35810;&#35774;&#32622;
+																	<!--&#20851;&#38190;&#23383;&#26597;&#35810;&#35774;&#32622;-->
+																	关键字查询设置
 																</td>
 															
 														
@@ -2800,7 +2865,8 @@
 						<td>
 							<input type="checkbox" name="rightCodes" value="L07" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L07" /> 
-							&#26631;&#20934;&#25968;&#25454;&#25253;&#34920;
+							<!--&#26631;&#20934;&#25968;&#25454;&#25253;&#34920;-->
+							标准数据报表
 							<table class="parent">
 								
 									
@@ -2858,7 +2924,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0701" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0701" /> 
-												Excel&#26631;&#20934;&#25968;&#25454;&#25253;&#34920;
+												<!--Excel&#26631;&#20934;&#25968;&#25454;&#25253;&#34920;-->
+												Excel标准数据报表
 												<table class="children">
 													<tr>
 														
@@ -2943,7 +3010,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0702" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0702" /> 
-												Pdf&#26631;&#20934;&#25968;&#25454;&#25253;&#34920;
+												<!--Pdf&#26631;&#20934;&#25968;&#25454;&#25253;&#34920;-->
+												Pdf标准数据报表
 												<table class="children">
 													<tr>
 														
@@ -3028,7 +3096,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0703" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0703" /> 
-												Xml&#26631;&#20934;&#25968;&#25454;&#25253;&#34920;
+												<!--Xml&#26631;&#20934;&#25968;&#25454;&#25253;&#34920;-->
+												Xml标准数据报表
 												<table class="children">
 													<tr>
 														
@@ -3123,7 +3192,8 @@
 						<td>
 							<input type="checkbox" name="rightCodes" value="L08" id="powerAction!doModifyRight_rightCodes" class="grandfather_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L08" /> 
-							&#26435;&#38480;&#31649;&#29702;
+							<!--&#26435;&#38480;&#31649;&#29702;-->
+							权限管理
 							<table class="parent">
 								
 									
@@ -3187,7 +3257,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0801" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0801" /> 
-												&#29992;&#25143;&#31649;&#29702;
+												<!--&#29992;&#25143;&#31649;&#29702;-->
+												用户管理
 												<table class="children">
 													<tr>
 														
@@ -3272,7 +3343,8 @@
 											<td>
 												<input type="checkbox" name="rightCodes" value="L0802" id="powerAction!doModifyRight_rightCodes" class="parent_ck"/>
 <input type="hidden" id="__checkbox_powerAction!doModifyRight_rightCodes" name="__checkbox_rightCodes" value="L0802" /> 
-												&#35282;&#33394;&#31649;&#29702;
+												<!--&#35282;&#33394;&#31649;&#29702;-->
+												角色管理
 												<table class="children">
 													<tr>
 														
@@ -3396,7 +3468,7 @@
 					 				 		 		
 					 				if(rightCodes[k].value==arr[j]){
 					 					rightCodes[k].checked=true;
-					 				} 
+					 				}
 					 		}
 					 }
 				
