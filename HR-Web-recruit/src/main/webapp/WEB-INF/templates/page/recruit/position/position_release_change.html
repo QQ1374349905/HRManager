@@ -99,8 +99,8 @@
 					<td class="TD_STYLE1" width="11%">
 						I级机构
 					</td>
-					<td width="14%" class="TD_STYLE2">
-					<input type="hidden" th:value="${engage_major_release.first_kind_name}"/>
+					<td width="14%" class="TD_STYLE2" th:text="${engage_major_release.first_kind_name}">
+					<input type="hidden"/>
 					<input type="hidden"  value="01"/>
 					&#38598;&#22242;
 					
@@ -108,16 +108,16 @@
 					<td width="11%" class="TD_STYLE1">
 						II级机构
 					</td>
-					<td width="14%" class="TD_STYLE2">
-					<input type="hidden"  th:value="${engage_major_release.second_kind_name}"/>
+					<td width="14%" class="TD_STYLE2" th:text="${engage_major_release.first_kind_name}">
+					<input type="hidden"/>
 					<input type="hidden"  value="02"/>
 					&#29983;&#29289;&#31185;&#25216;&#26377;&#38480;&#20844;&#21496;
 					</td>
 					<td width="11%" class="TD_STYLE1">
 						III级机构
 					</td>
-					<td class="TD_STYLE2"  >
-					<input type="hidden" th:value="${engage_major_release.third_kind_name}"/>
+					<td class="TD_STYLE2" th:text="${engage_major_release.third_kind_name}" >
+					<input type="hidden"/>
 					<input type="hidden" value="01"/>
 						&#33647;&#24215;
 					</td>
@@ -127,9 +127,9 @@
 					<td class="TD_STYLE2" colspan="2">
 
 				 	<select name="engage_type" id="engage_type" class="SELECT_STYLE1">
-							<option value="校园招聘" selected>校园招聘</option>
+							<option value="校园招聘" th:selected="${engage_major_release.engage_type=='社会招聘'}">校园招聘</option>
 
-							<option value="社会招聘" selected>社会招聘</option>  
+							<option value="社会招聘" th:selected="${engage_major_release.engage_type=='校园招聘'}">社会招聘</option>
 							
 					 </select>
 				 	</td>
@@ -138,16 +138,16 @@
 					<td class="TD_STYLE1">
 						职位分类
 					</td>
-					<td class="TD_STYLE2">
-					<input type="hidden" th:value="${engage_major_release.major_kind_name}"/>
+					<td class="TD_STYLE2" th:text="${engage_major_release.major_kind_name}">
+					<input type="hidden"/>
 					<input type="hidden" value="01"/>
 						&#38144;&#21806;
 					</td>
 					<td class="TD_STYLE1">
 						职位名称
 					</td>
-					<td class="TD_STYLE2">
-					<input type="hidden" th:value="${engage_major_release.major_name}"/>
+					<td class="TD_STYLE2" th:value="${engage_major_release.major_name}">
+					<input type="hidden"/>
 					<input type="hidden" value="02"/>
 						&#24635;&#32463;&#29702;
 					</td>

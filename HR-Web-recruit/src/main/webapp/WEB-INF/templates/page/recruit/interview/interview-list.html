@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://java.sun.com/jsf/facelets">
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>My JSP 'interview-list.jsp' starting page</title>
@@ -79,32 +79,29 @@
 						登记
 					</td>
 				</tr>
-				
-				
-				
-					<tr>
-						<td class="TD_STYLE2">
+					<tr th:each="interview:${interviews}">
+						<td class="TD_STYLE2" th:text="${interview.res_id}">
 							542
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${interview.human_name}">
 							&#24352;&#39122;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${interview.human_sex}">
 						&#30007;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${interview.Config_major.major_kind_name}">
 						&#36719;&#20214;&#24320;&#21457;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${interview.Config_major.major_name}">
 						&#31243;&#24207;&#21592;
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${interview.human_telephone}">
 						 84802802</td>
 						<td class="TD_STYLE2">
 							 待面试
 						</td>
 						<td class="TD_STYLE2">
-							<a href="/HR_Fist/recruit/recruitAction!toInterviewRegister?id=542">登记</a>
+							<a th:href="@{'register?resID='+${interview.res_id}}">登记</a>
 						</td>
 					</tr>
 				

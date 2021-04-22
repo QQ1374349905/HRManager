@@ -4,6 +4,7 @@
     <resultMap id="Engage_major_releaseMap" type="com.qnck.entity.Engage_major_release">
         <association property="config_file_first_kinds" column="first_kinds_id" select=""/>
     </resultMap>
+<!--  招聘发布表相关表关联  -->
     <resultMap id="Engage_major_releaseMap02" type="com.qnck.entity.Engage_major_release">
 <!--    引入一级机构   -->
 <!--        <association property="config_file_first_kinds"-->

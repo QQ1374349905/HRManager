@@ -53,4 +53,14 @@ public class Engage_resumeServiceImpl implements Engage_resumeService {
     public void UpdateInfo(Engage_resume engageResume) {
         engage_resumeDao.UpdateInfo(engageResume);
     }
+
+    @Override
+    public List<Engage_resume> Interview() {
+        return engage_resumeDao.Interview();
+    }
+    //登记简历
+    @Override
+    public void register(int resID) {
+        engage_resumeDao.register(resID);
+    }
 }

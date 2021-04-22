@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 职业发布信息
+ * @author wrz
  */
 public interface Engage_major_releaseDao {
     //添加职业发布信息

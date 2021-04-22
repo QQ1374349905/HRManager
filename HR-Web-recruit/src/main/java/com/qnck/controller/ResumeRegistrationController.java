@@ -115,4 +115,24 @@ public class ResumeRegistrationController {
         engageResumeService.UpdateInfo(engageResume);
         return "redirect:EngageResumeByMajor";
     }
+    /**
+     * 待面试信息
+     */
+    @RequestMapping("WaitInterview")
+    public String WaitInterview(ModelMap modelMap){
+        List<Engage_resume> interview = engageResumeService.Interview();
+        modelMap.put("interviews",interview);
+        System.out.println("______________________________________________________");
+        return "forward:toPage?page=page/recruit/interview/interview-list";
+    }
+
+    /**
+     * 登记简历信息
+     * @param resID
+     */
+    @RequestMapping("register")
+    public String register(int resID){
+        engageResumeService.register(resID);
+        return "redirect:WaitInterview";
+    }
 }

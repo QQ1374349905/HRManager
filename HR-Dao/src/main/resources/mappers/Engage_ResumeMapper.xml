@@ -6,6 +6,9 @@
     <resultMap id="Engage_resumeMap02" type="com.qnck.entity.Engage_resume">
         <association property="Config_major" column="major_kind_id" select="com.qnck.dao.recruit.Config_majorDao.queryBymajorID"></association>
     </resultMap>
+    <resultMap id="Engage_resumeMap03" type="com.qnck.entity.Engage_resume">
+        <association property="Config_major" column="human_major_kind_id" select="com.qnck.dao.recruit.Config_majorDao.queryBymajorID"></association>
+    </resultMap>
     <select id="queryEngage_resume" resultMap="Engage_resumeMap02" parameterType="map">
         SELECT *FROM Engage_resume er JOIN Config_major cm
         ON er.human_major_kind_id=cm.major_kind_id
