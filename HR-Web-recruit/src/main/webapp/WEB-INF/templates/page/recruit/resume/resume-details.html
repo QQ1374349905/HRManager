@@ -132,7 +132,7 @@
  		</script>
 	</head>
 	<body>
-	<form id="recruitAction!saveEngageResume" name="fm" action="addEngageResume" method="post" enctype="multipart/form-data">
+	<form id="recruitAction!saveEngageResume" name="fm" action="updateInfo" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="engageResume.passCheckcomment" value="不通过"/>
 			<input type="hidden" name="engageResume.passPasscomment" value="不通过"/>
 	 		<input type="hidden" name="engageResume.checkStatus" value="false"/>
@@ -149,7 +149,7 @@
 						<input type="submit" value="修改" class="BUTTON_STYLE1" onclick="return mysubmit()">
 						<input type="reset" value="清除" class="BUTTON_STYLE1">
 						<input type="button" value="通过" id="pass" class="BUTTON_STYLE1"/>
-						<input type="hidden" id="resID" th:value="${validResume.res_id}"/>
+						<input type="hidden" id="resID" name="res_id" th:value="${validResume.res_id}"/>
 					</td>
 				</tr>
 			</table>
@@ -161,9 +161,10 @@
 						职位分类
 					</td>
 					<td class="TD_STYLE2">  
-						 <input type="hidden" value="01" id="humanMajorKindId" name="human_major_kind_name" />
-					<select name="major_kind_id" id="SELECT_STYLE1" class="SELECT_STYLE1">
+						 <input type="hidden" value="01" id="humanMajorKindId1" name="human_major_kind_name"/>
+					<select name="major_kind_id" id="humanMajorKindId2" class="SELECT_STYLE1">
 						<option value="0">--请选择--</option>
+						<option th:each="config_majors:${config_majors}" th:value="${config_majors.major_kind_id}" th:text="${config_majors.major_kind_name}" th:selected="${validResume.Config_major.major_kind_name eq config_majors.major_kind_name}"></option>
 					</select>		
 					</td>
 					<td class="TD_STYLE1">
@@ -171,9 +172,10 @@
 					</td>
 					<td class="TD_STYLE2" width="20%"> 
 				  
-					 <input type="hidden" value="02" name="engageResume.humanMajorId" />
+					 <input type="hidden" value="02" name="engageResume.humanMajorId"/>
 					<select name="major_id" id="SELECT_STYLE2" class="SELECT_STYLE1">
 						<option value="0">--请选择--</option>
+						<option th:each="config_majors:${config_majors}"  th:text="${config_majors.major_name}" th:value="${config_majors.major_id}" th:selected="${validResume.Config_major.major_name eq config_majors.major_name}"></option>
 					</select>
 					</td>
 					<td width="11%" class="TD_STYLE1">
@@ -181,8 +183,8 @@
 					</td>
 					<td class="TD_STYLE2" colspan="2"> 
 					<select name="engage_type" class="SELECT_STYLE1#">
-						<option value="社会招聘">社会招聘</option>
-						<option value="校园招聘">校园招聘</option>
+						<option value="社会招聘" th:selected="${validResume.engage_type=='社会招聘'}">社会招聘</option>
+						<option value="校园招聘" th:selected="${validResume.engage_type=='校园招聘'}">校园招聘</option>
 					</select>
 					</td>
 					<td rowspan="6" >
@@ -200,8 +202,8 @@
 						性别
 					</td>
 					<td class="TD_STYLE2">
-						<select name="human_sex"  class="SELECT_STYLE1"><option value="男">男</option>
-							<option value="女">女</option></select>
+						<select name="human_sex"  class="SELECT_STYLE1"><option value="男" th:selected="${validResume.human_sex=='男'}">男</option>
+							<option value="女" th:selected="${validResume.human_sex=='女'}">女</option></select>
 					</td>
 					<td class="TD_STYLE1">
 						EMAIL
@@ -252,8 +254,8 @@
 					</td>
 					<td class="TD_STYLE2">
 					 <select name="human_nationality" id="SELECT_STYLE3"  class="SELECT_STYLE1">
-							<option value="">--请选择--</option> 
-							
+							<option value="">--请选择--</option>
+						 <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='国籍'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_nationality eq eng.attribute_name}"></option>
 <!--							<option value="中国">中国</option> -->
 <!--							-->
 <!--							<option value="美国">美国</option> -->
@@ -281,7 +283,7 @@
 					<td class="TD_STYLE2" width="14%">
 				 	 <select name="human_race"  id="SELECT_STYLE4" class="SELECT_STYLE1">
 							<option value="0">--请选择--</option>
-							
+						 <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='民族'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_race eq eng.attribute_name}"></option>
 <!--							<option value="汉族">汉族</option> -->
 <!--							-->
 <!--							<option value="回族">回族</option> -->
@@ -294,8 +296,8 @@
 					<td class="TD_STYLE2">
 					   <select name="human_religion"  id="SELECT_STYLE5" class="SELECT_STYLE1">
 							
-							<option value="无">无</option> 
-							
+							<option value="无">无</option>
+						   <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='宗教信仰'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_religion eq eng.attribute_name}"></option>
 <!--							<option value="佛教">佛教</option> -->
 							
 					 </select>  
@@ -306,7 +308,7 @@
 					<td class="TD_STYLE2" colspan="2">
 					   <select name="human_party" id="SELECT_STYLE6"  class="SELECT_STYLE1">
 							<option value="0">--请选择--</option>
-							
+						   <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='政治面貌'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_party eq eng.attribute_name}"></option>
 <!--							<option value="党员">党员</option> -->
 <!--							-->
 <!--							<option value="群众">群众</option> -->
@@ -342,6 +344,7 @@
 					<td class="TD_STYLE2">
 					  <select name="human_educated_degree"  id="SELECT_STYLE7" class="SELECT_STYLE1">
 							<option value="0">--请选择--</option>
+						  <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='学历'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_educated_degree eq eng.attribute_name}"></option>
 <!--							-->
 <!--							<option value="本科">本科</option> -->
 <!--							-->
@@ -358,6 +361,7 @@
 					<td class="TD_STYLE2">
 					   <select name="human_educated_years" id="SELECT_STYLE8"  class="SELECT_STYLE1">
 							<option value="0">--请选择--</option>
+						   <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='教育年限'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_educated_years eq eng.attribute_name}"></option>
 <!--							-->
 <!--							<option value="12">12</option> -->
 <!--							-->
@@ -371,7 +375,7 @@
 					<td class="TD_STYLE2">
 					   <select name="human_educated_major"  id="SELECT_STYLE9" class="SELECT_STYLE1">
 							<option value="0">--请选择--</option>
-							
+						   <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='学历专业'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_educated_major eq eng.attribute_name}"></option>
 <!--							<option value="生物工程">生物工程</option> -->
 <!--							-->
 <!--							<option value="计算机">计算机</option> -->
@@ -382,7 +386,7 @@
 						薪酬要求
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="demand_salary_standard" id="demandSalaryStandard" class="INPUT_STYLE2" />
+						<input type="text" name="demand_salary_standard" id="demandSalaryStandard" class="INPUT_STYLE2" th:value="${validResume.demand_salary_standard}"/>
 					</td>
 					<td class="TD_STYLE1">
 						注册时间
@@ -403,6 +407,7 @@
 					<td class="TD_STYLE2">
 					   <select name="human_specility"  id="SELECT_STYLE10" class="SELECT_STYLE1">
 							<option value="0">--请选择--</option>
+						   <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='特长'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_specility eq eng.attribute_name}"></option>
 <!--							-->
 <!--							<option value="数据库">数据库</option> -->
 <!--							-->
@@ -416,7 +421,7 @@
 					<td class="TD_STYLE2">
 				     <select name="human_hobby" id="SELECT_STYLE11"  class="SELECT_STYLE1">
 							<option value="0">--请选择--</option>
-							
+						 <option th:each="eng:${charList}" th:if="${eng.attribute_kind=='爱好'}" th:text="${eng.attribute_name}" th:selected="${validResume.human_hobby eq eng.attribute_name}"></option>
 <!--							<option value="篮球">篮球</option> -->
 <!--							-->
 <!--							<option value="舞蹈">舞蹈</option> -->
@@ -459,169 +464,169 @@
 	</body>
 <script type="text/javascript" src="../../../../../../../../../HR-Web-login/src/main/webapp/javascript/jquery-1.7.2.js">
 </script>
-<script type="text/javascript">
-	$(function(){
-		//获取职业分类
-		let SELECT_STYLE1 = $("#SELECT_STYLE1");
-		//获取职位名称
-		let SELECT_STYLE2 = $("#SELECT_STYLE2");
-		//国籍
-		let SELECT_STYLE3 = $("#SELECT_STYLE3");
-		//民簇
-		let SELECT_STYLE4 = $("#SELECT_STYLE4");
-		//宗教信仰
-		let SELECT_STYLE5 = $("#SELECT_STYLE5");
-		//政治面貌
-		let SELECT_STYLE6 = $("#SELECT_STYLE6");
-		//学历
-		let SELECT_STYLE7 = $("#SELECT_STYLE7");
-		//教育年限
-		let SELECT_STYLE8 = $("#SELECT_STYLE8");
-		//专业学历
-		let SELECT_STYLE9 = $("#SELECT_STYLE9");
-		//特长
-		let SELECT_STYLE10 = $("#SELECT_STYLE10");
-		//爱好
-		let SELECT_STYLE11 = $("#SELECT_STYLE11");
+<!--<script type="text/javascript">-->
+<!--	$(function(){-->
+<!--		//获取职业分类-->
+<!--		let SELECT_STYLE1 = $("#SELECT_STYLE1");-->
+<!--		//获取职位名称-->
+<!--		let SELECT_STYLE2 = $("#SELECT_STYLE2");-->
+<!--		//国籍-->
+<!--		let SELECT_STYLE3 = $("#SELECT_STYLE3");-->
+<!--		//民簇-->
+<!--		let SELECT_STYLE4 = $("#SELECT_STYLE4");-->
+<!--		//宗教信仰-->
+<!--		let SELECT_STYLE5 = $("#SELECT_STYLE5");-->
+<!--		//政治面貌-->
+<!--		let SELECT_STYLE6 = $("#SELECT_STYLE6");-->
+<!--		//学历-->
+<!--		let SELECT_STYLE7 = $("#SELECT_STYLE7");-->
+<!--		//教育年限-->
+<!--		let SELECT_STYLE8 = $("#SELECT_STYLE8");-->
+<!--		//专业学历-->
+<!--		let SELECT_STYLE9 = $("#SELECT_STYLE9");-->
+<!--		//特长-->
+<!--		let SELECT_STYLE10 = $("#SELECT_STYLE10");-->
+<!--		//爱好-->
+<!--		let SELECT_STYLE11 = $("#SELECT_STYLE11");-->
 
-		// alert("我出来了")
-		//查找职业分类
-			$.ajax({
-				url:"queryEngage_resume",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE1 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE1.append("<option value="+element.major_kind_id+">"+element.major_kind_name+"</option>")
-					}
-				}
-			});
-		//查找职位名称
-		SELECT_STYLE1.change(function(){
-			let majorID = SELECT_STYLE1.val();
-			$.ajax({
-				url:"Engage_resumeByMajor?majorID="+majorID,
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE2 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE2.append("<option value="+element.major_id+">"+element.major_name+"</option>")
-					}
-				}
-		})
-		});
-		//国籍
-			$.ajax({
-				url:"PublicColumn?Nationality=国籍",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE3 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE3.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-		});
-		//查找名族
-			$.ajax({
-				url:"PublicColumn?Nationality=民族",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE4 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE4.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-		});
-		//宗教信仰
-			$.ajax({
-				url:"PublicColumn?Nationality=宗教信仰",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE5 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE5.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-			});
-		//政治面貌
-			$.ajax({
-				url:"PublicColumn?Nationality=政治面貌",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE6 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE6.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-		});
-		//学历
-			$.ajax({
-				url:"PublicColumn?Nationality=学历",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE7 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE7.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-		});
-		//教育年限
-			$.ajax({
-				url:"PublicColumn?Nationality=教育年限",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE8 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE8.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-		});
-		//学历专业
-			let name='学历专业'
-			$.ajax({
-				url:"PublicColumn?Nationality=学历专业",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE9 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE9.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-		});
-		//特长
-			$.ajax({
-				url:"PublicColumn?Nationality=特长",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE10 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE10.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-		});
-		//爱好
-			$.ajax({
-				url:"PublicColumn?Nationality=爱好",
-				type:"post",
-				success:function(data){
-					$("#SELECT_STYLE11 option:gt(0)").remove();
-					for (let i = 0; i <data.length ; i++) {
-						let element = data[i];
-						SELECT_STYLE11.append("<option >"+element.attribute_name+"</option>")
-					}
-				}
-		});
-	})
-</script>
+<!--		// alert("我出来了")-->
+<!--		//查找职业分类-->
+<!--			$.ajax({-->
+<!--				url:"queryEngage_resume",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE1 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE1.append("<option value="+element.major_kind_id+">"+element.major_kind_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--			});-->
+<!--		//查找职位名称-->
+<!--		SELECT_STYLE1.change(function(){-->
+<!--			let majorID = SELECT_STYLE1.val();-->
+<!--			$.ajax({-->
+<!--				url:"Engage_resumeByMajor?majorID="+majorID,-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE2 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE2.append("<option value="+element.major_id+">"+element.major_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		})-->
+<!--		});-->
+<!--		//国籍-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=国籍",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE3 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE3.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		});-->
+<!--		//查找名族-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=民族",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE4 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE4.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		});-->
+<!--		//宗教信仰-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=宗教信仰",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE5 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE5.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--			});-->
+<!--		//政治面貌-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=政治面貌",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE6 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE6.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		});-->
+<!--		//学历-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=学历",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE7 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE7.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		});-->
+<!--		//教育年限-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=教育年限",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE8 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE8.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		});-->
+<!--		//学历专业-->
+<!--			let name='学历专业'-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=学历专业",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE9 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE9.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		});-->
+<!--		//特长-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=特长",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE10 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE10.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		});-->
+<!--		//爱好-->
+<!--			$.ajax({-->
+<!--				url:"PublicColumn?Nationality=爱好",-->
+<!--				type:"post",-->
+<!--				success:function(data){-->
+<!--					$("#SELECT_STYLE11 option:gt(0)").remove();-->
+<!--					for (let i = 0; i <data.length ; i++) {-->
+<!--						let element = data[i];-->
+<!--						SELECT_STYLE11.append("<option >"+element.attribute_name+"</option>")-->
+<!--					}-->
+<!--				}-->
+<!--		});-->
+<!--	})-->
+<!--</script>-->
 </html>
 

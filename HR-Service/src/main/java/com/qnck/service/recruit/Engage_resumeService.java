@@ -17,4 +17,5 @@ public interface Engage_resumeService {
     void updatePassCheckStatus(@Param("resID") int resID);
     List<Engage_resume> queryEngage_resume2(Map map);
     void ReCheck(int resID);
+    void UpdateInfo(Engage_resume engageResume);
 }

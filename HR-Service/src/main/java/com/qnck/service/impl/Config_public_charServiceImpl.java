@@ -19,4 +19,9 @@ public class Config_public_charServiceImpl implements Config_public_charService 
     public List<Config_public_char> queryNationality(String attribute) {
         return config_public_charDao.queryNationality(attribute);
     }
+
+    @Override
+    public List<Config_public_char> selectNationality() {
+        return config_public_charDao.selectNationality();
+    }
 }

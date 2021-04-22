@@ -5,6 +5,7 @@ import com.qnck.entity.Config_major;
 import com.qnck.entity.Config_major_kind;
 import com.qnck.entity.Config_public_char;
 import com.qnck.entity.Engage_resume;
+import com.qnck.service.recruit.Config_majorService;
 import com.qnck.service.recruit.Config_public_charService;
 import com.qnck.service.recruit.Engage_major_releasesService;
 import com.qnck.service.recruit.Engage_resumeService;
@@ -31,7 +32,9 @@ public class ResumeRegistrationController {
     //加入简历管理
     @Autowired
     private Engage_resumeService engageResumeService;
-    //
+    //加入职业信息
+    @Autowired
+    private Config_majorService ConfigMajorService;
     //查询公共字段
     @RequestMapping("PublicColumn")
     @ResponseBody
@@ -72,13 +75,18 @@ public class ResumeRegistrationController {
      */
     @RequestMapping("findValidResumeById")
     public String findValidResumeById(int resID,Map map){
+        //查询公共字段
+        List<Config_public_char> charList = configPublicCharService.selectNationality();
+        //查询简历信息
         Engage_resume validResume = engageResumeService.findValidResumeById(resID);
+        //查询职业信息
+        List<Config_major> config_majors = ConfigMajorService.queryConfigMajar();
         map.put("validResume",validResume);
+        map.put("charList",charList);
+        map.put("config_majors",config_majors);
         System.out.println("____________________________________________________________");
         return "forward:toPage?page=page/recruit/resume/resume-details";
     }
-
-
     /**
      * 通过审核
      */
@@ -87,9 +95,24 @@ public class ResumeRegistrationController {
         engageResumeService.updatePassCheckStatus(resID);
         return "redirect:toPage?page=page/recruit/resume/resume-choose";
     }
+
+    /**
+     * 复核
+     */
     @RequestMapping("Recheck")
     public String Recheck(int resID){
         engageResumeService.ReCheck(resID);
         return "redirect:toPage?page=page/recruit/resume/valid-resume";
+    }
+
+    /**
+     * 修改简历信息
+     */
+    @RequestMapping("updateInfo")
+    public String updateInfo(Engage_resume engageResume,Config_major configMajor){
+        System.out.println(configMajor);
+        engageResume.setConfig_major(configMajor);
+        engageResumeService.UpdateInfo(engageResume);
+        return "redirect:EngageResumeByMajor";
     }
 }

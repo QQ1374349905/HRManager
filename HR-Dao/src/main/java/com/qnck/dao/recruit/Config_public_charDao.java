@@ -15,5 +15,7 @@ public interface Config_public_charDao {
     @Select("SELECT * FROM config_public_char WHERE attribute_kind=#{attribute}")
     @ResultMap("Config_public_charMap")
     List<Config_public_char> queryNationality(@Param("attribute")String attribute);
-
+    @Select("SELECT * FROM config_public_char")
+    @ResultMap("Config_public_charMap")
+    List<Config_public_char> selectNationality();
 }

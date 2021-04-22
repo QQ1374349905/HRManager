@@ -23,8 +23,8 @@ public interface Engage_major_releaseDao {
     @ResultMap("Engage_major_releaseMap02")
     List<Engage_major_release> selectEngage_major_release();
     //查询所在的发布信息
-    @Select("SELECT sc.`first_kind_name`,sc.`second_kind_name`,ch.`third_kind_name`,er.`engage_type`,cm.`major_kind_name`,cm.`major_name`,er.`human_amount`,er.`deadline`,er.`major_describe`,er.`engage_required` FROM Engage_major_release er JOIN Config_file_second_kind sc ON sc.`second_kind_id`=er.`second_kind_id` JOIN Config_major cm\n" +
-            " ON cm.`major_id`=er.`major_id` JOIN Config_file_third_kind ch ON ch.`third_kind_id`=er.`third_kind_id` WHERE er.`mre_id`=#{id} and status!=1")
+    @Select("SELECT DISTINCT sc.`first_kind_name`,sc.`second_kind_name`,ch.`third_kind_name`,er.`engage_type`,cm.`major_kind_name`,cm.`major_name`,er.`human_amount`,er.`deadline`,er.`major_describe`,er.`engage_required` FROM Engage_major_release er JOIN Config_file_second_kind sc ON sc.`second_kind_id`=er.`second_kind_id` JOIN Config_major cm\n" +
+            " ON cm.`major_id`=er.`major_id` JOIN Config_file_third_kind ch ON ch.`third_kind_id`=er.`third_kind_id` WHERE er.`mre_id`=#{id}")
     @ResultMap("Engage_major_releaseMap03")
     Engage_major_release queryEngage_major_release(@Param("id") int id);
     //职业修改信息

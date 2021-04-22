@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface Config_public_charService {
     List<Config_public_char> queryNationality(String attribute);
+    List<Config_public_char> selectNationality();
 }

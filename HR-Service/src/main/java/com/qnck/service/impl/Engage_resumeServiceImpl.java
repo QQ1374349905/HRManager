@@ -48,4 +48,9 @@ public class Engage_resumeServiceImpl implements Engage_resumeService {
     public void ReCheck(int resID) {
         engage_resumeDao.ReCheck(resID);
     }
+
+    @Override
+    public void UpdateInfo(Engage_resume engageResume) {
+        engage_resumeDao.UpdateInfo(engageResume);
+    }
 }
