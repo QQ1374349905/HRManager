@@ -1,6 +1,8 @@
 package com.qnck.service.impl;
 
 import com.qnck.dao.recruit.Engage_resumeDao;
+import com.qnck.dao.recruit.engage_interviewDao;
+import com.qnck.entity.Engage_interview;
 import com.qnck.entity.Engage_resume;
 import com.qnck.service.recruit.Engage_resumeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class Engage_resumeServiceImpl implements Engage_resumeService {
 
     @Autowired
     private Engage_resumeDao engage_resumeDao;
+    //引入面试的依赖
+    @Autowired
+    private engage_interviewDao engageInterviewDao;
     @Override
     public void addEngage_resume(Engage_resume engageResume) {
         engage_resumeDao.addEngage_resume(engageResume);
@@ -63,4 +68,20 @@ public class Engage_resumeServiceImpl implements Engage_resumeService {
     public void register(int resID) {
         engage_resumeDao.register(resID);
     }
+    //录用
+    @Override
+    public List<Engage_resume> queryEmploy() {
+        return engage_resumeDao.queryEmploy();
+    }
+
+    @Override
+    public void releaseResume(int checkID, int resID,String passCheckcomment) {
+        engage_resumeDao.releaseResume(checkID,resID,passCheckcomment);
+    }
+
+    @Override
+    public void passInterview(int yesorno, int resID) {
+        engageInterviewDao.passInterview(yesorno, resID);
+    }
+
 }

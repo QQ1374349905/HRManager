@@ -164,7 +164,12 @@
 						 <input type="hidden" value="01" id="humanMajorKindId1" name="human_major_kind_name"/>
 					<select name="major_kind_id" id="humanMajorKindId2" class="SELECT_STYLE1">
 						<option value="0">--请选择--</option>
-						<option th:each="config_majors:${config_majors}" th:value="${config_majors.major_kind_id}" th:text="${config_majors.major_kind_name}" th:selected="${validResume.Config_major.major_kind_name eq config_majors.major_kind_name}"></option>
+						<option th:each="config_majors:${config_majors}"
+								th:value="${config_majors.major_kind_id}"
+								th:text="${config_majors.major_kind_name}"
+								th:selected="${validResume.Config_major.major_kind_name eq config_majors.major_kind_name}">
+
+						</option>
 					</select>		
 					</td>
 					<td class="TD_STYLE1">

@@ -1,5 +1,6 @@
 package com.qnck.service.recruit;
 
+import com.qnck.entity.Engage_interview;
 import com.qnck.entity.Engage_resume;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,7 @@ public interface Engage_resumeService {
     void UpdateInfo(Engage_resume engageResume);
     List<Engage_resume> Interview();
     void register(int resID);
+    List<Engage_resume> queryEmploy();
+    void releaseResume(int checkID,int resID,String passCheckcomment);
+    void passInterview(int yesorno,int resID);
 }

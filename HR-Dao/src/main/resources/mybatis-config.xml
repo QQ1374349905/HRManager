@@ -33,5 +33,6 @@
         <mapper resource="mappers/Engage_ResumeMapper.xml"/>
         <mapper class="com.qnck.dao.power.IrightsDao"/>
         <mapper class="com.qnck.dao.power.Irights_controlDao"/>
+        <mapper resource="mappers/engage_InterviewMapper.xml"/>
     </mappers>
 </configuration>

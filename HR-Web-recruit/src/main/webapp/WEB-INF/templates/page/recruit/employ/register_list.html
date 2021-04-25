@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   	  <link rel="stylesheet"
@@ -74,32 +74,30 @@
 						申请
 					</td>
 				</tr>
-				
-				 
-					<tr class="TR_STYLE1">
-						<td class="TD_STYLE2">
+				<tr class="TR_STYLE1" th:each="eng:${engage_resumes}">
+						<td class="TD_STYLE2" th:text="${eng.human_name}">
 							张飒
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_sex}">
 							男
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_age}">
 							20
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.Config_major.major_kind_name}">
 							软件开发
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.Config_major.major_name}">
 							程序员
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_college}">
 							长沙理工
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${eng.human_educated_degree}">
 							计算机
 						</td>
 						<td class="TD_STYLE2">
-							<a href="/HR_Fist/recruit/recruitAction!toEmployRegister?id=542">申请</a>
+							<a th:href="@{'EmploymentApplication?resumeID='+${eng.res_id}}">申请</a>
 						</td>
 					</tr>
 					

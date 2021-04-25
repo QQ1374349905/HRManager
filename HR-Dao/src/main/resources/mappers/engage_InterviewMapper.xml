@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--面试的mapper映射文件-->
 <mapper namespace="com.qnck.dao.recruit.engage_interviewDao">
-    <resultMap id="EngageInterviewMap" type="com.qnck.entity.Engage_interview">
+    <resultMap id="engageInterviewMap" type="com.qnck.entity.Engage_interview">
      <!-- 关联简历信息 -->
         <association property="engage_resume" column="resume_id" select="com.qnck.dao.recruit.Engage_resumeDao.Engage_resumeByID"/>
         <!--关联职业信息-->

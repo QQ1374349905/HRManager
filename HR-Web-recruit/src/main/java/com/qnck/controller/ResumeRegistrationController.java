@@ -1,14 +1,8 @@
 package com.qnck.controller;
 
 import com.qnck.dao.recruit.Engage_resumeDao;
-import com.qnck.entity.Config_major;
-import com.qnck.entity.Config_major_kind;
-import com.qnck.entity.Config_public_char;
-import com.qnck.entity.Engage_resume;
-import com.qnck.service.recruit.Config_majorService;
-import com.qnck.service.recruit.Config_public_charService;
-import com.qnck.service.recruit.Engage_major_releasesService;
-import com.qnck.service.recruit.Engage_resumeService;
+import com.qnck.entity.*;
+import com.qnck.service.recruit.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,6 +29,9 @@ public class ResumeRegistrationController {
     //加入职业信息
     @Autowired
     private Config_majorService ConfigMajorService;
+    //引入面试管理
+    @Autowired
+    private engage_interviewService engageInterviewService;
     //查询公共字段
     @RequestMapping("PublicColumn")
     @ResponseBody
@@ -135,4 +132,125 @@ public class ResumeRegistrationController {
         engageResumeService.register(resID);
         return "redirect:WaitInterview";
     }
+
+    /**
+     * 录用功能查询
+     * @param map
+     * @return
+     */
+    @RequestMapping("queryEmploy")
+    public String queryEmploy(ModelMap map){
+        List<Engage_resume> engage_resumes = engageResumeService.queryEmploy();
+//        System.out.println(engage_resumes);
+        map.addAttribute("engage_resumes",engage_resumes);
+        return "forward:toPage?page=page/recruit/employ/register_list";
+    }
+    /**
+     * 录用审批功能查询
+     * @param map
+     * @return
+     */
+    @RequestMapping("queryEmploy2")
+    public String queryEmploy2(ModelMap map){
+        List<Engage_resume> engage_resumes = engageResumeService.queryEmploy();
+        map.addAttribute("engage_resumes",engage_resumes);
+        return "forward:toPage?page=page/recruit/employ/check_list";
+    }
+    /**
+     * 录用查询功能
+     * @param map
+     * @return
+     */
+    @RequestMapping("queryEmploy3")
+    public String queryEmploy3(ModelMap map){
+        List<Engage_resume> engage_resumes = engageResumeService.queryEmploy();
+        map.addAttribute("engage_resumes",engage_resumes);
+        return "forward:toPage?page=page/recruit/employ/list";
+    }
+
+    /**
+     * 录用申请
+     * @param resumeID,modelMap
+     * @return
+     */
+    @RequestMapping("EmploymentApplication")
+    public String EmploymentApplication(int resumeID,ModelMap modelMap){
+        Engage_interview engage_interview = engageInterviewService.EmploymentApplication(resumeID);
+        modelMap.addAttribute("engage_interviews",engage_interview);
+        return "forward:toPage?page=page/recruit/employ/register";
+    }
+    /**
+     * 录用审批
+     * @param resumeID,modelMap
+     * @return
+     */
+    @RequestMapping("EmploymentApplication2")
+    public String EmploymentApplication2(int resumeID,ModelMap modelMap){
+        Engage_interview engage_interview = engageInterviewService.EmploymentApplication(resumeID);
+        modelMap.addAttribute("engage_interviews",engage_interview);
+        return "forward:toPage?page=page/recruit/employ/check";
+    }
+    /**
+     * 录用查询
+     * @param resumeID,modelMap
+     * @return
+     */
+    @RequestMapping("EmploymentApplication3")
+    public String EmploymentApplication3(int resumeID,ModelMap modelMap){
+        Engage_interview engage_interview = engageInterviewService.EmploymentApplication(resumeID);
+        modelMap.addAttribute("engage_interviews",engage_interview);
+        return "forward:toPage?page=page/recruit/employ/details";
+    }
+
+    /**
+     * 一组查询
+     * @param checkInfo 审核状态
+     * @param resID 简历编号
+     * @param passCheckcomment 审核意见
+     * @return
+     */
+    @RequestMapping("ReleaseResume")
+    public String updateReleaseResume(String checkInfo,int resID,String passCheckcomment){
+        int checkID=0;
+        if(checkInfo.equals("申请录用")){
+            checkID=1;
+        }
+        engageResumeService.releaseResume(checkID,resID,passCheckcomment);
+        return "redirect:queryEmploy";
+    }
+    /**
+     * 一组查询
+     * @param checkID 审核状态
+     * @param resID 简历编号
+     * @param passCheckcomment 审核意见
+     * @return
+     */
+    @RequestMapping("ReleaseResume2")
+    public String updateReleaseResume2(int checkID,int resID,String passCheckcomment){
+        engageResumeService.releaseResume(checkID,resID,passCheckcomment);
+        return "redirect:queryEmploy";
+    }
+    /**
+     * 一组查询
+     * @param checkID 审核状态
+     * @param resID 简历编号
+     * @param passCheckcomment 审核意见
+     * @return
+     */
+    @RequestMapping("ReleaseResume3")
+    public String updateReleaseResume3(int checkID,int resID,String passCheckcomment){
+        engageResumeService.releaseResume(checkID,resID,passCheckcomment);
+        return "redirect:queryEmploy";
+    }
+    //是否通过面试
+    @RequestMapping("passInterView")
+    public String passInterView(String passInfo,int resID){
+        int pass=0;
+        if("通过".equals(passInfo)){
+            pass=1;
+        }
+        engageResumeService.passInterview(pass,resID);
+        return "redirect:queryEmploy2";
+    }
+
 }

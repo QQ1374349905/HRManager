@@ -1,5 +1,6 @@
 package com.qnck.dao.recruit;
 
+import com.qnck.entity.Engage_interview;
 import com.qnck.entity.Engage_resume;
 import org.apache.ibatis.annotations.*;
 
@@ -51,4 +52,11 @@ public interface Engage_resumeDao {
     //登记
     @Update("UPDATE Engage_resume SET interview_status=1,pass_regist_time=SYSDATE() WHERE res_id=#{resID}")
     void register(int resID);
+    //录用申请
+    @Select("SELECT DISTINCT cm.major_kind_id,er.human_name,er.human_sex,er.human_age,cm.major_kind_name,cm.major_name,er.human_college,er.human_educated_degree FROM engage_interview ei JOIN Engage_resume er ON ei.resume_id=er.res_id JOIN config_major cm \n" +
+            "ON cm.major_kind_id=ei.human_major_kind_id")
+    @ResultMap("Engage_resumeMap02")
+    List<Engage_resume> queryEmploy();
+    @Update("update Engage_resume set check_status=${checkID},pass_checkComment=#{passCheckcomment} where res_id=#{resID}")
+    void releaseResume(@Param("checkID") int checkID,@Param("resID") int resID,@Param("passCheckcomment") String passCheckcomment);
 }

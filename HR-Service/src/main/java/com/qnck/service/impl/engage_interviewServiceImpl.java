@@ -31,4 +31,8 @@ public class engage_interviewServiceImpl implements engage_interviewService {
     public void updateCheck_status(int checkStatusID, int einID) {
         engageInterviewDao.updateCheck_status(checkStatusID,einID);
     }
+    @Override
+    public Engage_interview EmploymentApplication(int humanID) {
+        return engageInterviewDao.EmploymentApplication(humanID);
+    }
 }

@@ -13,7 +13,7 @@
 	</head>
 	<body >
 		<ul id="tt1" class="easyui-tree" animate="true">
-				<li th:if="${application.user.rights.rc.A == 1}">
+				<li>
 					<span>招聘管理</span>
 					<ul>
 								<li state="closed" th:if="${application.user.rights.rc.A_1 == 1}">
@@ -23,17 +23,17 @@
 									<ul>
 												<li th:if="${application.user.rights.rc.A_1_a == 1}">
 													<span>
-														<a href="recruit/position/position_register.html" target="mainFrame" style="color:black;">职位发布登记</a>
+														<a href="/toPage?page=page/recruit/position/position_register.html" target="mainFrame" style="color:black;">职位发布登记</a>
 													</span>
 												</li>
 												<li th:if="${application.user.rights.rc.A_1_b == 1}">
 													<span>
-														<a href="recruit/position/position_change_update.html" target="mainFrame" style="color:black;">职位发布变更</a>
+														<a href="PositionRegisterInfo" target="mainFrame" style="color:black;">职位发布变更</a>
 													</span>
 												</li>
 												<li th:if="${application.user.rights.rc.A_1_c == 1}">
 													<span>
-														<a href="recruit/position/position_release_search.html" target="mainFrame" style="color:black;">职位发布查询</a>
+														<a href="PositionRegisterInfo2" target="mainFrame" style="color:black;">职位发布查询</a>
 													</span>
 												</li>
 									</ul>
@@ -45,17 +45,17 @@
 									<ul>
 												<li th:if="${application.user.rights.rc.A_2_a == 1}">
 													<span>
-														<a href="topage?page=recruit/resume/register" target="mainFrame" style="color:black;">简历登记</a>
+														<a href="toPage?page=page/recruit/resume/register" target="mainFrame" style="color:black;">简历登记</a>
 													</span>
 												</li>
 												<li th:if="${application.user.rights.rc.A_2_b == 1}">
 													<span>
-														<a href="topage?page=recruit/resume/resume-choose" target="mainFrame" style="color:black;">简历筛选</a>
+														<a href="toPage?page=page/recruit/resume/resume-choose" target="mainFrame" style="color:black;">简历筛选</a>
 													</span>
 												</li>
 												<li th:if="${application.user.rights.rc.A_2_c == 1}">
 													<span>
-														<a href="topage?page=recruit/resume/valid-resume" target="mainFrame" style="color:black;">有效简历查询</a>
+														<a href="toPage?page=page/recruit/resume/valid-resume" target="mainFrame" style="color:black;">有效简历查询</a>
 													</span>
 												</li>
 									</ul>
@@ -67,12 +67,12 @@
 									<ul>
 												<li th:if="${application.user.rights.rc.A_3_a == 1}">
 													<span>
-														<a href="recruit/interview/interview-list.html" target="mainFrame" style="color:black;">面试结果登记</a>
+														<a href="WaitInterview" target="mainFrame" style="color:black;">面试结果登记</a>
 													</span>
 												</li>
 												<li th:if="${application.user.rights.rc.A_3_b == 1}">
 													<span>
-														<a href="recruit/interview/sift-list.html" target="mainFrame" style="color:black;">面试筛选</a>
+														<a href="engageInterview" target="mainFrame" style="color:black;">面试筛选</a>
 													</span>
 												</li>
 									</ul>
@@ -84,17 +84,17 @@
 									<ul>
 												<li th:if="${application.user.rights.rc.A_6_a == 1}">
 													<span>
-														<a href="recruit/employ/register_list.html" target="mainFrame" style="color:black;">录用申请</a>
+														<a href="queryEmploy" target="mainFrame" style="color:black;">录用申请</a>
 													</span>
 												</li>
 												<li th:if="${application.user.rights.rc.A_6_b == 1}">
 													<span>
-														<a href="recruit/employ/check_list.html" target="mainFrame" style="color:black;">录用审批</a>
+														<a href="queryEmploy2" target="mainFrame" style="color:black;">录用审批</a>
 													</span>
 												</li>
 												<li th:if="${application.user.rights.rc.A_6_c == 1}">
 													<span>
-														<a href="recruit/employ/list.html" target="mainFrame" style="color:black;">录用查询</a>
+														<a href="queryEmploy3" target="mainFrame" style="color:black;">录用查询</a>
 													</span>
 												</li>
 									</ul>
