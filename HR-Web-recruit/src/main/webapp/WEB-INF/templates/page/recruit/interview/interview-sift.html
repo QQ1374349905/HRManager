@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>My JSP 'interview-sift.jsp' starting page</title>
@@ -177,7 +177,7 @@
 	</head>
 
 	<body onload="check(),luy()">
-		<form id="recruitAction!returnSiftList" name="fm" action="/HR_Fist/recruit/recruitAction!returnSiftList" method="post" enctype="multipart/form-data">
+		<form id="recruitAction!returnSiftList" name="fm" action="updateStatus" method="post" enctype="multipart/form-data">
 		
 			<table width="100%">
 				<tr>
@@ -187,11 +187,12 @@
 				</tr>
 				<tr>
 					<td align="right">
-						<input type="radio" name="ei.result"  value="建议面试" onclick="mians()">建议面试
-						<input type="radio" name="ei.result"   value="建议笔试" onclick="bis()">建议笔试
-						<input type="radio" name="ei.result"   value="建议录用"  checked="checked" onclick="luy()">建议录用
-						<input type="radio" name="ei.result"  value="删除简历" onclick="del()">删除简历
-						<input type="button" value="确认" class="BUTTON_STYLE1"
+						<input type="hidden" name="einID" th:value="${engage_interviews?.ein_id}">
+						<input type="radio" name="checkStatus"  value="建议面试" onclick="mians()">建议面试
+						<input type="radio" name="checkStatus"   value="建议笔试" onclick="bis()">建议笔试
+						<input type="radio" name="checkStatus"   value="建议录用"  checked="checked" onclick="luy()">建议录用
+						<input type="radio" name="checkStatus"  value="删除简历" onclick="del()">删除简历
+						<input type="submit" value="确认" class="BUTTON_STYLE1"
 							onclick="search('542')">
 						<input type="button" value="返回" class="BUTTON_STYLE1" 
 							onclick="history.back();">
@@ -208,8 +209,7 @@
 					</td>
 					<td width="14%" class="TD_STYLE2"> 
 						<input type="hidden" name="engageInterview.humanMajorKindId" value="02"/>
-					   <input type="text" name="engageInterview.humanMajorKindName"
-						   value="&#36719;&#20214;&#24320;&#21457;" readonly="readonly" class="INPUT_STYLE2">
+					   <input type="text" name="engageInterview.humanMajorKindName" th:value="${engage_interviews?.human_major?.major_kind_name}" readonly="readonly" class="INPUT_STYLE2">
 					
 					</td>
 					<td width="11%" class="TD_STYLE1">
@@ -217,13 +217,13 @@
 					</td>
 					<td width="14%" class="TD_STYLE2">
 					<input type="hidden" name="engageInterview.humanMajorId" value=""/>
-					 <input type="text" name="engageInterview.humanMajorName" value="&#31243;&#24207;&#21592;" readonly="readonly" class="INPUT_STYLE2">
+					 <input type="text" name="engageInterview.humanMajorName" th:value="${engage_interviews?.human_major?.major_name}" readonly="readonly" class="INPUT_STYLE2">
 				    </td>
 					<td width="11%" class="TD_STYLE1">
 						招聘类型
 					</td>
 					<td class="TD_STYLE2" >
-						<input type="text" name="engageResume.engageType" value="&#26657;&#22253;&#25307;&#32856;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.engageType" th:value="${engage_interviews?.engage_resume?.engage_type}" readonly="readonly" class="INPUT_STYLE2">
 					
 					</td>
 					
@@ -237,20 +237,20 @@
 						姓名
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageInterview.humanName" value="&#24352;&#39122;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageInterview.humanName" th:value="${engage_interviews?.human_name}" readonly="readonly" class="INPUT_STYLE2">
 						
 					</td>
 					<td class="TD_STYLE1">
 						性别
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanSex" value="&#30007;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanSex" th:value="${engage_interviews?.engage_resume?.human_sex}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						EMAIL
 					</td>
 					<td   class="TD_STYLE2">
-						<input type="text" name="engageResume.humanEmail" value="123@.com"  readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanEmail" th:value="${engage_interviews?.engage_resume?.human_email}"  readonly="readonly" class="INPUT_STYLE2">
 					</td>
 				</tr>
 
@@ -259,19 +259,19 @@
 						电话号码
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanTelephone" value="84802802" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanTelephone" th:value="${engage_interviews?.engage_resume?.human_telephone}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						家庭电话
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanHomephone" value="84802888" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanHomephone" value="84802888" th:value="${engage_interviews?.engage_resume?.human_homephone}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1" >
 						手机
 					</td>
 					<td  class="TD_STYLE2" >
-						<input type="text" name="engageResume.humanMobilephone" value="13523322345" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanMobilephone" value="13523322345" th:value="${engage_interviews?.engage_resume?.human_mobilephone}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					
 				</tr>
@@ -280,13 +280,13 @@
 						住址
 					</td>
 					<td colspan="3" class="TD_STYLE2">
-						<input type="text" name="engageResume.humanAddress" value="&#28246;&#21335;&#38271;&#27801;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanAddress" th:value="${engage_interviews?.engage_resume?.human_address}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						邮编
 					</td>
 					<td   class="TD_STYLE2">
-						<input type="text" name="engageResume.humanPostcode" value="410000" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanPostcode" th:value="${engage_interviews?.engage_resume?.human_postcode}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 				</tr>
 
@@ -295,19 +295,19 @@
 						国籍
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanNationality" value="&#20013;&#22269;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanNationality" th:value="${engage_interviews?.engage_resume?.human_nationality}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						出生地
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanBirthplace" value=""  readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanBirthplace" th:value="${engage_interviews?.engage_resume?.human_birthplace}"  readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						生日
 					</td>
 					<td class="TD_STYLE2"  > 
-						<input type="text" name="engageResume.humanBirthday" value="1992-02-02 12:00:00" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanBirthday" th:value="${engage_interviews?.engage_resume?.human_birthday}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 				</tr>
 				
@@ -316,19 +316,19 @@
 						民族
 					</td>
 					<td class="TD_STYLE2" width="14%">
-						<input type="text" name="engageResume.humanRace" value="&#27721;&#26063;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanRace" th:value="${engage_interviews?.engage_resume?.human_race}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						宗教信仰
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanReligion" value="&#26080;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanReligion" th:value="${engage_interviews?.engage_resume?.human_religion}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						政治面貌
 					</td>
 					<td class="TD_STYLE2" >
-						<input type="text" name="engageResume.humanParty" value="" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanParty" th:value="${engage_interviews?.engage_resume?.human_party}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 				</tr>
 				<tr>
@@ -337,25 +337,25 @@
 						身份证号码
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanIdcard" value="430121199202022323" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanIdcard" th:value="${engage_interviews?.engage_resume?.human_idcard}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						年龄
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanAge" value="20" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanAge" th:value="${engage_interviews?.engage_resume?.human_age}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						毕业学校
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanCollege" value="&#38271;&#27801;&#29702;&#24037;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanCollege" th:value="${engage_interviews?.engage_resume?.human_college}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1" width="10%">
 						学历
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanEducatedDegree" value="&#22823;&#19987;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanEducatedDegree" th:value="${engage_interviews?.engage_resume.human_history_records}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 				</tr>
 				<tr>
@@ -363,25 +363,25 @@
 						教育年限
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanEducatedYears"  value="12" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanEducatedYears"  th:value="${engage_interviews?.engage_resume?.human_educated_years}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						学历专业
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanEducatedMajor" value="&#35745;&#31639;&#26426;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanEducatedMajor" th:value="${engage_interviews?.engage_resume?.human_college}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						薪酬要求
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.demandSalaryStandard" value="6000.0" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.demandSalaryStandard" th:value="${engage_interviews?.engage_resume.demand_salary_standard}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						注册时间
 					</td>
 					<td class="TD_STYLE2"> 
-						<input type="text" name="engageResume.registTime" value="2012-11-25 01:50:30" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.registTime" th:value="${#dates.format(engage_interviews?.engage_resume.regist_time,'yyyy-MM-dd')}" readonly="readonly" class="INPUT_STYLE2">
 						
 					</td>
 				</tr>
@@ -390,25 +390,25 @@
 						特长
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanSpecility" value="java" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanSpecility" th:value="${engage_interviews?.engage_resume?.human_specility}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1">
 						爱好
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.humanHobby" value="&#31726;&#29699;" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.humanHobby" th:value="${engage_interviews?.engage_resume?.human_hobby}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1"><span style="font-size: 10.5pt; font-family: 宋体;"></span> 
 						推荐人
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageResume.passChecker" value="zhangsan, zhangsan" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="engageResume.passChecker" th:value="${engage_interviews?.checker}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 					<td class="TD_STYLE1"><span style="font-size: 10.5pt; font-family: 宋体;"></span> 
 						推荐时间
 					</td>
 					<td class="TD_STYLE2"> 
-						<input type="text" name="engageResume.passCheckTime" value="2012-11-25 01:51:18" readonly="readonly" class="INPUT_STYLE2">	 
+						<input type="text" name="engageResume.passCheckTime" th:value="${#dates.format(engage_interview?.check_time,'yyyy-MM-dd')}" readonly="readonly" class="INPUT_STYLE2">
 					</td>
 				</tr>
 				<tr>
@@ -416,7 +416,7 @@
 						档案附件
 					</td>
 					<td colspan="7" class="TD_STYLE2">
-						<input type="text" name="er.checker" readonly="readonly" class="INPUT_STYLE2">
+						<input type="text" name="er.checker" readonly="readonly" th:value="${engage_interviews?.engage_resume?.attachment_name}" class="INPUT_STYLE2">
 					</td>
 				</tr>
 			<tr>
@@ -424,7 +424,7 @@
 						个人履历
 					</td>
 					<td colspan="7" class="TD_STYLE2">
-						<textarea name="engageResume.humanHistoryRecords" rows="4"  
+						<textarea name="engageResume.humanHistoryRecords" rows="4"  th:text="${engage_interviews?.engage_resume?.human_history_records}"
 						class="TEXTAREA_STYLE1" readonly="readonly"> &#20010;&#20154;&#23653;&#21382;
 						</textarea>
 					</td>
@@ -434,7 +434,7 @@
 						备注
 					</td>
 					<td colspan="7" class="TD_STYLE2">
-						<textarea name="engageResume.remark" rows="4"   class="TEXTAREA_STYLE1"  readonly="readonly"> &#22791;&#27880;
+						<textarea name="engageResume.remark" rows="4" th:text="${engage_interviews?.engage_resume.remark}"  class="TEXTAREA_STYLE1"  readonly="readonly"> &#22791;&#27880;
 						</textarea>
 					</td>
 				</tr>
@@ -444,7 +444,7 @@
 						筛选推荐意见
 					</td>
 					<td class="TD_STYLE2" colspan="7">
-						<textarea name="engageResume.recomandation" rows="4"   class="TEXTAREA_STYLE1" readonly="readonly">&#25512;&#33616;						</textarea>
+						<textarea name="engageResume.recomandation" rows="4"  th:value="${engage_interviews?.engage_resume?.recomandation}" class="TEXTAREA_STYLE1" readonly="readonly">&#25512;&#33616;						</textarea>
 					</td>
 				</tr>
 				
@@ -455,14 +455,14 @@
 						面试次数
 					</td>
 					<td class="TD_STYLE2">
-					 	<input type="text"   name="engageInterview.interviewAmount" value="1" class="INPUT_STYLE2" readonly="readonly"/>
+					 	<input type="text"   name="engageInterview.interviewAmount" th:value="${engage_interviews?.interview_amount}" class="INPUT_STYLE2" readonly="readonly"/>
 					</td>
 					<td class="TD_STYLE1">
 						形象评价
 					</td>
 					<td class="TD_STYLE2">
 						 
-				 <input type="text"  name="engageInterview.imageDegree" value="A" class="INPUT_STYLE2" readonly="readonly"/>
+				 <input type="text"  name="engageInterview.imageDegree" th:value="${engage_interviews?.image_degree}" class="INPUT_STYLE2" readonly="readonly"/>
 				
 					</td>
 					<td class="TD_STYLE1">
@@ -470,7 +470,7 @@
 					</td>
 					<td class="TD_STYLE2">
 					 
-						 <input type="text"  name="engageInterview.nativeLanguageDegree" value="A" class="INPUT_STYLE2" readonly="readonly"/>
+						 <input type="text"  name="engageInterview.nativeLanguageDegree" th:value="${engage_interviews?.native_language_degree}" class="INPUT_STYLE2" readonly="readonly"/>
 				
 					</td>
 					<td class="TD_STYLE1">
@@ -478,7 +478,7 @@
 					</td>
 					<td class="TD_STYLE1">
 					 
-						 <input type="text"  name="engageInterview.foreignLanguageDegree" value="A" class="INPUT_STYLE2" readonly="readonly"/>
+						 <input type="text"  name="engageInterview.foreignLanguageDegree" th:value="${engage_interviews?.foreign_language_degree}" class="INPUT_STYLE2" readonly="readonly"/>
 				
 					</td>
 				</tr>
@@ -488,28 +488,28 @@
 					</td>
 					<td class="TD_STYLE2">
 					 
-						<input type="text"  name="engageInterview.responseSpeedDegree" value="A" class="INPUT_STYLE2" readonly="readonly"/>
+						<input type="text"  name="engageInterview.responseSpeedDegree" th:value="${engage_interviews?.response_speed_degree}" class="INPUT_STYLE2" readonly="readonly"/>
 				
 					</td>
 					<td class="TD_STYLE1">
 						EQ
 					</td>
 					<td class="TD_STYLE2"> 
-						<input type="text"  name="engageInterview.eqDegree" value="A" class="INPUT_STYLE2" readonly="readonly"/>
+						<input type="text"  name="engageInterview.eqDegree" th:value="${engage_interviews?.EQ_degree}" class="INPUT_STYLE2" readonly="readonly"/>
 				
 					</td>
 					<td class="TD_STYLE1">
 						IQ
 					</td>
 					<td class="TD_STYLE2"> 
-						 <input type="text"  name="engageInterview.iqDegree" value="A" class="INPUT_STYLE2" readonly="readonly"/>
+						 <input type="text"  name="engageInterview.iqDegree" th:value="${engage_interviews?.IQ_degree}" class="INPUT_STYLE2" readonly="readonly"/>
 				
 					</td>
 					<td class="TD_STYLE1">
 						综合素质
 					</td>
 					<td class="TD_STYLE1">
-					 <input type="text"  name="engageInterview.multiQualityDegree" value="A" class="INPUT_STYLE2" readonly="readonly"/>
+					 <input type="text"  name="engageInterview.multiQualityDegree" th:value="${engage_interviews?.multi_quality_degree}" class="INPUT_STYLE2" readonly="readonly"/>
 				
 					</td>
 				</tr>
@@ -518,20 +518,20 @@
 						面试人
 					</td>
 					<td class="TD_STYLE2">
-						<input type="text" name="engageInterview.register" value="zhangsan" class="INPUT_STYLE2"/>
+						<input type="text" name="engageInterview.register" th:value="${engage_interviews?.register}" class="INPUT_STYLE2"/>
 					</td>
 					<td class="TD_STYLE1">
 						面试时间
 					</td>
 					<td class="TD_STYLE2"> 
-					<input type="text" name="engageInterview.registeTime" value="2012-11-25 12:00:00" class="INPUT_STYLE2"/>
+					<input type="text" name="engageInterview.registeTime" th:value="${#dates.format(engage_interviews?.registe_time,'yyyy-MM-dd')}" class="INPUT_STYLE2"/>
 						  
 					</td>
 					<td class="TD_STYLE1">
 						筛选人
 					</td>
 					<td class="TD_STYLE2">
-					 <input type="text" name="engageInterview.checker" value="zhangsan" class="INPUT_STYLE2"/>
+					 <input type="text" name="engageInterview.checker" th:value="${engage_interviews?.checker}" class="INPUT_STYLE2"/>
 				 
 					</td>
 					<td class="TD_STYLE1">
@@ -540,6 +540,7 @@
 					<td class="TD_STYLE2"> 
 				  	<input type="text" name="engageInterview.checkTime"
 							  id="nowTime" readonly="readonly"
+						   th:value="${#dates.format(engage_interviews?.check_time,'yyyy-MM-dd')}"
 							class="INPUT_STYLE2">
 					</td>
 				</tr>
@@ -548,7 +549,7 @@
 						录用申请审核意见
 					</td>
 					<td class="TD_STYLE2" colspan="7">
-						<textarea name="engageResume.passCheckcomment" class="TEXTAREA_STYLE1"
+						<textarea name="engageResume.passCheckcomment" class="TEXTAREA_STYLE1" th:text="${engage_interviews?.interview_comment}"
 							rows="4" readonly="readonly" id="passCheckcomment">建议录用</textarea>
 					</td>
 				</tr>

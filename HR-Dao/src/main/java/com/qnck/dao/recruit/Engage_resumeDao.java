@@ -28,6 +28,9 @@ public interface Engage_resumeDao {
     @Select("SELECT *FROM Engage_resume er JOIN Config_major cm ON er.human_major_kind_id=cm.major_kind_id WHERE res_id=#{resID}")
     @ResultMap("Engage_resumeMap02")
     Engage_resume findValidResumeById(@Param("resID") int resID);
+    @Select("SELECT * FROM Engage_resume WHERE res_id=#{resId}")
+    @ResultMap("Engage_resumeMap")
+    Engage_resume Engage_resumeByID(@Param("resId") int resId);
     //修改审核状态
     @Update("update Engage_resume set pass_check_status=1 where res_id=#{resID}")
     void updatePassCheckStatus(@Param("resID") int resID);

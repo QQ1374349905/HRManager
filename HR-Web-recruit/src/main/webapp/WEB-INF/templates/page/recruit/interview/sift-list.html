@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-trasitional.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>My JSP 'sift-list.jsp' starting page</title>
@@ -80,39 +80,33 @@
 						筛选
 					</td>
 				</tr>
-				
-				
-				
-					<tr>
-						<td class="TD_STYLE2">
+					<tr th:each="engage:${engage_interviews}">
+						<td class="TD_STYLE2" th:text="${engage?.engage_resume?.res_id}">
 							543
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${engage?.engage_resume?.human_name}">
 							张飒
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${engage?.human_major?.major_kind_name}">
 							软件开发
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${engage?.human_major?.major_name}">
 						    程序员
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${engage?.interview_amount}">
 							1
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${#dates.format(engage?.registe_time,'yyyy-MM-dd')}">
 							2012-11-25 00:00:00.0
 						</td>
-						<td class="TD_STYLE2">
+						<td class="TD_STYLE2" th:text="${engage?.multi_quality_degree}">
 							A
 						</td>
 						<td class="TD_STYLE2">
-							<a href="/HR_Fist/recruit/recruitAction!toInterviewSift?id=543">筛选</a>
+							<a th:href="@{'InterviewByID?einID='+${engage?.ein_id}}">筛选</a>
 						</td>
 					</tr>
-				
-				
-				
-					<tr>
+					<tr th:remove="all">
 						<td class="TD_STYLE2">
 							534
 						</td>
@@ -141,7 +135,7 @@
 				
 				
 				
-					<tr>
+					<tr th:remove="all">
 						<td class="TD_STYLE2">
 							535
 						</td>
@@ -164,7 +158,7 @@
 							A
 						</td>
 						<td class="TD_STYLE2">
-							<a href="/HR_Fist/recruit/recruitAction!toInterviewSift?id=535">筛选</a>
+							<a>筛选</a>
 						</td>
 					</tr>
 				

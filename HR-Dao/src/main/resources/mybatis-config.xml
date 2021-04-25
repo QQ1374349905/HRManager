@@ -31,5 +31,6 @@
         <mapper resource="mappers/Second_PermissionsMapper.xml"/>
         <mapper resource="mappers/Third_PermissionsMapper.xml"/>
         <mapper resource="mappers/Engage_ResumeMapper.xml"/>
+        <mapper resource="mappers/engage_InterviewMapper.xml"/>
     </mappers>
 </configuration>
