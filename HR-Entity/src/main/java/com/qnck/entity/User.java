@@ -8,5 +8,5 @@ public class User {
     private String userName;
     private String userTrueName;
     private String userPassword;
-    private Identity identity;
+    private Rights rights;
 }

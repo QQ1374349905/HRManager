@@ -5,18 +5,19 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>角色管理</title>
 		<link rel="stylesheet"
-			href="../../css/table.css" type="text/css"/>
+			href="css/table.css" type="text/css"/>
+		<script src="javascript/jquery-1.7.2.js"></script>
 		<script type="text/javascript">
-			function doDelete(id) {
-				if (confirm("确定删除此角色吗？")) {
-					location.href = "deleteIdentityById?id=" + id;
+				function doDelete(id) {
+					if (confirm("确定删除此角色吗？")) {
+						location.href = "deleteRole?id=" + id;
+					}
 				}
-			}
-
-			function queryIdentityById(id) {
-				location.href="queryIdentityById?id="+id;
-			}
+				function queryByid(id) {
+					location.href = "queryrightAndcontrol?id="+id;
+				}
 		</script>
+
 	</head>
 	<body>
 		<table width="100%">
@@ -27,12 +28,12 @@
 			</tr>
 			<tr>
 				<td>
-					当前角色总数：<span th:text="${pages.size}"></span>例
+					当前角色总数：<span th:text="${rightspage.size}"></span>例
 				</td>
 			</tr>
 			<tr>
 				<td align="right">
-					<input type="button" value="添加角色" class="BUTTON_STYLE1" onclick="location.href='right_add.html'">
+					<input type="button" value="添加角色" class="BUTTON_STYLE1" onclick="location.href='toPage?page=page/power/right_add'">
 				</td>
 			</tr>
 		</table>
@@ -57,23 +58,27 @@
 				</td>
 			</tr>
 			
-				<tr class="TR_STYLE2" th:each="identity : ${pages}" th:id="${identity.identityId}">
-					<td class="TD_STYLE2" th:text="${identity?.identityId}">
+				<tr class="TR_STYLE2" th:each="r:${rightspage}">
+					<td class="TD_STYLE2" th:text="${r.r_id}">
 						1
 					</td>
-					<td class="TD_STYLE2" th:text="${identity?.identityName}">
+					<td class="TD_STYLE2" th:text="${r.r_name}">
 						人事专员
 					</td>
-					<td class="TD_STYLE2" th:text="${identity?.identityRemark}">
+					<td class="TD_STYLE2" th:text="${r.r_explain}">
 						
 					</td>
-					<td class="TD_STYLE2" th:switch="${identity?.identityStatus}">
-						<span th:case="1">是</span>
-						<span th:case="0">否</span>
+					<td class="TD_STYLE2" th:if="${r.r_type == 1}">
+						是
+						
+					</td>
+					<td class="TD_STYLE2" th:if="${r.r_type == 0}">
+						否
+
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" th:onclick="'javascript:queryIdentityById('+${identity.identityId}+')'"/>
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" th:onclick="'javascript:doDelete('+${identity.identityId}+')'"/>
+						<img src="images/bt_edit.gif" title="编辑" style="cursor:pointer;"  th:onclick="'queryByid('+${r.r_id}+')'"/>
+						<img src="images/bt_del.gif" title="删除" style="cursor:pointer;" th:onclick="'javascript:doDelete('+${r.r_id}+')'"/>
 					</td>
 				</tr>
 			
@@ -92,8 +97,8 @@
 						
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(2)"/>
+						<img src="images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
+						<img src="images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(2)"/>
 					</td>
 				</tr>
 			
@@ -112,8 +117,8 @@
 						
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(3)"/>
+						<img src="images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
+						<img src="images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(3)"/>
 					</td>
 				</tr>
 			
@@ -131,9 +136,9 @@
 						是
 						
 					</td>
-					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(4)"/>
+					<td class="TD_STYLE2" >
+						<img src="images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
+						<img src="images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(4)"/>
 					</td>
 				</tr>
 			
@@ -152,8 +157,8 @@
 						
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'" />
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(5)"/>
+						<img src="images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
+						<img src="images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(5)"/>
 					</td>
 				</tr>
 			
@@ -172,8 +177,8 @@
 						
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(6)"/>
+						<img src="images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
+						<img src="images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(6)"/>
 					</td>
 				</tr>
 			
@@ -187,29 +192,31 @@
 					<td class="TD_STYLE2">
 						
 					</td>
-					
 					<td class="TD_STYLE2">
 						
 						否
 					</td>
 					<td class="TD_STYLE2">
-						<img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='queryIdentityById'"/>
-						<img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(7)"/>
+						<img src="images/bt_edit.gif" title="编辑" style="cursor:pointer;" onclick="location.href='right_list_information.html'"/>
+						<img src="images/bt_del.gif" title="删除" style="cursor:pointer;" onclick="doDelete(7)"/>
 					</td>
 				</tr>
 			
 		</table>
 		<p style="text-align:center;">
+			
+				<a href="queryrightsAllpage?pageNum=1" style="color:black;">首页</a>
+				<a th:if="${rightspage?.pageNum != 1}" th:href="@{queryrightsAllpage(pageNum=${rightspage?.pageNum - 1})}" style="color:black;" >上一页</a>
 
-			<a th:href="@{queryIdentityList(currentPage=1,pageSize=5)}" style="color:black;">首页</a>
 
-			<a th:href="@{queryIdentityList(currentPage=${pages?.pageNum - 1},pageSize=5,countPage=${pages?.pages})}" style="color:black;">上一页</a>
+				<span th:each="i:${#numbers.sequence(1,rightspage?.pages)} ">
+					<font color="red" th:if="${rightspage?.pageNum == i}" th:text="${i}">1</font>
+					<a th:href="@{queryrightsAllpage(pageNum=${i})}" th:if="${rightspage?.pageNum != i}" style="color:black;" th:text="${i}">2</a>
+				</span>
 
-			<a th:each="i : ${#numbers.sequence(1,pages?.pages)}" th:text="${i}" th:href="@{queryIdentityList(currentPage=${i},pageSize=5)}" style="text-underline: none;color:red">1</a>
 
-			<a th:href="@{queryIdentityList(currentPage=${pages?.pageNum + 1},pageSize=5,countPage=${pages?.pages})}" style="color:black;">下一页</a>
-
-			<a th:href="@{queryIdentityList(currentPage=${pages?.pages},pageSize=5)}" style="color:black;">尾页</a>
+				<a th:if="${rightspage?.pageNum != rightspage?.pages}" th:href="@{queryrightsAllpage(pageNum=${rightspage?.pageNum + 1})}" style="color:black;">下一页</a>
+	     		<a th:href="@{queryrightsAllpage(pageNum=${rightspage?.pages})}" style="color:black;">尾页</a>
 	     	
 		</p>
 	</body>

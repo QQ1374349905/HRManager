@@ -40,6 +40,7 @@
 					<td class="TD_STYLE1">用户密码</td>
 					<td class="TD_STYLE2">
 						<input type="password" th:value="${user.userPassword}" id="userPassword" name="userPassword"/>
+						<input type="hidden" name="oldPwd" th:value="${user.userPassword}">
 					</td>
 				</tr>
 				<tr>
@@ -49,8 +50,8 @@
 					</td>
 					<td class="TD_STYLE1">用户身份</td>
 					<td class="TD_STYLE2">
-						<select name="Identity.identityId" id="powerAction!doModifyUser_users_sysRole_roleId">
-							<option th:each="identity : ${identityList}" th:value="${identity.identityId}" th:selected="${identity.identityId == user.identity.IdentityId}" th:text="${identity.identityName}" >人事专员</option>
+						<select name="rights.r_id" id="powerAction!doModifyUser_users_sysRole_roleId">
+							<option th:each="rights : ${rightsList}" th:value="${rights.r_id}" th:selected="${rights.r_id == user.rights.r_id}" th:text="${rights.r_name}" >人事专员</option>
 							<option value="2" selected="selected" th:remove="all">人事经理</option>
 							<option value="3" th:remove="all">薪酬专员</option>
 							<option value="4" th:remove="all">薪酬经理</option>

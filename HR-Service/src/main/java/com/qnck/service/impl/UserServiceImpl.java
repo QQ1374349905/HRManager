@@ -34,12 +34,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(User user) {
-        String userPassword = user.getUserPassword();
-        System.out.println("加密前数据:"+userPassword);
-        userPassword = DigestUtils.md5DigestAsHex(userPassword.getBytes());
-        System.out.println("加密后数据:"+userPassword);
-        user.setUserPassword(userPassword);
+    public void updateUser(User user, String oldPwd) {
+
+        //如果与旧密码相同则不加密直接加入,相当于源密码
+        if (!oldPwd.equals(user.getUserPassword())) {
+            String userPassword = user.getUserPassword();
+            System.out.println("加密前数据:" + userPassword);
+            userPassword = DigestUtils.md5DigestAsHex(userPassword.getBytes());
+            System.out.println("加密后数据:" + userPassword);
+            user.setUserPassword(userPassword);
+            return;
+        }
+        //密码不相同则加密后重新加入
         userDao.updateUser(user);
     }
 

@@ -22,15 +22,15 @@ public interface IUserDao {
     void deleteUser(int id);
 
     @Select("select * from User where user_id = #{id}")
-    @ResultMap("userMap")
+    @ResultMap("userRightsMap")
     User queryUserById(int id);
 
-    @Update("update User set user_name=#{userName},user_true_name=#{userTrueName},user_password=#{userPassword},identity_id=#{identity.identityId} where user_id=#{userId}")
+    @Update("update User set user_name=#{userName},user_true_name=#{userTrueName},user_password=#{userPassword},r_id=#{rights.r_id} where user_id=#{userId}")
     void updateUser(User user);
 
     @Select("select count(*) from User where user_name=#{userName}")
     int verifyUserName(String userName);
 
-    @Insert("insert into User values (null,#{userName},#{userTrueName},#{userPassword},#{identity.identityId})")
+    @Insert("insert into User values (null,#{userName},#{userTrueName},#{userPassword},#{rights.r_id})")
     void addUser(User user);
 }

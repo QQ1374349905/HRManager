@@ -10,7 +10,7 @@ public interface UserService {
 
     User queryUserById(int id);
 
-    void updateUser(User user);
+    void updateUser(User user, String oldPwd);
 
     int verifyUserName(String userName);
 

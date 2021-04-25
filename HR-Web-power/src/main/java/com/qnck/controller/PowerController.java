@@ -2,8 +2,11 @@ package com.qnck.controller;
 
 import com.github.pagehelper.Page;
 import com.qnck.entity.Identity;
+import com.qnck.entity.Rights;
 import com.qnck.entity.User;
+import com.qnck.entity.rights_control;
 import com.qnck.service.power.IdentityService;
+import com.qnck.service.power.IrightsService;
 import com.qnck.service.power.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PowerController {
@@ -24,6 +28,10 @@ public class PowerController {
 
     @Autowired
     private IdentityService identityService;
+
+    //自动注入角色业务
+    @Autowired
+    private IrightsService irightsService;
 
     Logger logger = Logger.getLogger(PowerController.class);
 
@@ -116,10 +124,10 @@ public class PowerController {
     private String queryUserById(int id,ModelMap map){
         User user = userService.queryUserById(id);
         map.addAttribute("user", user);
-//        System.out.println("获取到用户:"+user);
-        List<Identity> identityList = identityService.queryAllIdentity();
-        map.addAttribute("identityList", identityList);
-//        System.out.println("获取到职位:"+identityList);
+        System.out.println("获取到用户:"+user);
+        List<Rights> rights = irightsService.queryAll();
+        map.addAttribute("rightsList", rights);
+        System.out.println("获取到职位:"+rights);
         return "page/power/user_edit";
     }
 
@@ -131,10 +139,11 @@ public class PowerController {
     * @Return String
     **/
     @RequestMapping("updateUser")
-    private String updateUser(User user){
-//        System.out.println("获取界面数据:"+user);
+    private String updateUser(User user, String oldPwd){
+        System.out.println("获取界面数据:"+user);
+        System.out.println("旧密码:"+oldPwd);
         try {
-            userService.updateUser(user);
+            userService.updateUser(user,oldPwd);
             return "redirect:queryUserList?currentPage=1&pageSize=5";
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,8 +160,8 @@ public class PowerController {
     **/
     @RequestMapping("queryIdentity")
     @ResponseBody
-    private List<Identity> queryIdentity(){
-        return identityService.queryAllIdentity();
+    private List<Rights> queryIdentity(){
+        return irightsService.queryAll();
     }
 
     /**
@@ -200,5 +209,56 @@ public class PowerController {
         Identity identity = identityService.queryIdentityById(id);
         modelMap.addAttribute("Identity", identity);
         return "page/power/right_list_information";
+    }
+
+    @RequestMapping("deleteRole")
+    private String deleteRole(int id){
+        irightsService.deleteRole(id);
+        return "redirect:queryrightsAllpage";
+    }
+    
+    /**
+    * @Author xuyongheng
+    * @Description //TODO user and role
+    * @Date 8:33 2021/4/25
+    * @Param
+    * @Return
+    **/
+    @RequestMapping("queryrightsAllajax")
+    @ResponseBody
+    public List<Rights> queryAllajax(ModelMap map){
+        List<Rights> rights = irightsService.queryAll();
+        map.put("rightsAll",rights);
+        return rights;
+    }
+    @RequestMapping("queryrightsAllpage")
+    public String queryAllpage(ModelMap map,@RequestParam(required = false) Map m){
+        int pageNum = 1;
+        if (m.get("pageNum")!=null){
+            pageNum = Integer.parseInt(m.get("pageNum")+"");
+        }
+        Page<Rights> page = irightsService.queryBypage(pageNum,6);
+        //一页的数据
+        map.put("rightspage",page);
+        return "page/power/right_list";
+    }
+    @RequestMapping("queryrightAndcontrol")
+    public String queryrightAndcontrol(int id,ModelMap map){
+        Rights rights = irightsService.queryAndcontro(id);
+        System.out.println(rights);
+        map.put("randc",rights );
+        return "page/power/right_list_information";
+    }
+    @RequestMapping("controledit")
+    public  String controledit(rights_control rc, Rights rights){
+//        System.out.println(rc);
+//        System.out.println(rights);
+        irightsService.updaterights(rights, rc);
+        return "page/power/success";
+    }
+    @RequestMapping("addrights")
+    public String addrights(Rights r){
+        irightsService.addrights(r);
+        return "page/power/success";
     }
 }

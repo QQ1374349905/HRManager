@@ -31,6 +31,7 @@
         <mapper resource="mappers/Second_PermissionsMapper.xml"/>
         <mapper resource="mappers/Third_PermissionsMapper.xml"/>
         <mapper resource="mappers/Engage_ResumeMapper.xml"/>
-        <mapper resource="mappers/engage_InterviewMapper.xml"/>
+        <mapper class="com.qnck.dao.power.IrightsDao"/>
+        <mapper class="com.qnck.dao.power.Irights_controlDao"/>
     </mappers>
 </configuration>

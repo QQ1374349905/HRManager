@@ -44,23 +44,18 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!--配置事务通知-->
-    <tx:advice transaction-manager="dataSourceTransactionManager" id="advice">
-        <!--tx:attributes配置所有的事务传播规则-->
-        <tx:attributes>
-            <!--tx:method 配置每个方法的规则-->
-            <!--指定会员和会员信息表使用事务删除数据-->
-            <tx:method name="delete*" propagation="REQUIRED"/>
-            <!--给添加数据的方法使用事务-->
-            <tx:method name="add*" propagation="REQUIRED"/>
-            <!--给修改数据的方法添加事务-->
-            <tx:method name="update*" propagation="REQUIRED"/>
-        </tx:attributes>
-    </tx:advice>
+<!--    &lt;!&ndash;配置事务通知&ndash;&gt;-->
+<!--    <tx:advice transaction-manager="dataSourceTransactionManager" id="advice">-->
+<!--        &lt;!&ndash;tx:attributes配置所有的事务传播规则&ndash;&gt;-->
+<!--        <tx:attributes>-->
+<!--            &lt;!&ndash;tx:method 配置每个方法的规则&ndash;&gt;-->
+<!--            <tx:method name="deleteRole" propagation="REQUIRED"/>-->
+<!--        </tx:attributes>-->
+<!--    </tx:advice>-->
 
-    <!--将通知应用到节点-->
+<!--    &lt;!&ndash;将通知应用到节点&ndash;&gt;-->
 <!--    <aop:config>-->
-<!--        <aop:pointcut id="pointcut" expression="execution(* com.ck.service.*.*(..))"/>-->
+<!--        <aop:pointcut id="pointcut" expression="execution(* com.qnck.service.*.*(..))"/>-->
 <!--        <aop:advisor advice-ref="advice" pointcut-ref="pointcut"/>-->
 <!--    </aop:config>-->
 

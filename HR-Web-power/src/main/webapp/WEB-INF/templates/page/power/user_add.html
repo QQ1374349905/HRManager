@@ -19,7 +19,7 @@
 						var $identity = $("#identity");
 
 						for (let i = 0; i < data.length; i++) {
-							let $option = $("<option value="+data[i].identityId+">"+data[i].identityName+"</option>")
+							let $option = $("<option value="+data[i].r_id+">"+data[i].r_name+"</option>")
 							$identity.append($option);
 						}
 					}
@@ -82,7 +82,7 @@
 					</td>
 					<td class="TD_STYLE1">用户身份</td>
 					<td class="TD_STYLE2">
-						<select name="identity.IdentityId" id="identity">
+						<select name="rights.r_id" id="identity">
 							
 								<option th:remove="all">人事专员</option>
 							

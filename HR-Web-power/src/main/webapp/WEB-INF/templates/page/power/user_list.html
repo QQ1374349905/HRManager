@@ -98,7 +98,7 @@
 					<td class="TD_STYLE2" th:text="${user?.userPassword}">
 						123123
 					</td>
-					<td class="TD_STYLE2" th:text="${user?.identity?.identityName}">
+					<td class="TD_STYLE2" th:text="${user?.rights?.r_name}">
 						系统管理员
 					</td>
 					<td class="TD_STYLE2">
@@ -224,7 +224,11 @@
 
 					<a th:href="@{queryUserList(currentPage=${pages?.pageNum - 1},pageSize=5,countPage=${pages?.pages})}" style="color:black;">上一页</a>
 
-						<a th:each="i : ${#numbers.sequence(1,pages?.pages)}" th:text="${i}" th:href="@{queryUserList(currentPage=${i},pageSize=5)}" style="text-underline: none;color:red">1</a>
+<!--						<a th:each="i : ${#numbers.sequence(1,pages?.pages)}" th:text="${i}" th:href="@{queryUserList(currentPage=${i},pageSize=5)}" style="text-underline: none;color:red">1</a>-->
+						<span th:each="i:${#numbers.sequence(1,pages?.pages)} ">
+							<font color="red" th:if="${pages?.pageNum == i}" th:text="${i}">1</font>
+							<a th:href="@{queryUserList(currentPage=${i},pageSize=5)}" th:if="${pages?.pageNum != i}" style="color:black;" th:text="${i}">2</a>
+						</span>
 
 					<a th:href="@{queryUserList(currentPage=${pages?.pageNum + 1},pageSize=5,countPage=${pages?.pages})}" style="color:black;">下一页</a>
 

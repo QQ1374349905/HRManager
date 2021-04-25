@@ -26,7 +26,7 @@
 				</td>
 				<td style="text-align: right;font-size:17px;width:35%;color:black;">
 					<br />
-					欢迎你：<span th:text="${application.user?.userTrueName}"></span>(<span th:text="${application.user?.identity?.identityName}"></span>)&nbsp;
+					欢迎你：<span th:text="${application.user?.userTrueName}"></span>(<span th:text="${application.user?.rights?.r_name}"></span>)&nbsp;
 					<input type="button" value="退出系统" class="BUTTON_STYLE1" onclick="parent.location.href='exitUser'"/>&nbsp;&nbsp;&nbsp;&nbsp;
 				</td>
 			</tr>

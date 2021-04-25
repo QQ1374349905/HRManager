@@ -6,6 +6,13 @@
         <result column="user_name" property="userName"/>
         <result column="user_true_name" property="userTrueName"/>
         <result column="user_password" property="userPassword"/>
-        <association property="identity" select="com.qnck.dao.power.IIdentityDao.queryById" column="identity_id"/>
+        <association property="rights" select="com.qnck.dao.power.IrightsDao.queryAndcontro" column="r_id"/>
+    </resultMap>
+    <resultMap id="userRightsMap" type="com.qnck.entity.User">
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_true_name" property="userTrueName"/>
+        <result column="user_password" property="userPassword"/>
+        <result property="rights.r_id" column="r_id"/>
     </resultMap>
 </mapper>
