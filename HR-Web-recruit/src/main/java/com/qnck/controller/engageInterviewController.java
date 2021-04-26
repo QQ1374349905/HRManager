@@ -1,5 +1,6 @@
 package com.qnck.controller;
 
+import com.github.pagehelper.Page;
 import com.qnck.entity.Engage_interview;
 import com.qnck.service.recruit.engage_interviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,25 @@ public class engageInterviewController {
      * @return
      */
     @RequestMapping("engageInterview")
-    public String engageInterview(ModelMap modelMap){
-        List<Engage_interview> engage_interviews = engageInterviewService.queryEngageInterview();
-        System.out.println("查询数据——————————————————————"+engage_interviews);
-        modelMap.put("engage_interviews",engage_interviews);
+    public String engageInterview(ModelMap modelMap,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_resumes = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
+        try {
+            engage_resumes = engageInterviewService.queryEngageInterview(currentPage, pageSize);
+            System.out.println("查询数据——————————————————————"+engage_resumes);
+            modelMap.put("engage_interviews",engage_resumes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "forward:toPage?page=page/recruit/interview/sift-list";
     }
 
@@ -60,7 +76,7 @@ public class engageInterviewController {
             checkStatusID=4;
         }
         engageInterviewService.updateCheck_status(checkStatusID,einID);
-        return "redirect:engageInterview";
+        return "redirect:engageInterview?currentPage=1&pageSize=6";
     }
 
 }

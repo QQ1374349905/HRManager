@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface engage_interviewDao {
     @Select("SELECT ein_id,resume_id,major_id,er.res_id,er.human_name,cm.major_kind_name,cm.major_name,ei.interview_amount,ei.registe_time,ei.multi_quality_degree FROM engage_interview ei JOIN Engage_resume er ON ei.resume_id=er.res_id JOIN config_major cm \n" +
-            "ON cm.major_kind_id=er.human_major_kind_id WHERE ei.check_status!=4;\n")
+            "ON cm.major_kind_id=er.human_major_kind_id WHERE ei.check_status!=4")
     @ResultMap("engageInterviewMap")
     List<Engage_interview> queryEngageInterview();
 

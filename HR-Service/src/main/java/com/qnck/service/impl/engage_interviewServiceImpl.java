@@ -1,5 +1,7 @@
 package com.qnck.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.qnck.dao.recruit.engage_interviewDao;
 import com.qnck.entity.Engage_interview;
 import com.qnck.service.recruit.engage_interviewService;
@@ -17,8 +19,10 @@ public class engage_interviewServiceImpl implements engage_interviewService {
     @Autowired
     private engage_interviewDao engageInterviewDao;
     @Override
-    public List<Engage_interview> queryEngageInterview() {
-        return engageInterviewDao.queryEngageInterview();
+    public Page<Object> queryEngageInterview(int currentPage,int pageSize) {
+        Page<Object> engage_interviews = PageHelper.startPage(currentPage, pageSize);
+        engageInterviewDao.queryEngageInterview();
+        return engage_interviews;
     }
 
     //筛选简历

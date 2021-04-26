@@ -1,5 +1,6 @@
 package com.qnck.controller;
 
+import com.github.pagehelper.Page;
 import com.qnck.dao.recruit.Engage_resumeDao;
 import com.qnck.entity.*;
 import com.qnck.service.recruit.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.faces.annotation.RequestMap;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -50,20 +52,51 @@ public class ResumeRegistrationController {
      * 根据条件查询登记信息
      */
     @RequestMapping("EngageResumeByMajor")
-    public String queryEngageResumeByMajor(@RequestParam Map map, ModelMap modelMap){
-        System.out.println(map);
-        List<Engage_resume> engage_resumes = engageResumeService.queryEngage_resume(map);
-        modelMap.put("engage_resumes",engage_resumes);
+    public String queryEngageResumeByMajor(@RequestParam Map map, ModelMap modelMap,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_resumes = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
+        try {
+            System.out.println(map);
+            engage_resumes = engageResumeService.queryEngage_resume(map, currentPage, pageSize);
+            modelMap.put("engage_resumes",engage_resumes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "forward:toPage?page=page/recruit/resume/valid-list";
     }
     /**
      * 根据条件查询有效的登记信息
      */
     @RequestMapping("EngageResumeByMajor2")
-    public String queryEngageResumeByMajor2(@RequestParam Map map, ModelMap modelMap){
-        System.out.println(map);
-        List<Engage_resume> engage_resumes = engageResumeService.queryEngage_resume2(map);
-        modelMap.put("engage_resumes",engage_resumes);
+    public String queryEngageResumeByMajor2(@RequestParam Map map, ModelMap modelMap,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_resumes = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
+        try {
+            System.out.println(map);
+            engage_resumes=engageResumeService.queryEngage_resume2(map, currentPage, pageSize);
+            modelMap.put("engage_resumes",engage_resumes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return "forward:toPage?page=page/recruit/resume/resume-list";
     }
 
@@ -110,16 +143,31 @@ public class ResumeRegistrationController {
         System.out.println(configMajor);
         engageResume.setConfig_major(configMajor);
         engageResumeService.UpdateInfo(engageResume);
-        return "redirect:EngageResumeByMajor";
+        return "redirect:EngageResumeByMajor?currentPage=1&pageSize=6";
     }
     /**
      * 待面试信息
      */
     @RequestMapping("WaitInterview")
-    public String WaitInterview(ModelMap modelMap){
-        List<Engage_resume> interview = engageResumeService.Interview();
-        modelMap.put("interviews",interview);
-        System.out.println("______________________________________________________");
+    public String WaitInterview(ModelMap modelMap,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_resumes = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
+        try {
+            Page<Object> interview = engageResumeService.Interview(currentPage, pageSize);
+            modelMap.put("interviews",interview);
+            System.out.println("______________________________________________________");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "forward:toPage?page=page/recruit/interview/interview-list";
     }
 
@@ -130,7 +178,7 @@ public class ResumeRegistrationController {
     @RequestMapping("register")
     public String register(int resID){
         engageResumeService.register(resID);
-        return "redirect:WaitInterview";
+        return "redirect:WaitInterview?currentPage=1&pageSize=6";
     }
 
     /**
@@ -139,21 +187,51 @@ public class ResumeRegistrationController {
      * @return
      */
     @RequestMapping("queryEmploy")
-    public String queryEmploy(ModelMap map){
-        List<Engage_resume> engage_resumes = engageResumeService.queryEmploy();
-//        System.out.println(engage_resumes);
-        map.addAttribute("engage_resumes",engage_resumes);
+    public String queryEmploy(ModelMap map,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_resumes = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
+        try {
+            engage_resumes = engageResumeService.queryEmploy(currentPage, pageSize);
+            map.addAttribute("engage_resumes",engage_resumes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "forward:toPage?page=page/recruit/employ/register_list";
     }
+
     /**
      * 录用审批功能查询
      * @param map
      * @return
      */
     @RequestMapping("queryEmploy2")
-    public String queryEmploy2(ModelMap map){
-        List<Engage_resume> engage_resumes = engageResumeService.queryEmploy();
-        map.addAttribute("engage_resumes",engage_resumes);
+    public String queryEmploy2(ModelMap map,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_resumes = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
+        try {
+            engage_resumes = engageResumeService.queryEmploy(currentPage, pageSize);
+            map.addAttribute("engage_resumes",engage_resumes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "forward:toPage?page=page/recruit/employ/check_list";
     }
     /**
@@ -162,9 +240,24 @@ public class ResumeRegistrationController {
      * @return
      */
     @RequestMapping("queryEmploy3")
-    public String queryEmploy3(ModelMap map){
-        List<Engage_resume> engage_resumes = engageResumeService.queryEmploy();
-        map.addAttribute("engage_resumes",engage_resumes);
+    public String queryEmploy3(ModelMap map,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_resumes = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
+        try {
+            engage_resumes = engageResumeService.queryEmploy(currentPage, pageSize);
+            map.addAttribute("engage_resumes",engage_resumes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "forward:toPage?page=page/recruit/employ/list";
     }
 
@@ -216,7 +309,7 @@ public class ResumeRegistrationController {
             checkID=1;
         }
         engageResumeService.releaseResume(checkID,resID,passCheckcomment);
-        return "redirect:queryEmploy";
+        return "redirect:queryEmploy?currentPage=1&pageSize=6";
     }
     /**
      * 一组查询
@@ -228,7 +321,7 @@ public class ResumeRegistrationController {
     @RequestMapping("ReleaseResume2")
     public String updateReleaseResume2(int checkID,int resID,String passCheckcomment){
         engageResumeService.releaseResume(checkID,resID,passCheckcomment);
-        return "redirect:queryEmploy";
+        return "redirect:queryEmploy2?currentPage=1&pageSize=6";
     }
     /**
      * 一组查询
@@ -240,7 +333,7 @@ public class ResumeRegistrationController {
     @RequestMapping("ReleaseResume3")
     public String updateReleaseResume3(int checkID,int resID,String passCheckcomment){
         engageResumeService.releaseResume(checkID,resID,passCheckcomment);
-        return "redirect:queryEmploy";
+        return "redirect:queryEmploy3?currentPage=1&pageSize=6";
     }
     //是否通过面试
     @RequestMapping("passInterView")
@@ -250,7 +343,7 @@ public class ResumeRegistrationController {
             pass=1;
         }
         engageResumeService.passInterview(pass,resID);
-        return "redirect:queryEmploy2";
+        return "redirect:queryEmploy2?currentPage=1&pageSize=6";
     }
 
 }

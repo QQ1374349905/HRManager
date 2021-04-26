@@ -1,5 +1,6 @@
 package com.qnck.service.recruit;
 
+import com.github.pagehelper.Page;
 import com.qnck.entity.Engage_interview;
 import com.qnck.entity.Engage_resume;
 import org.apache.ibatis.annotations.Param;
@@ -13,15 +14,15 @@ import java.util.Map;
  */
 public interface Engage_resumeService {
     void addEngage_resume(Engage_resume engageResume);
-    List<Engage_resume> queryEngage_resume(Map map);
+    Page<Object> queryEngage_resume(Map map, int currentPage, int pageSize);
     Engage_resume findValidResumeById(int resID);
     void updatePassCheckStatus(int resID);
-    List<Engage_resume> queryEngage_resume2(Map map);
+    Page<Object> queryEngage_resume2(Map map,int currentPage,int pageSize);
     void ReCheck(int resID);
     void UpdateInfo(Engage_resume engageResume);
-    List<Engage_resume> Interview();
+    Page<Object> Interview(int currentPage,int pageSize);
     void register(int resID);
-    List<Engage_resume> queryEmploy();
+    Page<Object> queryEmploy(int currentPage,int pageSize);
     void releaseResume(int checkID,int resID,String passCheckcomment);
     void passInterview(int yesorno,int resID);
 }

@@ -131,9 +131,23 @@
 					
 				
 			</table>
-			<p>&nbsp;&nbsp;总数：2 例 &nbsp;&nbsp;&nbsp;当前第1 页 /每页显示 10 条 &nbsp;&nbsp;&nbsp;共 1 页 &nbsp;&nbsp;&nbsp;  
-			<a href="javascript:up('0')" >上一页</a> &nbsp;&nbsp;&nbsp;
-			<a href="javascript:down('2','1')" >下一页</a> &nbsp;&nbsp;&nbsp;跳到第 <input name=page type=text class=input1 id="currPage" size=1> 页&nbsp;&nbsp;<input type="image" src="../../../images/go.bmp" onclick="tj('1')" width=18 height=18 border=0>
+			<p style="text-align:center;">
+
+				<a th:href="@{PositionRegisterInfo(currentPage=1,pageSize=5)}" style="color:black;">首页</a>
+
+				<a th:href="@{PositionRegisterInfo(currentPage=${engage_major_releases?.pageNum - 1},pageSize=5,countPage=${engage_major_releases?.pages})}" style="color:black;">上一页</a>
+
+				<!--						<a th:each="i : ${#numbers.sequence(1,pages?.pages)}" th:text="${i}" th:href="@{queryUserList(currentPage=${i},pageSize=5)}" style="text-underline: none;color:red">1</a>-->
+				<span th:each="i:${#numbers.sequence(1,engage_major_releases?.pages)} ">
+							<font color="red" th:if="${engage_major_releases?.pageNum == i}" th:text="${i}">1</font>
+							<a th:href="@{PositionRegisterInfo(currentPage=${i},pageSize=5)}" th:if="${engage_major_releases?.pageNum != i}" style="color:black;" th:text="${i}">2</a>
+						</span>
+
+				<a th:href="@{PositionRegisterInfo(currentPage=${engage_major_releases?.pageNum + 1},pageSize=5,countPage=${engage_major_releases?.pages})}" style="color:black;">下一页</a>
+
+				<a th:href="@{PositionRegisterInfo(currentPage=${engage_major_releases?.pages},pageSize=5)}" style="color:black;">尾页</a>
+
+			</p>
 		</form>
 		<script type="text/javascript" src="../../../../../../../../../HR-Web-login/src/main/webapp/javascript/jquery-1.7.2.js"></script>
 		<script type="text/javascript">

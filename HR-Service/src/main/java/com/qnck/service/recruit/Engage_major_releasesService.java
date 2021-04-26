@@ -1,5 +1,6 @@
 package com.qnck.service.recruit;
 
+import com.github.pagehelper.Page;
 import com.qnck.entity.Engage_major_release;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface Engage_major_releasesService {
     void addEngage_major_release(Engage_major_release engageMajorRelease);
-    List<Engage_major_release> selectEngage_major_release();
+    Page<Object> selectEngage_major_release(int currentPage, int pageSize);
     Engage_major_release queryEngage_major_release(@Param("id") int id);
     void UpdateEngage_major_release(Engage_major_release engageMajorRelease);
     void DeleteEngage_major_release(int Did);

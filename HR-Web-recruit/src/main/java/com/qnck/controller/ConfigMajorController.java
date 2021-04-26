@@ -1,8 +1,10 @@
 package com.qnck.controller;
 
+import com.github.pagehelper.Page;
 import com.qnck.entity.*;
 import com.qnck.service.recruit.Config_majorService;
 import com.qnck.service.recruit.Engage_major_releasesService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +28,9 @@ public class ConfigMajorController {
 
     @Autowired
     private Engage_major_releasesService engageMajorReleasesService;
+
+    //输出业务信息
+    Logger logger = Logger.getLogger(ConfigMajorController.class);
     /**
      * 查询招聘管理
      */
@@ -46,19 +51,37 @@ public class ConfigMajorController {
         engageMajorRelease.setConfig_file_third_kinds(configFileThirdKind);
         engageMajorRelease.setConfig_major(configMajor);
         engageMajorReleasesService.addEngage_major_release(engageMajorRelease);
-        return "redirect:PositionRegisterInfo";
+        return "redirect:PositionRegisterInfo?currentPage=1&pageSize=6";
     }
+
     /**
      * 查询职位发布登记信息
+     * @param modelMap 职业发布信息
+     * @param currentPage 当前页数
+     * @param pageSize 页数大小
+     * @param countPage 总页数
+     * @return
      */
     @RequestMapping("PositionRegisterInfo")
-    public String QueryPositionRegister(ModelMap modelMap){
+    public String QueryPositionRegister(ModelMap modelMap,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_major_releases = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
         try {
-            List<Engage_major_release> engage_major_releases = engageMajorReleasesService.selectEngage_major_release();
-            System.out.println(engage_major_releases);
+            engage_major_releases = engageMajorReleasesService.selectEngage_major_release(currentPage, pageSize);
+//            System.out.println(engage_major_releases);
             modelMap.put("engage_major_releases",engage_major_releases);
             System.out.println("______________________________");
         }catch (Exception e){
+            logger.error("职位查询失败",e);
             e.printStackTrace();
         }
         return "forward:toPage?page=page/recruit/position/position_change_update.html";
@@ -67,13 +90,25 @@ public class ConfigMajorController {
      * 查询职位发布登记信息
      */
     @RequestMapping("PositionRegisterInfo2")
-    public String QueryPositionRegister2(ModelMap modelMap){
+    public String QueryPositionRegister2(ModelMap modelMap,int currentPage,int pageSize,Integer countPage){
+        Page<Object> engage_major_releases = null;
+
+        if (countPage != null){
+            if (currentPage > countPage){
+                currentPage = countPage;
+            }
+
+            if (currentPage < 1 ){
+                currentPage = 1;
+            }
+        }
         try {
-            List<Engage_major_release> engage_major_releases = engageMajorReleasesService.selectEngage_major_release();
+            engage_major_releases = engageMajorReleasesService.selectEngage_major_release(currentPage, pageSize);
             System.out.println(engage_major_releases);
             modelMap.put("engage_major_releases",engage_major_releases);
             System.out.println("______________________________");
         }catch (Exception e){
+            logger.error("职位查询失败",e);
             e.printStackTrace();
         }
         return "forward:toPage?page=page/recruit/position/position_release_search.html";
@@ -86,9 +121,13 @@ public class ConfigMajorController {
      */
     @RequestMapping("PositionRegisterInfoByID")
     public String QueryPositionRegisterByID(int id,ModelMap modelMap){
-        Engage_major_release engage_major_release = engageMajorReleasesService.queryEngage_major_release(id);
-        modelMap.put("engage_major_release",engage_major_release);
-        modelMap.put("MreId",id);
+        try {
+            Engage_major_release engage_major_release = engageMajorReleasesService.queryEngage_major_release(id);
+            modelMap.put("engage_major_release",engage_major_release);
+            modelMap.put("MreId",id);
+        }catch (Exception e){
+            logger.error("职位查询失败",e);
+        }
         return "forward:toPage?page=page/recruit/position/position_release_change.html";
     }
 
@@ -115,8 +154,12 @@ public class ConfigMajorController {
         engageMajorRelease.setEngage_required(engage_required);//招聘要求
         engageMajorRelease.setMre_id(mre_id);//招聘信息ID
         engageMajorRelease.setMajor_describe(major_describe);//职业要求
-        engageMajorReleasesService.UpdateEngage_major_release(engageMajorRelease);
-        return "redirect:PositionRegisterInfo";
+        try {
+            engageMajorReleasesService.UpdateEngage_major_release(engageMajorRelease);
+        }catch (Exception e){
+            logger.error("职位变更失败",e);
+        }
+        return "redirect:PositionRegisterInfo?currentPage=1&pageSize=6";
     }
 
     /**

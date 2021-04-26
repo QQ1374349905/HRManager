@@ -76,28 +76,28 @@
 				
 					<tr th:each="eng:${engage_resumes}">
 						<td class="TD_STYLE2">
-							<a th:text="${eng.res_id}" th:href="@{'findValidResumeById?resID='+${eng.res_id}}">
+							<a th:text="${eng?.res_id}" th:href="@{'findValidResumeById?resID='+${eng.res_id}}">
 								542</a>
 						</td>
-						<td class="TD_STYLE2" th:text="${eng.human_name}">
+						<td class="TD_STYLE2" th:text="${eng?.human_name}">
 							&#24352;&#39122;
 						</td>
-						<td class="TD_STYLE2" th:text="${eng.human_sex}">
+						<td class="TD_STYLE2" th:text="${eng?.human_sex}">
 							&#30007;
 						</td>
-						<td class="TD_STYLE2" th:text="${eng.Config_major.major_kind_name}">
+						<td class="TD_STYLE2" th:text="${eng?.Config_major?.major_kind_name}">
 						&#36719;&#20214;&#24320;&#21457;
 						</td>
-						<td class="TD_STYLE2" th:text="${eng.Config_major.major_name}">
+						<td class="TD_STYLE2" th:text="${eng?.Config_major?.major_name}">
 						&#31243;&#24207;&#21592;
 						</td>
-						<td class="TD_STYLE2" th:text="${eng.human_telephone}">
+						<td class="TD_STYLE2" th:text="${eng?.human_telephone}">
 						84802802
 						</td>
-						<td class="TD_STYLE2" th:if="${eng.pass_check_status!=1}">
+						<td class="TD_STYLE2" th:if="${eng?.pass_check_status!=1}">
 							未通过
 						</td>
-						<td class="TD_STYLE2" th:if="${eng.pass_check_status==1}">
+						<td class="TD_STYLE2" th:if="${eng?.pass_check_status==1}">
 							已通过
 						</td>
 						<td class="TD_STYLE2">
@@ -164,9 +164,23 @@
 					</tr>
 					
 			</table>
-			<p>&nbsp;&nbsp;总数：3 例 &nbsp;&nbsp;&nbsp;当前第1 页 /每页显示 10 条 &nbsp;&nbsp;&nbsp;共 1 页 &nbsp;&nbsp;&nbsp;  
-			<a href="javascript:up('0','1')" >上一页</a> &nbsp;&nbsp;&nbsp;
-			<a href="javascript:down('2','1')" >下一页</a> &nbsp;&nbsp;&nbsp;跳到第 <input name=page type=text class=input1 id="currPage" size=1> 页&nbsp;&nbsp;<input type=image src="../../../images/go.bmp" onclick="tj('1')" width=18 height=18 border=0>
+			<p style="text-align:center;">
+
+				<a th:href="@{EngageResumeByMajor(currentPage=1,pageSize=5)}" style="color:black;">首页</a>
+
+				<a th:href="@{EngageResumeByMajor(currentPage=${engage_resumes?.pageNum - 1},pageSize=5,countPage=${engage_resumes?.pages})}" style="color:black;">上一页</a>
+
+				<!--						<a th:each="i : ${#numbers.sequence(1,pages?.pages)}" th:text="${i}" th:href="@{queryUserList(currentPage=${i},pageSize=5)}" style="text-underline: none;color:red">1</a>-->
+				<span th:each="i:${#numbers.sequence(1,engage_resumes?.pages)} ">
+							<font color="red" th:if="${engage_resumes?.pageNum == i}" th:text="${i}">1</font>
+							<a th:href="@{PositionRegisterInfo(currentPage=${i},pageSize=5)}" th:if="${engage_resumes?.pageNum != i}" style="color:black;" th:text="${i}">2</a>
+						</span>
+
+				<a th:href="@{EngageResumeByMajor(currentPage=${engage_resumes?.pageNum + 1},pageSize=5,countPage=${engage_resumes?.pages})}" style="color:black;">下一页</a>
+
+				<a th:href="@{EngageResumeByMajor(currentPage=${engage_resumes?.pages},pageSize=5)}" style="color:black;">尾页</a>
+
+			</p>
 		</form>
 		<script type="text/javascript">
 		function up(currPage,row){  

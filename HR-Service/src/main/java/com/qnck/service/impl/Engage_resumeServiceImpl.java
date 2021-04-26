@@ -1,5 +1,7 @@
 package com.qnck.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.qnck.dao.recruit.Engage_resumeDao;
 import com.qnck.dao.recruit.engage_interviewDao;
 import com.qnck.entity.Engage_interview;
@@ -29,8 +31,10 @@ public class Engage_resumeServiceImpl implements Engage_resumeService {
     }
 
     @Override
-    public List<Engage_resume> queryEngage_resume(Map map) {
-        return engage_resumeDao.queryEngage_resume(map);
+    public Page<Object> queryEngage_resume(Map map,int currentPage,int pageSize) {
+        Page<Object> engage_resumes = PageHelper.startPage(currentPage, pageSize);
+        engage_resumeDao.queryEngage_resume(map);
+        return engage_resumes;
     }
 
     @Override
@@ -44,8 +48,10 @@ public class Engage_resumeServiceImpl implements Engage_resumeService {
     }
 
     @Override
-    public List<Engage_resume> queryEngage_resume2(Map map) {
-        return engage_resumeDao.queryEngage_resume2(map);
+    public Page<Object> queryEngage_resume2(Map map,int currentPage,int pageSize) {
+        Page<Object> engage_resumes = PageHelper.startPage(currentPage, pageSize);
+        engage_resumeDao.queryEngage_resume2(map);
+        return engage_resumes;
     }
 
     //复核简历
@@ -60,8 +66,12 @@ public class Engage_resumeServiceImpl implements Engage_resumeService {
     }
 
     @Override
-    public List<Engage_resume> Interview() {
-        return engage_resumeDao.Interview();
+    public Page<Object> Interview(int currentPage,int pageSize) {
+        Page<Object> objects = PageHelper.startPage(currentPage, pageSize);
+        System.out.println("----------------------执行前");
+        engage_resumeDao.Interview();
+        System.out.println("----------------------执行后");
+        return objects;
     }
     //登记简历
     @Override
@@ -70,8 +80,12 @@ public class Engage_resumeServiceImpl implements Engage_resumeService {
     }
     //录用
     @Override
-    public List<Engage_resume> queryEmploy() {
-        return engage_resumeDao.queryEmploy();
+    public Page<Object> queryEmploy(int currentPage,int pageSize) {
+        Page<Object> objects = PageHelper.startPage(currentPage, pageSize);
+        System.out.println("-------------------------执行前");
+        engage_resumeDao.queryEmploy();
+        System.out.println("-------------------------执行后");
+        return objects;
     }
 
     @Override

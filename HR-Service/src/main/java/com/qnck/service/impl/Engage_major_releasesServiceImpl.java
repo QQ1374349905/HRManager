@@ -1,5 +1,7 @@
 package com.qnck.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.qnck.dao.recruit.Engage_major_releaseDao;
 import com.qnck.entity.Engage_major_release;
 import com.qnck.service.recruit.Engage_major_releasesService;
@@ -22,9 +24,18 @@ public class Engage_major_releasesServiceImpl implements Engage_major_releasesSe
         engage_major_releaseDao.addEngage_major_release(engageMajorRelease);
     }
 
+    /**
+     * 查询职业发布
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
     @Override
-    public List<Engage_major_release> selectEngage_major_release() {
-        return engage_major_releaseDao.selectEngage_major_release();
+    public Page<Object> selectEngage_major_release(int currentPage,int pageSize) {
+        Page<Object> engage_major_releases = PageHelper.startPage(currentPage, pageSize);
+        engage_major_releaseDao.selectEngage_major_release();
+        return engage_major_releases;
+
     }
 
     @Override
